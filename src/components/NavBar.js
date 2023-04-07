@@ -12,7 +12,7 @@ const NavBar = () => {
         <Container fluid>
           <NavLink to="/">
             <Navbar.Brand className={styles.LogoText}>
-              <i class="fa-solid fa-share-nodes"></i> DARE/SHARE
+              <i className="fa-solid fa-share-nodes"></i> DARE/SHARE
             </Navbar.Brand>
           </NavLink>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -28,7 +28,7 @@ const NavBar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body id="NavBarLinks">
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <NavLink exact to="/" className={styles.NavLink}>
+                <NavLink to="/" className={styles.NavLink}>
                   Submissions
                 </NavLink>
                 <NavLink to="/challenges" className={styles.NavLink}>
