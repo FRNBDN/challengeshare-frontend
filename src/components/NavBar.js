@@ -4,15 +4,18 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import styles from "../styles/NavBar.module.css";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <>
       <Navbar expand="lg" className={`mb-3`}>
         <Container fluid>
-          <Navbar.Brand className={styles.LogoText}>
-            <i class="fa-solid fa-share-nodes"></i> DARE/SHARE
-          </Navbar.Brand>
+          <NavLink to="/">
+            <Navbar.Brand className={styles.LogoText}>
+              <i class="fa-solid fa-share-nodes"></i> DARE/SHARE
+            </Navbar.Brand>
+          </NavLink>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
@@ -24,16 +27,23 @@ const NavBar = () => {
                 Offcanvas
               </Offcanvas.Title>
             </Offcanvas.Header>
-            <Offcanvas.Body>
+            <Offcanvas.Body id="NavBarLinks">
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link>Submissions</Nav.Link>
-                <Nav.Link>Challenges</Nav.Link>
-                <Nav.Link>Log In</Nav.Link>
-                <NavDropdown title="Profile" id="offcanvasNavbarDropdown">
-                  <NavDropdown.Item href="#action3">View</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">Log Out</NavDropdown.Item>
-                </NavDropdown>
+                <NavLink exact to="/" className={styles.NavLink}>
+                  Submissions
+                </NavLink>
+                <NavLink to="/challenges" className={styles.NavLink}>
+                  Challenges
+                </NavLink>
+                <NavLink to="/signin" className={styles.NavLink}>
+                  Sign in
+                </NavLink>
+                <NavLink to="/signup" className={styles.NavLink}>
+                  Sign up
+                </NavLink>
+                <NavLink to="/" className={styles.NavLink}>
+                  Profile
+                </NavLink>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
