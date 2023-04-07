@@ -4,8 +4,26 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 const NavBar = () => {
+  const currentUser = useCurrentUser();
+
+  const loggedInItems = <>{currentUser?.username}</>;
+
+  const loggedOutItems = (
+    <>
+      <>
+        <NavLink to="/signin" className={styles.NavLink}>
+          Sign In
+        </NavLink>
+        <NavLink to="/signup" className={styles.NavLink}>
+          Sign Up
+        </NavLink>
+      </>
+    </>
+  );
+
   return (
     <>
       <Navbar expand="lg" className={`mb-3`}>
@@ -22,9 +40,7 @@ const NavBar = () => {
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">
-                Offcanvas
-              </Offcanvas.Title>
+              <Offcanvas.Title id="offcanvasNavbarLabel">Menu</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body id="NavBarLinks">
               <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -34,15 +50,7 @@ const NavBar = () => {
                 <NavLink to="/challenges" className={styles.NavLink}>
                   Challenges
                 </NavLink>
-                <NavLink to="/signin" className={styles.NavLink}>
-                  Sign in
-                </NavLink>
-                <NavLink to="/signup" className={styles.NavLink}>
-                  Sign up
-                </NavLink>
-                <NavLink to="/" className={styles.NavLink}>
-                  Profile
-                </NavLink>
+                {currentUser ? loggedInItems : loggedOutItems}
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
