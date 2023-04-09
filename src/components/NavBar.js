@@ -4,12 +4,40 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
-import { useCurrentUser } from "../contexts/CurrentUserContext";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../contexts/CurrentUserContext";
+import axios from "axios";
+import Avatar from "./Avatar";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
-  const loggedInItems = <>{currentUser?.username}</>;
+  const handleSignOut = async () => {
+    try {
+      await axios.post("dj-rest-auth/logout/");
+      setCurrentUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loggedInItems = (
+    <>
+      <NavLink
+        className={`d-none d-lg-block ${styles.NavLink}`}
+        to={`profiles/${currentUser?.profile_id}`}
+      >
+        <Avatar src={currentUser?.profile_image} />
+        {currentUser?.username}
+      </NavLink>
+      <NavLink to="/" className={styles.NavLink} onClick={handleSignOut}>
+        Sign Out
+      </NavLink>
+    </>
+  );
 
   const loggedOutItems = (
     <>
@@ -40,7 +68,16 @@ const NavBar = () => {
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel">Menu</Offcanvas.Title>
+              <Offcanvas.Title id="offcanvasNavbarLabel">
+                {currentUser ? (
+                  <NavLink to={`profiles/${currentUser?.profile_id}`}>
+                    <Avatar src={currentUser?.profile_image} />
+                    {currentUser?.username}
+                  </NavLink>
+                ) : (
+                  <>Menu</>
+                )}
+              </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body id="NavBarLinks">
               <Nav className="justify-content-end flex-grow-1 pe-3">
