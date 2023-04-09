@@ -90,15 +90,14 @@ const SignUpForm = () => {
             <Button variant="primary" type="submit">
               Sign Up
             </Button>
+            <span className="mx-2"> /</span>
+            <Link to="/signin">Sign In</Link>
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
               </Alert>
             ))}
           </Form>
-        </Container>
-        <Container className={`mt-3`}>
-          <Link to="/signin">Already have an account? Sign in</Link>
         </Container>
       </Col>
     </Row>

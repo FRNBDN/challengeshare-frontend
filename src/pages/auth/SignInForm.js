@@ -57,7 +57,6 @@ const SignInForm = () => {
                 {message}
               </Alert>
             ))}
-
             <Form.Group className="mb-3" controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
@@ -73,19 +72,17 @@ const SignInForm = () => {
                 {message}
               </Alert>
             ))}
-
             <Button variant="primary" type="submit">
-              Sign Up
+              Sign In
             </Button>
+            <span className="mx-2"> /</span>
+            <Link to="/signup">Sign Up</Link>
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}
               </Alert>
             ))}
           </Form>
-        </Container>
-        <Container className={`mt-3`}>
-          <Link to="/signup">Register an account</Link>
         </Container>
       </Col>
     </Row>
