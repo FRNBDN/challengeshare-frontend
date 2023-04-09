@@ -10,10 +10,13 @@ import {
 } from "../contexts/CurrentUserContext";
 import axios from "axios";
 import Avatar from "./Avatar";
+import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
+
+  const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
     try {
@@ -54,14 +57,27 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar expand="lg" className={`mb-3`}>
+      <Navbar expanded={expanded} expand="lg" className={`mb-3`}>
         <Container fluid>
-          <NavLink to="/">
+          <NavLink to="/" className="me-auto">
             <Navbar.Brand className={styles.LogoText}>
               <i className="fa-solid fa-share-nodes"></i> DARE/SHARE
             </Navbar.Brand>
           </NavLink>
-          <Navbar.Toggle aria-controls="offcanvasNavbar" />
+          {currentUser ? (
+            <></>
+          ) : (
+            <>
+              <NavLink to="/signin" className={styles.NavLink}>
+                Sign In
+              </NavLink>
+            </>
+          )}
+          <Navbar.Toggle
+            ref={ref}
+            aria-controls="offcanvasNavbar"
+            onClick={() => setExpanded(!expanded)}
+          />
           <Navbar.Offcanvas
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
