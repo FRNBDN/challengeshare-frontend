@@ -31,6 +31,24 @@ function DareCreateForm() {
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleMinusCriteria = (id) => {
+    if (criteriaFields.length > 1) {
+      const newCriteriaList = criteriaFields.filter(
+        (criteria) => criteria.id !== id
+      );
+
+      const newCriteriaData = [...criteria];
+      newCriteriaData.splice(id, 1);
+      setDareData({ ...dareData, criteria: newCriteriaData });
+
+      const updateIndex = newCriteriaList.map((field, index) => {
+        return { ...field, id: index };
+      });
+      setCriteriaFields(updateIndex);
+    }
+  };
+
   const handlePlusCriteria = () => {
     if (criteriaFields.length < 8) {
       const criteriaList = [...criteriaFields];
