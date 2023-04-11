@@ -11,6 +11,24 @@ import {
 } from "react-bootstrap";
 
 function DareCreateForm() {
+  const [dareData, setDareData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    tags: [],
+    criteria: [],
+  });
+
+  const { title, description, category, tags, criteria } = dareData;
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setDareData({
+      ...dareData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const textFields = (
     <div>
       <Form.Group>
