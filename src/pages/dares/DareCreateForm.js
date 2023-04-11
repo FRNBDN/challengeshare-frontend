@@ -9,6 +9,7 @@ import {
   Col,
   InputGroup,
 } from "react-bootstrap";
+import { axiosReq } from "../../api/axiosDefaults";
 
 function DareCreateForm() {
   const [errors, setErrors] = useState({});
@@ -71,6 +72,41 @@ function DareCreateForm() {
     const newCriteriaData = [...criteria];
     newCriteriaData[id] = text;
     setDareData({ ...dareData, criteria: newCriteriaData });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const challengeData = new FormData();
+
+    challengeData.append("title", title);
+    challengeData.append("description", description);
+    challengeData.append("category", category);
+    // challengeData.append("tags", tags);
+
+    try {
+      const { data } = await axiosReq.post("/challenges/", challengeData);
+
+      const criteriaData = [];
+
+      criteria.forEach((criterion) => {
+        const formData = new FormData();
+        formData.append("challenge", data.id);
+        formData.append("text", criterion.text);
+        criteriaData.push(formData);
+      });
+
+      await Promise.all(
+        criteriaData.map((formData) => axiosReq.post("/criteria/", formData))
+      );
+
+      navigate(`/dares/${data.id}`);
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status !== 401) {
+        setErrors(error.response?.data);
+      }
+    }
   };
 
   const textFields = (
@@ -173,7 +209,7 @@ function DareCreateForm() {
   );
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Row>
         <Col>
           <Container>
