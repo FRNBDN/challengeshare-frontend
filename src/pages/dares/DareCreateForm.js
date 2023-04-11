@@ -13,6 +13,7 @@ import {
 function DareCreateForm() {
   const [errors, setErrors] = useState({});
   const [criteriaFields, setCriteriaFields] = useState([{ id: 0, text: "" }]);
+
   const [dareData, setDareData] = useState({
     title: "",
     description: "",
@@ -148,15 +149,40 @@ function DareCreateForm() {
     </div>
   );
 
+  const renderCriteriaFields = (
+    <div>
+      <Form.Group>
+        <Form.Label>Criteria</Form.Label>
+
+        {criteriaFields.map((field) => (
+          <InputGroup key={`${field.id}`} className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="What has to be done?"
+              value={field.text}
+              onChange={(e) => handleCriterionChange(field.id, e.target.value)}
+            />
+            <Button onClick={() => handleMinusCriteria(field.id)}>-</Button>
+          </InputGroup>
+        ))}
+      </Form.Group>
+      <div className="text-center">
+        <Button onClick={handlePlusCriteria}>+</Button>
+      </div>
+    </div>
+  );
+
   return (
     <Form>
       <Row>
         <Col>
           <Container>
             <div>{textFields}</div>
+            <div className="d-md-none">{renderCriteriaFields}</div>
           </Container>
         </Col>
         <Col md={5} lg={4} className="d-none d-md-block">
+          <div className="d-none d-md-block">{renderCriteriaFields}</div>
         </Col>
       </Row>
       <div className="m-3">
