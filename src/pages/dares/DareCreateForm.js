@@ -11,6 +11,8 @@ import {
 } from "react-bootstrap";
 
 function DareCreateForm() {
+  const [errors, setErrors] = useState({});
+  const [criteriaFields, setCriteriaFields] = useState([{ id: 0, text: "" }]);
   const [dareData, setDareData] = useState({
     title: "",
     description: "",
@@ -28,6 +30,18 @@ function DareCreateForm() {
       ...dareData,
       [e.target.name]: e.target.value,
     });
+  };
+  const handlePlusCriteria = () => {
+    if (criteriaFields.length < 8) {
+      const criteriaList = [...criteriaFields];
+      const id = criteriaList[criteriaList.length - 1].id + 1;
+      criteriaList.push({ id, text: "" });
+      setCriteriaFields(criteriaList);
+
+      const newCriteriaData = [...criteria];
+      newCriteriaData.push("");
+      setDareData({ ...dareData, criteria: newCriteriaData });
+    }
   };
   const textFields = (
     <div>
