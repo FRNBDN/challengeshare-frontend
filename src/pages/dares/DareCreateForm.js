@@ -19,11 +19,11 @@ function DareCreateForm() {
     title: "",
     description: "",
     category: "",
-    tags: [],
     criteria: [],
+    tags: [],
   });
 
-  const { title, description, category, tags, criteria } = dareData;
+  const { title, description, category, criteria, tags } = dareData;
 
   const navigate = useNavigate();
 
@@ -88,11 +88,10 @@ function DareCreateForm() {
       const { data } = await axiosReq.post("/challenges/", challengeData);
 
       const criteriaData = [];
-
       criteria.forEach((criterion) => {
         const formData = new FormData();
         formData.append("challenge", data.id);
-        formData.append("text", criterion.text);
+        formData.append("text", criterion);
         criteriaData.push(formData);
       });
 
