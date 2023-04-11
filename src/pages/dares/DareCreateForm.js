@@ -61,6 +61,17 @@ function DareCreateForm() {
       setDareData({ ...dareData, criteria: newCriteriaData });
     }
   };
+
+  const handleCriterionChange = (id, text) => {
+    const newCriteria = [...criteriaFields];
+    newCriteria[id].text = text;
+    setCriteriaFields(newCriteria);
+
+    const newCriteriaData = [...criteria];
+    newCriteriaData[id] = text;
+    setDareData({ ...dareData, criteria: newCriteriaData });
+  };
+
   const textFields = (
     <div>
       <Form.Group>
