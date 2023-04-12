@@ -6,6 +6,7 @@ import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 import DareCreateForm from "./pages/dares/DareCreateForm";
+import DarePage from "./pages/dares/DarePage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/signin" element={<SignInForm />} />
           <Route exact path="/signup" element={<SignUpForm />} />
           <Route exact path="/dares/create" element={<DareCreateForm />} />
+          <Route exact path="/dares/:id" element={<DarePage />} />
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
