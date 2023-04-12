@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
+import { Col } from "react-bootstrap";
+import Dare from "./Dare";
 
 function DarePage() {
   const { id } = useParams();
@@ -21,12 +23,17 @@ function DarePage() {
         console.log(error);
       }
     };
-    handleMount()
+    handleMount();
   }, [id]);
 
   return (
     <Row className="h-100">
-      <Container>Comments</Container>
+      <Col>
+        <Container>
+          <Dare {...dare.results[0]} setDares={setDare} />
+        </Container>
+        <Container>Submissions</Container>
+      </Col>
     </Row>
   );
 }
