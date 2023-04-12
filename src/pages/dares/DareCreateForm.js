@@ -228,6 +228,7 @@ function DareCreateForm() {
       </Row>
       <div className="m-3">
         <Button type="submit">create</Button>
+        <Button onClick={()=>navigate(-1)}>cancel</Button>
       </div>
     </Form>
   );
