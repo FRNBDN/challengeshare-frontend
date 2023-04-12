@@ -10,6 +10,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
+import TagField from "../../components/TagField";
 
 function DareCreateForm() {
   const [errors, setErrors] = useState({});
@@ -31,6 +32,13 @@ function DareCreateForm() {
     setDareData({
       ...dareData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleTagsChange = (newTags) => {
+    setDareData({
+      ...dareData,
+      tags: newTags,
     });
   };
 
@@ -164,19 +172,17 @@ function DareCreateForm() {
           {message}
         </Alert>
       ))}
-
       <Form.Group>
         <Form.Label>Tags</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={1}
+        <TagField
+          placeholder="Press tab to add tag"
           name="tags"
-          placeholder="Helps searchability of the dare"
-          value={tags}
-          onChange={handleChange}
+          tags={tags}
+          onChange={handleTagsChange}
         />
       </Form.Group>
-      {errors.category?.map((message, idx) => (
+
+      {errors.tags?.map((message, idx) => (
         <Alert variant="light" key={idx}>
           {message}
         </Alert>
