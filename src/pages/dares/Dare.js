@@ -1,8 +1,16 @@
 import React from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+  Button,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
+import { axiosRes } from "../../api/axiosDefaults";
 
 const Dare = (props) => {
   const {
@@ -21,10 +29,51 @@ const Dare = (props) => {
     created_at,
     updated_at,
     users_count,
+    setDares,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+
+  const handleFollow = async () => {
+    try {
+      const { data } = await axiosRes.post("cfollowers/", { challenge: id });
+      setDares((prevDares) => ({
+        ...prevDares,
+        results: prevDares.results.map((challenge) => {
+          return challenge.id === id
+            ? {
+                ...challenge,
+                users_count: challenge.users_count + 1,
+                cfollow_id: data.id,
+              }
+            : challenge;
+        }),
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      await axiosRes.delete(`cfollowers/${cfollow_id}`);
+      setDares((prevDares) => ({
+        ...prevDares,
+        results: prevDares.results.map((challenge) => {
+          return challenge.id === id
+            ? {
+                ...challenge,
+                users_count: challenge.users_count - 1,
+                cfollow_id: null,
+              }
+            : challenge;
+        }),
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const follow_btn = is_owner ? (
     <OverlayTrigger
@@ -34,9 +83,9 @@ const Dare = (props) => {
       <span>Follow</span>
     </OverlayTrigger>
   ) : cfollow_id ? (
-    <span onClick={() => {}}>Followed</span>
+    <Button onClick={handleUnfollow}>Followed</Button>
   ) : currentUser ? (
-    <span onClick={() => {}}>Follow</span>
+    <Button onClick={handleFollow}>Follow</Button>
   ) : (
     <OverlayTrigger
       placement="top"
