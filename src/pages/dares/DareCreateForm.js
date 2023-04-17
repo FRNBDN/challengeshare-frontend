@@ -90,7 +90,9 @@ function DareCreateForm() {
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
-    // challengeData.append("tags", tags);
+    const tagsText = tags.map((tag) => tag.text);
+    challengeData.append("tags", tagsText);
+    console.log(tagsText);
 
     try {
       const { data } = await axiosReq.post("/challenges/", challengeData);
@@ -228,7 +230,7 @@ function DareCreateForm() {
       </Row>
       <div className="m-3">
         <Button type="submit">create</Button>
-        <Button onClick={()=>navigate(-1)}>cancel</Button>
+        <Button onClick={() => navigate(-1)}>cancel</Button>
       </div>
     </Form>
   );
