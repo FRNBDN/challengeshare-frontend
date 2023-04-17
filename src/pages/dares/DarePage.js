@@ -18,7 +18,6 @@ function DarePage() {
           axiosReq.get(`challenges/${id}`),
         ]);
         setDare({ results: [dare] });
-        console.log(dare);
       } catch (error) {
         console.log(error);
       }
