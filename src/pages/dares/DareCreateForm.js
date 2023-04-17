@@ -216,23 +216,31 @@ function DareCreateForm() {
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Row>
-        <Col>
-          <Container>
-            <div>{textFields}</div>
-            <div className="d-md-none">{renderCriteriaFields}</div>
-          </Container>
-        </Col>
-        <Col md={5} lg={4} className="d-none d-md-block">
-          <div className="d-none d-md-block">{renderCriteriaFields}</div>
-        </Col>
-      </Row>
-      <div className="m-3">
-        <Button type="submit">create</Button>
-        <Button onClick={() => navigate(-1)}>cancel</Button>
-      </div>
-    </Form>
+    <Row>
+      <Col md={10}>
+        <Row className="d-block d-md-none">Top Bar</Row>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col>
+              <Container>
+                <div>{textFields}</div>
+                <div className="d-md-none">{renderCriteriaFields}</div>
+              </Container>
+            </Col>
+            <Col md={5} lg={4} className="d-none d-md-block">
+              <div className="d-none d-md-block">{renderCriteriaFields}</div>
+            </Col>
+          </Row>
+          <div className="m-3">
+            <Button type="submit">create</Button>
+            <Button onClick={() => navigate(-1)}>cancel</Button>
+          </div>
+        </Form>
+      </Col>
+      <Col md={2} className="d-none d-md-block">
+        Sidebar
+      </Col>
+    </Row>
   );
 }
 

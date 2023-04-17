@@ -26,12 +26,20 @@ function DarePage() {
   }, [id]);
 
   return (
-    <Row className="h-100">
-      <Col>
-        <Container>
-          <Dare {...dare.results[0]} setDares={setDare} />
-        </Container>
-        <Container>Submissions</Container>
+    <Row>
+      <Col md={10}>
+        <Row className="d-block d-md-none">Top Bar</Row>
+        <Row className="h-100">
+          <Col>
+            <Container>
+              <Dare {...dare.results[0]} setDares={setDare} />
+            </Container>
+            <Container>Submissions</Container>
+          </Col>
+        </Row>
+      </Col>
+      <Col md={2} className="d-none d-md-block">
+        Sidebar
       </Col>
     </Row>
   );

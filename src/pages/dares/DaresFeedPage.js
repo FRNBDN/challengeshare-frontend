@@ -33,30 +33,38 @@ function DaresFeedPage({ message, filter = "" }) {
   return (
     <>
       <h1 className={styles.BrandFont}>Dares</h1>
-      <Row className="h-100">
-        <div>
-          <Link to="/dares/byfollowed">Dares by Followed Users</Link>
-          <Link to="/dares/following">Followed Dares</Link>
-          <Link to="/dares">All</Link>
-        </div>
-        <Col>
-          {hasLoaded ? (
-            <>
-              {dares.results.length ? (
-                dares.results.map((dare) => (
-                  <Dare key={dare.id} {...dare} setDares={setDares} />
-                ))
+      <Row>
+        <Col md={10}>
+          <Row className="d-block d-md-none">Top Bar</Row>
+          <Row className="h-100">
+            <div>
+              <Link to="/dares/byfollowed">Dares by Followed Users</Link>
+              <Link to="/dares/following">Followed Dares</Link>
+              <Link to="/dares">All</Link>
+            </div>
+            <Col>
+              {hasLoaded ? (
+                <>
+                  {dares.results.length ? (
+                    dares.results.map((dare) => (
+                      <Dare key={dare.id} {...dare} setDares={setDares} />
+                    ))
+                  ) : (
+                    <Container>
+                      <Asset message={message} />
+                    </Container>
+                  )}
+                </>
               ) : (
                 <Container>
-                  <Asset message={message} />
+                  <Asset spinner />
                 </Container>
               )}
-            </>
-          ) : (
-            <Container>
-              <Asset spinner />
-            </Container>
-          )}
+            </Col>
+          </Row>
+        </Col>
+        <Col md={2} className="d-none d-md-block">
+          Sidebar
         </Col>
       </Row>
     </>
