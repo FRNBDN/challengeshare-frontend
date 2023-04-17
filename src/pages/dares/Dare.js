@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import {
   Card,
@@ -7,10 +7,13 @@ import {
   Row,
   Tooltip,
   Button,
+  Container,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Avatar from "../../components/Avatar";
-import { axiosRes } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import Criteria from "./Criteria";
+import Asset from "../../components/Asset";
 
 const Dare = (props) => {
   const {
@@ -24,7 +27,6 @@ const Dare = (props) => {
     cfollow_id,
     tags,
     description,
-    criteria,
     completed_count,
     created_at,
     updated_at,
@@ -34,6 +36,23 @@ const Dare = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const [criteria, setCriteria] = useState({ results: [] });
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const fetchCriteria = async () => {
+      try {
+        const { data } = await axiosReq.get(`/criteria/?challenge=${id}`);
+        setCriteria(data);
+        setHasLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setHasLoaded(false);
+    fetchCriteria();
+  }, [id, pathname]);
 
   const handleFollow = async () => {
     try {
@@ -121,7 +140,27 @@ const Dare = (props) => {
         </div>
         <Row className="d-flex justify-content-between">
           <Col>{description && <Card.Text>{description}</Card.Text>}</Col>
-          <Col>{criteria && <Card.Text>Criteria here</Card.Text>}</Col>
+          <Col>
+            {hasLoaded ? (
+              <>
+                {criteria.results.length ? (
+                  criteria.results.map((criterion) => (
+                    <Criteria
+                      key={criterion.id}
+                      {...criterion}
+                      setCriteria={setCriteria}
+                    />
+                  ))
+                ) : (
+                  <Card.Text> No criteria submitted </Card.Text>
+                )}
+              </>
+            ) : (
+              <Container>
+                <Asset spinner />
+              </Container>
+            )}
+          </Col>
         </Row>
       </Card.Body>
     </Card>
