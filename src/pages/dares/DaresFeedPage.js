@@ -35,13 +35,15 @@ function DaresFeedPage({ message, filter = "" }) {
       <h1 className={styles.BrandFont}>Dares</h1>
       <Row>
         <Col md={10}>
-          <Row className="d-block d-md-none">Top Bar</Row>
-          <Row className="h-100">
-            <div>
-              <Link to="/dares/byfollowed">Dares by Followed Users</Link>
-              <Link to="/dares/following">Followed Dares</Link>
+          <Row className="d-block d-md-none">
+            <Col className="d-flex justify-content-between">
               <Link to="/dares">All</Link>
-            </div>
+              <Link to="/dares/incomplete">Incomplete</Link>
+              <Link to="/dares/byfollowed">Followed Users</Link>
+              <Link to="/dares/following">Followed Dares</Link>
+            </Col>
+          </Row>
+          <Row className="h-100">
             <Col>
               {hasLoaded ? (
                 <>
@@ -64,7 +66,18 @@ function DaresFeedPage({ message, filter = "" }) {
           </Row>
         </Col>
         <Col md={2} className="d-none d-md-block">
-          Sidebar
+          <Row>
+            <Link to="/dares">All</Link>
+          </Row>
+          <Row>
+            <Link to="/dares/incomplete">Incomplete</Link>
+          </Row>
+          <Row>
+            <Link to="/dares/byfollowed">By Followed</Link>
+          </Row>
+          <Row>
+            <Link to="/dares/following">Followed</Link>
+          </Row>
         </Col>
       </Row>
     </>

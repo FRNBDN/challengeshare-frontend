@@ -23,14 +23,14 @@ function App() {
           <Route
             exact
             path="/dares"
-            element={<DaresFeedPage message="No results found" />}
+            element={<DaresFeedPage message="No dares found matching search" />}
           />
           <Route
             exact
             path="/dares/byfollowed"
             element={
               <DaresFeedPage
-                message="No results found for followed users"
+                message="No dares by followed users found"
                 filter={`owner__ufollowed__owner__profile=${profile_id}&`}
               />
             }
@@ -40,7 +40,7 @@ function App() {
             path="/dares/following"
             element={
               <DaresFeedPage
-                message="No results found for followed dares"
+                message="Your followed dares will show up here"
                 filter={`challengefollower__owner__profile=${profile_id}&ordering=-challengefollower__created_at`}
               />
             }
