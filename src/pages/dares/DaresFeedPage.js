@@ -10,11 +10,21 @@ import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Dare from "./Dare";
 import Asset from "../../components/Asset";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function DaresFeedPage({ message, filter = "" }) {
   const [dares, setDares] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
+  const currentUser = useCurrentUser();
+
+  const userFilters = (
+    <>
+      <Link to="/dares/incomplete">Incomplete</Link>
+      <Link to="/dares/byfollowed">By Followed</Link>
+      <Link to="/dares/following">Followed</Link>
+    </>
+  );
 
   useEffect(() => {
     const fetchDares = async () => {
@@ -38,9 +48,7 @@ function DaresFeedPage({ message, filter = "" }) {
           <Row className="d-block d-md-none">
             <Col className="d-flex justify-content-between">
               <Link to="/dares">All</Link>
-              <Link to="/dares/incomplete">Incomplete</Link>
-              <Link to="/dares/byfollowed">Followed Users</Link>
-              <Link to="/dares/following">Followed Dares</Link>
+              {currentUser && userFilters}
             </Col>
           </Row>
           <Row className="h-100">
@@ -68,15 +76,7 @@ function DaresFeedPage({ message, filter = "" }) {
         <Col md={2} className="d-none d-md-block">
           <Row>
             <Link to="/dares">All</Link>
-          </Row>
-          <Row>
-            <Link to="/dares/incomplete">Incomplete</Link>
-          </Row>
-          <Row>
-            <Link to="/dares/byfollowed">By Followed</Link>
-          </Row>
-          <Row>
-            <Link to="/dares/following">Followed</Link>
+            {currentUser && userFilters}
           </Row>
         </Col>
       </Row>

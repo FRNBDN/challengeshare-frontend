@@ -20,6 +20,7 @@ function App() {
       <Container>
         <Routes>
           <Route exact path="/" element={<h1>Submissions</h1>} />
+          <Route exact path="/submissions" element={<h1>Submissions</h1>} />
           <Route
             exact
             path="/dares"

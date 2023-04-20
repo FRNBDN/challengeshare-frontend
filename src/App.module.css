@@ -24,3 +24,24 @@ a:hover {
 .BrandFont{
     font-family: 'Gantari', sans-serif;
 }
+
+.Button{
+   background-color:white ;
+   color: black;
+   border-radius: 0%;
+   border: 1px solid black;
+}
+
+.Button.disabled{
+    background-color:white ;
+    color:#505050;
+    border-radius: 0%;
+    border: 0px;
+ }
+
+.Button:hover{
+    background-color:black ;
+    color: white;
+    border-radius: 0%;
+    border: 1px solid black;
+ }

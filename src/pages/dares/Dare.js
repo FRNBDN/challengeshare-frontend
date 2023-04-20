@@ -14,6 +14,8 @@ import Avatar from "../../components/Avatar";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Criteria from "./Criteria";
 import Asset from "../../components/Asset";
+import appStyles from "../../App.module.css";
+import Styles from "../../styles/Dare.module.css";
 
 const Dare = (props) => {
   const {
@@ -99,31 +101,49 @@ const Dare = (props) => {
       placement="top"
       overlay={<Tooltip>Can't follow own posts</Tooltip>}
     >
-      <span>Follow</span>
+      <span>
+        <Button
+          disabled
+          className={`${appStyles.Button} ${appStyles.disabled}`}
+        >
+          <i class="fa-regular fa-bookmark"></i>
+        </Button>
+      </span>
     </OverlayTrigger>
   ) : cfollow_id ? (
-    <Button onClick={handleUnfollow}>Followed</Button>
+    <Button classname={appStyles.Button} onClick={handleUnfollow}>
+      <i class="fa-solid fa-bookmark"></i>
+    </Button>
   ) : currentUser ? (
-    <Button onClick={handleFollow}>Follow</Button>
+    <Button classname={appStyles.Button} onClick={handleFollow}>
+      <i class="fa-regular fa-bookmark"></i>
+    </Button>
   ) : (
     <OverlayTrigger
       placement="top"
       overlay={<Tooltip>Log in to follow</Tooltip>}
     >
-      <span>Follow</span>
+      <span>
+        <Button
+          disabled
+          className={`${appStyles.Button} ${appStyles.disabled}`}
+        >
+          <i class="fa-regular fa-bookmark"></i>
+        </Button>
+      </span>
     </OverlayTrigger>
   );
   return (
-    <Card>
-      <Card.Body>
-        <Row className="d-flex justify-content-between">
+    <Card className="mb-2">
+      <Card.Body className={`p-1 ${Styles.CardTop}`}>
+        <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
             <Link to={`profiles/${profile_id}`}>
-              <Avatar src={profile_image} /> {owner}
+              <Avatar src={profile_image} height={20} /> {owner}
             </Link>
           </Col>
           <Col>
-            <div className="d-flex align-items-end">
+            <div className="d-flex justify-content-end me-1">
               <span>{updated_at}</span>
               <span>{is_owner && ":)"}</span>
             </div>
@@ -131,15 +151,27 @@ const Dare = (props) => {
         </Row>
       </Card.Body>
       <Card.Body>
-        <div className="d-flex justify-content-between">
-          <div>{title && <Card.Title>{title} </Card.Title>}</div>
+        <div className="d-flex justify-content-between align-items-center mt-0">
           <div>
-            <span>Following: {users_count}</span>
+            {title && (
+              <Card.Title className={appStyles.BrandFont}>{title} </Card.Title>
+            )}
+          </div>
+          <div>
+            <span>
+              <i class="fa-solid fa-users"></i>: {users_count}
+            </span>
             {follow_btn}
           </div>
         </div>
         <Row className="d-flex justify-content-between">
-          <Col>{description && <Card.Text>{description}</Card.Text>}</Col>
+          <Col>
+            {description && (
+              <Card.Text className={`ps-1 ${Styles.Indent}`}>
+                {description}
+              </Card.Text>
+            )}
+          </Col>
           <Col>
             {hasLoaded ? (
               <>

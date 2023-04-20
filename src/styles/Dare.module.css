@@ -1,0 +1,9 @@
+.CardTop{
+    font-size: x-small;
+    border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+}
+
+.Indent{
+    border-left: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    background-image: linear-gradient(to right, whitesmoke , white);
+}
