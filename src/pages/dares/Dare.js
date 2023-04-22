@@ -15,7 +15,7 @@ import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Criteria from "./Criteria";
 import Asset from "../../components/Asset";
 import appStyles from "../../App.module.css";
-import Styles from "../../styles/Dare.module.css";
+import styles from "../../styles/Dare.module.css";
 
 const Dare = (props) => {
   const {
@@ -104,7 +104,7 @@ const Dare = (props) => {
       <span>
         <Button
           disabled
-          className={`${appStyles.Button} ${appStyles.disabled} ${Styles.Smaller} py-1 px-2`}
+          className={`${appStyles.Button} ${appStyles.disabled} ${styles.Smaller} py-1 px-2`}
         >
           <i className="fa-regular fa-bookmark"></i>
         </Button>
@@ -112,14 +112,14 @@ const Dare = (props) => {
     </OverlayTrigger>
   ) : cfollow_id ? (
     <Button
-      className={`${Styles.Smaller} ${appStyles.Button} ${Styles.Followed} py-1 px-2`}
+      className={`${styles.Smaller} ${appStyles.Button} ${styles.Followed} py-1 px-2`}
       onClick={handleUnfollow}
     >
       <i className="fa-solid fa-bookmark"></i>
     </Button>
   ) : currentUser ? (
     <Button
-      className={` ${appStyles.Button} ${Styles.Smaller} py-1 px-2`}
+      className={` ${appStyles.Button} ${styles.Smaller} py-1 px-2`}
       onClick={handleFollow}
     >
       <i className="fa-regular fa-bookmark"></i>
@@ -132,7 +132,7 @@ const Dare = (props) => {
       <span>
         <Button
           disabled
-          className={`${Styles.Smaller} ${appStyles.Button} ${appStyles.disabled} py-1 px-2`}
+          className={`${styles.Smaller} ${appStyles.Button} ${appStyles.disabled} py-1 px-2`}
         >
           <i className="fa-regular fa-bookmark"></i>
         </Button>
@@ -140,8 +140,8 @@ const Dare = (props) => {
     </OverlayTrigger>
   );
   return (
-    <Card className="mb-2">
-      <Card.Body className={`p-1 ${Styles.CardTop}`}>
+    <Card className={`mb-2 ${styles.Card}`}>
+      <Card.Body className={`p-1 ${styles.CardTop}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
             <Link to={`profiles/${profile_id}`}>
