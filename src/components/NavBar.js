@@ -36,9 +36,6 @@ const NavBar = () => {
         <Avatar src={currentUser?.profile_image} />
         {currentUser?.username}
       </NavLink>
-      <NavLink to="/dares/create" className={styles.NavLink}>
-        New Dare
-      </NavLink>
       <NavLink to="/" className={styles.NavLink} onClick={handleSignOut}>
         Sign Out
       </NavLink>

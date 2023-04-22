@@ -5,7 +5,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-import styles from "../../App.module.css";
+import styles from "../../styles/DaresFeedPage.module.css";
+import appStyles from "../../App.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Dare from "./Dare";
@@ -17,19 +18,37 @@ function DaresFeedPage({ message, filter = "" }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
   const currentUser = useCurrentUser();
+  const [query, setQuery] = useState("");
 
   const userFilters = (
     <>
-      <Link to="/dares/incomplete">Incomplete</Link>
-      <Link to="/dares/byfollowed">By Followed</Link>
-      <Link to="/dares/following">Followed</Link>
+      <Link
+        to="/dares/incomplete"
+        className={`${appStyles.Button} m-1 flex-fill`}
+      >
+        Incomplete
+      </Link>
+      <Link
+        to="/dares/byfollowed"
+        className={`${appStyles.Button} m-1 flex-fill`}
+      >
+        By Followed
+      </Link>
+      <Link
+        to="/dares/following"
+        className={`${appStyles.Button} m-1 flex-fill`}
+      >
+        Followed
+      </Link>
     </>
   );
 
   useEffect(() => {
     const fetchDares = async () => {
       try {
-        const { data } = await axiosReq.get(`/challenges/?${filter}`);
+        const { data } = await axiosReq.get(
+          `/challenges/?${filter}search=${query}`
+        );
         setDares(data);
         setHasLoaded(true);
       } catch (error) {
@@ -37,17 +56,24 @@ function DaresFeedPage({ message, filter = "" }) {
       }
     };
     setHasLoaded(false);
-    fetchDares();
-  }, [filter, pathname]);
+    const timer = setTimeout(() => {
+      fetchDares();
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filter, query, pathname]);
 
   return (
     <>
-      <h1 className={styles.BrandFont}>Dares</h1>
+      <h1 className={appStyles.BrandFont}>Dares</h1>
       <Row>
-        <Col md={10}>
+        <Col md={9}>
           <Row className="d-block d-md-none">
-            <Col className="d-flex justify-content-between">
-              <Link to="/dares">All</Link>
+            <Col className="d-flex justify-content-between flex-wrap">
+              <Link to="/dares" className={`${appStyles.Button} m-1 flex-fill`}>
+                All
+              </Link>
               {currentUser && userFilters}
             </Col>
           </Row>
@@ -73,10 +99,67 @@ function DaresFeedPage({ message, filter = "" }) {
             </Col>
           </Row>
         </Col>
-        <Col md={2} className="d-none d-md-block">
+        <Col md={3} className="d-none d-md-block">
           <Row>
-            <Link to="/dares">All</Link>
-            {currentUser && userFilters}
+            <div className="d-flex flex-column px-0 pb-3 ">
+              <Link
+                to="/dares/create"
+                className={`${appStyles.Button} m-0 flex-fill py-2`}
+              >
+                <h6>Create New Dare</h6>
+              </Link>
+            </div>
+          </Row>
+          <Row>
+            <Container className={`${appStyles.Box} pb-1 mb-2`}>
+              <div>
+                <h5 className="mb-0 mt-1">Filter Dares</h5>
+              </div>
+              <hr className="m-1"></hr>
+              <div className="d-flex flex-column">
+                <Link
+                  to="/dares"
+                  className={`${appStyles.Button} m-1 flex-fill`}
+                >
+                  All
+                </Link>
+                {currentUser && userFilters}
+                <div className="m-1">
+                  <i className={`fas fa-search ${styles.SearchIcon}`} />
+                  <Form onSubmit={(e) => e.preventDefault}>
+                    <Form.Control
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      type="text"
+                      className={styles.SearchInput}
+                      placeholder="Search Dares"
+                    />
+                  </Form>
+                </div>
+              </div>
+            </Container>
+          </Row>
+          <Row>
+            <Container className={`${appStyles.Box} pb-1 mb-2`}>
+              <div>
+                <h5 className="mb-0 mt-1">
+                  <i className="fa-solid fa-fire-flame-curved"></i> Dares
+                </h5>
+              </div>
+              <hr className="m-1"></hr>
+              <div className="d-flex flex-column"></div>
+            </Container>
+          </Row>
+          <Row>
+            <Container className={`${appStyles.Box} pb-1 mb-2`}>
+              <div>
+                <h5 className="mb-0 mt-1">
+                  <i className="fa-solid fa-fire-flame-curved"></i> Profiles
+                </h5>
+              </div>
+              <hr className="m-1"></hr>
+              <div className="d-flex flex-column"></div>
+            </Container>
           </Row>
         </Col>
       </Row>

@@ -1,0 +1,12 @@
+
+  .SearchIcon {
+    position: absolute;
+    padding: 9px;
+    padding-left: 9px;
+  }
+  
+  .SearchInput{
+    border-radius: 10px;
+    border-color: black;
+    padding: 5px 0px 5px 30px;
+  }
