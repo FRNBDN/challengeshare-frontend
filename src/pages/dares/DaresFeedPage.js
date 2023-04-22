@@ -70,11 +70,29 @@ function DaresFeedPage({ message, filter = "" }) {
       <Row>
         <Col md={9}>
           <Row className="d-block d-md-none">
-            <Col className="d-flex justify-content-between flex-wrap">
-              <Link to="/dares" className={`${appStyles.Button} m-1 flex-fill`}>
-                All
-              </Link>
-              {currentUser && userFilters}
+            <Col>
+              <div className="my-1 flex-fill">
+                <i className={`fas fa-search ${styles.SearchIcon}`} />
+                <Form onSubmit={(e) => e.preventDefault}>
+                  <Form.Control
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    type="text"
+                    className={styles.SearchInput}
+                    placeholder="Search Dares"
+                  />
+                </Form>
+              </div>
+              <h6>Filters</h6>
+              <div className="d-flex justify-content-between flex-wrap flex-fill my-1">
+                <Link
+                  to="/dares"
+                  className={`${appStyles.Button} m-1 flex-fill`}
+                >
+                  All
+                </Link>
+                {currentUser && userFilters}
+              </div>
             </Col>
           </Row>
           <Row className="h-100">
