@@ -104,19 +104,25 @@ const Dare = (props) => {
       <span>
         <Button
           disabled
-          className={`${appStyles.Button} ${appStyles.disabled}`}
+          className={`${appStyles.Button} ${appStyles.disabled} ${Styles.Smaller} py-1 px-2`}
         >
-          <i class="fa-regular fa-bookmark"></i>
+          <i className="fa-regular fa-bookmark"></i>
         </Button>
       </span>
     </OverlayTrigger>
   ) : cfollow_id ? (
-    <Button classname={appStyles.Button} onClick={handleUnfollow}>
-      <i class="fa-solid fa-bookmark"></i>
+    <Button
+      className={`${Styles.Smaller} ${appStyles.Button} ${Styles.Followed} py-1 px-2`}
+      onClick={handleUnfollow}
+    >
+      <i className="fa-solid fa-bookmark"></i>
     </Button>
   ) : currentUser ? (
-    <Button classname={appStyles.Button} onClick={handleFollow}>
-      <i class="fa-regular fa-bookmark"></i>
+    <Button
+      className={` ${appStyles.Button} ${Styles.Smaller} py-1 px-2`}
+      onClick={handleFollow}
+    >
+      <i className="fa-regular fa-bookmark"></i>
     </Button>
   ) : (
     <OverlayTrigger
@@ -126,9 +132,9 @@ const Dare = (props) => {
       <span>
         <Button
           disabled
-          className={`${appStyles.Button} ${appStyles.disabled}`}
+          className={`${Styles.Smaller} ${appStyles.Button} ${appStyles.disabled} py-1 px-2`}
         >
-          <i class="fa-regular fa-bookmark"></i>
+          <i className="fa-regular fa-bookmark"></i>
         </Button>
       </span>
     </OverlayTrigger>
@@ -145,7 +151,6 @@ const Dare = (props) => {
           <Col>
             <div className="d-flex justify-content-end me-1">
               <span>{updated_at}</span>
-              <span>{is_owner && ":)"}</span>
             </div>
           </Col>
         </Row>
@@ -157,9 +162,9 @@ const Dare = (props) => {
               <Card.Title className={appStyles.BrandFont}>{title} </Card.Title>
             )}
           </div>
-          <div>
-            <span>
-              <i class="fa-solid fa-users"></i>: {users_count}
+          <div className="d-flex align-items-center">
+            <span className="me-1">
+              <i className={`fa-solid fa-user-group`}></i>:{users_count}
             </span>
             {follow_btn}
           </div>
@@ -167,12 +172,13 @@ const Dare = (props) => {
         <Row className="d-flex justify-content-between">
           <Col>
             {description && (
-              <Card.Text className={`ps-1 ${Styles.Indent}`}>
-                {description}
-              </Card.Text>
+              <Card.Text className={`ps-1`}>{description}</Card.Text>
             )}
           </Col>
           <Col>
+            <Card.Text className={`${appStyles.BrandFont}  mb-1`}>
+              Criteria:
+            </Card.Text>
             {hasLoaded ? (
               <>
                 {criteria.results.length ? (
@@ -194,6 +200,9 @@ const Dare = (props) => {
             )}
           </Col>
         </Row>
+        <span className="d-flex justify-content-end">
+          {is_owner && <i className="fa-solid fa-pen-to-square"></i>}
+        </span>
       </Card.Body>
     </Card>
   );

@@ -4,6 +4,18 @@
 }
 
 .Indent{
+    border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
     border-left: var(--bs-card-border-width) solid var(--bs-card-border-color);
-    background-image: linear-gradient(to right, whitesmoke , white);
+
 }
+
+.Smaller{
+    font-size: x-small;
+}
+
+.Followed{
+    background-color:#d3d1d14d ;
+    color:black;
+    border-radius: 0%;
+    border: 1px solid #50505082;
+ }

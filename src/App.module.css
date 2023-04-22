@@ -18,7 +18,7 @@ a {
 }
   
 a:hover {
-    color: #2142b2;
+    color: hwb(0 6% 94%);
 }
 
 .BrandFont{
@@ -36,8 +36,10 @@ a:hover {
     background-color:white ;
     color:#505050;
     border-radius: 0%;
-    border: 0px;
+    border: 1px solid #d3d1d1;
  }
+
+
 
 .Button:hover{
     background-color:black ;
