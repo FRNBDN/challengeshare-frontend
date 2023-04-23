@@ -12,6 +12,8 @@ import { axiosReq } from "../../api/axiosDefaults";
 import Dare from "./Dare";
 import Asset from "../../components/Asset";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../utils/utils";
 
 function DaresFeedPage({ message, filter = "" }) {
   const [dares, setDares] = useState({ results: [] });
@@ -100,9 +102,15 @@ function DaresFeedPage({ message, filter = "" }) {
               {hasLoaded ? (
                 <>
                   {dares.results.length ? (
-                    dares.results.map((dare) => (
-                      <Dare key={dare.id} {...dare} setDares={setDares} />
-                    ))
+                    <InfiniteScroll
+                      children={dares.results.map((dare) => (
+                        <Dare key={dare.id} {...dare} setDares={setDares} />
+                      ))}
+                      dataLength={dares.results.length}
+                      loader={<Asset spinner />}
+                      hasMore={!!dares.next}
+                      next={() => fetchMoreData(dares, setDares)}
+                    />
                   ) : (
                     <Container>
                       <Asset message={message} />
