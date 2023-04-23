@@ -31,6 +31,40 @@ function DareEditForm() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(`/challenges/${id}`);
+        const { title, description, category, criteria, tags, is_owner } = data;
+        console.log(criteria);
+
+        const critDataReq = criteria.map((criterion) => {
+          return axiosReq.get(`/criteria/${criterion}`);
+        });
+
+        const critData = await Promise.all(critDataReq);
+
+        const updateCriteriaFields = critData.map((field, index) => {
+          return {
+            id: index,
+            text: field.data.text,
+            eid: field.data.id,
+          };
+        });
+
+        if (is_owner) {
+          setDareData({ title, description, category, criteria });
+          setCriteriaFields(updateCriteriaFields);
+        } else {
+          navigate("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handleMount();
+  }, [navigate, id]);
+
   const handleChange = (e) => {
     setDareData({
       ...dareData,
