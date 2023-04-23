@@ -103,6 +103,7 @@ function DaresFeedPage({ message, filter = "" }) {
                 <>
                   {dares.results.length ? (
                     <InfiniteScroll
+                      className={styles.Overflow}
                       children={dares.results.map((dare) => (
                         <Dare key={dare.id} {...dare} setDares={setDares} />
                       ))}
