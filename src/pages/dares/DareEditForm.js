@@ -9,9 +9,8 @@ import {
   Col,
   InputGroup,
 } from "react-bootstrap";
-import { axiosReq } from "../../api/axiosDefaults";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import TagField from "../../components/TagField";
-import axios from "axios";
 
 function DareEditForm() {
   const [errors, setErrors] = useState({});
@@ -148,6 +147,10 @@ function DareEditForm() {
           axiosReq.post(`/criteria/`, formData);
         }
       });
+
+      await Promise.all(
+        deleteCrit.map((criteria) => axiosRes.delete(`/criteria/${criteria}`))
+      );
 
       navigate(`/dares/${id}`);
     } catch (error) {
