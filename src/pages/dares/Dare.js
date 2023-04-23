@@ -201,7 +201,11 @@ const Dare = (props) => {
           </Col>
         </Row>
         <span className="d-flex justify-content-end">
-          {is_owner && <i className="fa-solid fa-pen-to-square"></i>}
+          {is_owner && (
+            <Link to={`/dares/${id}/edit`}>
+              <i className="fa-solid fa-pen-to-square"></i>
+            </Link>
+          )}
         </span>
       </Card.Body>
     </Card>
