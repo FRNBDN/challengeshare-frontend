@@ -9,6 +9,7 @@ import DareCreateForm from "./pages/dares/DareCreateForm";
 import DarePage from "./pages/dares/DarePage";
 import DaresFeedPage from "./pages/dares/DaresFeedPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
+import DareEditForm from "./pages/dares/DareEditForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -50,6 +51,7 @@ function App() {
           <Route exact path="/signup" element={<SignUpForm />} />
           <Route exact path="/dares/create" element={<DareCreateForm />} />
           <Route exact path="/dares/:id" element={<DarePage />} />
+          <Route exact path="/dares/:id/edit" element={<DareEditForm />} />
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
