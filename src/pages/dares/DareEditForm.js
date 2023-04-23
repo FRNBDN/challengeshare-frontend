@@ -123,6 +123,32 @@ function DareEditForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const challengeData = new FormData();
+
+    challengeData.append("title", title);
+    challengeData.append("description", description);
+    challengeData.append("category", category);
+    if (tags) {
+      const tagsText = tags.map((tag) => tag.text);
+      challengeData.append("tags", tagsText);
+      console.log(tagsText);
+    }
+
+    try {
+      await axiosReq.put(`/challenges/${id}`, challengeData);
+
+      criteriaFields.forEach((criterion) => {
+        const formData = new FormData();
+        formData.append("challenge", id);
+        formData.append("text", criterion.text);
+        if (criterion.eid) {
+          axiosReq.put(`/criteria/${criterion.id}`, formData);
+        } else {
+          axiosReq.post(`/criteria/`, formData);
+        }
+      });
+
       navigate(`/dares/${id}`);
     } catch (error) {
       console.log(error);
