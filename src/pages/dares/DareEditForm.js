@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import {
   Form,
   Button,
@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import TagField from "../../components/TagField";
+import appStyles from "../../App.module.css";
 
 function DareEditForm() {
   const [errors, setErrors] = useState({});
@@ -270,7 +271,8 @@ function DareEditForm() {
 
   return (
     <Row>
-      <Col md={10}>
+      <h1 className={appStyles.BrandFont}>Dares / Edit</h1>
+      <Col md={9}>
         <Row className="d-block d-md-none">Top Bar</Row>
         <Form onSubmit={handleSubmit}>
           <Row>
@@ -293,8 +295,39 @@ function DareEditForm() {
           </div>
         </Form>
       </Col>
-      <Col md={2} className="d-none d-md-block">
-        Sidebar
+      <Col md={3} className="d-none d-md-block">
+        <Row>
+          <div className="d-flex flex-column px-0 pb-3 ">
+            <Link
+              to="/dares/create"
+              className={`${appStyles.Button} m-0 flex-fill py-2`}
+            >
+              <h6>Create New Dare</h6>
+            </Link>
+          </div>
+        </Row>
+        <Row>
+          <Container className={`${appStyles.Box} pb-1 mb-2`}>
+            <div>
+              <h5 className="mb-0 mt-1">
+                <i className="fa-solid fa-fire-flame-curved"></i> Dares
+              </h5>
+            </div>
+            <hr className="m-1"></hr>
+            <div className="d-flex flex-column"></div>
+          </Container>
+        </Row>
+        <Row>
+          <Container className={`${appStyles.Box} pb-1 mb-2`}>
+            <div>
+              <h5 className="mb-0 mt-1">
+                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
+              </h5>
+            </div>
+            <hr className="m-1"></hr>
+            <div className="d-flex flex-column"></div>
+          </Container>
+        </Row>
       </Col>
     </Row>
   );

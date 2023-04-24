@@ -68,7 +68,9 @@ function DaresFeedPage({ message, filter = "" }) {
 
   return (
     <>
-      <h1 className={appStyles.BrandFont}>Dares</h1>
+      <h1 className={appStyles.BrandFont}>
+        <span>Dares</span>
+      </h1>
       <Row>
         <Col md={9}>
           <Row className="d-block d-md-none">

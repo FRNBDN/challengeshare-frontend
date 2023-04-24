@@ -7,6 +7,8 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { Col } from "react-bootstrap";
 import Dare from "./Dare";
 
+import appStyles from "../../App.module.css";
+
 function DarePage() {
   const { id } = useParams();
   const [dare, setDare] = useState({ results: [] });
@@ -27,14 +29,15 @@ function DarePage() {
 
   return (
     <Row>
+      <h1 className={appStyles.BrandFont}>Dares / Detail</h1>
       <Col md={10}>
         <Row className="d-block d-md-none">Top Bar</Row>
         <Row className="h-100">
           <Col>
-            <Container>
+            <Container className="px-0">
               <Dare {...dare.results[0]} setDares={setDare} />
             </Container>
-            <Container>Submissions</Container>
+            <Container>All Submissions</Container>
           </Col>
         </Row>
       </Col>

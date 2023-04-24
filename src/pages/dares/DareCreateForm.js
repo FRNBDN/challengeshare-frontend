@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Form,
   Button,
@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import TagField from "../../components/TagField";
+import appStyles from "../../App.module.css";
 
 function DareCreateForm() {
   const [errors, setErrors] = useState({});
@@ -217,7 +218,8 @@ function DareCreateForm() {
 
   return (
     <Row>
-      <Col md={10}>
+      <h1 className={appStyles.BrandFont}>Dares / Create</h1>
+      <Col md={9}>
         <Row className="d-block d-md-none">Top Bar</Row>
         <Form onSubmit={handleSubmit}>
           <Row>
@@ -237,8 +239,29 @@ function DareCreateForm() {
           </div>
         </Form>
       </Col>
-      <Col md={2} className="d-none d-md-block">
-        Sidebar
+      <Col md={3} className="d-none d-md-block">
+        <Row>
+          <Container className={`${appStyles.Box} pb-1 mb-2`}>
+            <div>
+              <h5 className="mb-0 mt-1">
+                <i className="fa-solid fa-fire-flame-curved"></i> Dares
+              </h5>
+            </div>
+            <hr className="m-1"></hr>
+            <div className="d-flex flex-column"></div>
+          </Container>
+        </Row>
+        <Row>
+          <Container className={`${appStyles.Box} pb-1 mb-2`}>
+            <div>
+              <h5 className="mb-0 mt-1">
+                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
+              </h5>
+            </div>
+            <hr className="m-1"></hr>
+            <div className="d-flex flex-column"></div>
+          </Container>
+        </Row>
       </Col>
     </Row>
   );
