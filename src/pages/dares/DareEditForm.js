@@ -147,7 +147,7 @@ function DareEditForm() {
       });
 
       await Promise.all(
-        deleteCrit.map((criteria) => axiosRes.delete(`/criteria/${criteria}`))
+        deleteCrit.map((criterion) => axiosRes.delete(`/criteria/${criterion}`))
       );
 
       navigate(`/dares/${id}`);
@@ -156,6 +156,19 @@ function DareEditForm() {
       if (error.response?.status !== 401) {
         setErrors(error.response?.data);
       }
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/challenges/${id}`);
+
+      await Promise.all(
+        criteria.map((criterion) => axiosRes.delete(`/criteria/${criterion}`))
+      );
+      navigate("/dares/");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -274,6 +287,9 @@ function DareEditForm() {
           <div className="m-3">
             <Button type="submit">create</Button>
             <Button onClick={() => navigate(-1)}>cancel</Button>
+            <Button variant="danger" onClick={handleDelete}>
+              delete
+            </Button>
           </div>
         </Form>
       </Col>
