@@ -19,4 +19,9 @@
     border: 1px solid #50505082;
  }
 
+.Edit{
+    bottom: 5px;
+    left: 5px;
+    position: absolute;
+}
  

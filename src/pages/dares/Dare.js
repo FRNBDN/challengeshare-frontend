@@ -16,6 +16,8 @@ import Criteria from "./Criteria";
 import Asset from "../../components/Asset";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/Dare.module.css";
+import SubmissionCreateForm from "../submissions/SubmissionCreateForm";
+import Collapse from "react-bootstrap/Collapse";
 
 const Dare = (props) => {
   const {
@@ -41,6 +43,9 @@ const Dare = (props) => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [criteria, setCriteria] = useState({ results: [] });
   const { pathname } = useLocation();
+  const sub_profile_image = currentUser?.profile_image;
+  const [newSubmission, setNewSubmission] = useState({ results: [] });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const fetchCriteria = async () => {
@@ -200,13 +205,35 @@ const Dare = (props) => {
             )}
           </Col>
         </Row>
-        <span className="d-flex justify-content-end">
-          {is_owner && (
-            <Link to={`/dares/${id}/edit`}>
-              <i className="fa-solid fa-pen-to-square"></i>
-            </Link>
-          )}
-        </span>
+        <Row>
+          <Container>
+            <Button
+              onClick={() => setOpen(!open)}
+              aria-controls="submission-form-collapse"
+              aria-expanded={open}
+            >
+              {!open ? "Share Submission" : "Hide Form"}
+            </Button>
+            <Collapse in={open}>
+              <div id="submission-form-collapse">
+                <SubmissionCreateForm
+                  profile_id={currentUser.profile_id}
+                  profileImage={sub_profile_image}
+                  dare={id}
+                  setDares={setDares}
+                  setNewSubmission={setNewSubmission}
+                />
+              </div>
+            </Collapse>
+          </Container>
+          <span className={`d-flex justify-content-end ${styles.Edit}`}>
+            {is_owner && (
+              <Link to={`/dares/${id}/edit`}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            )}
+          </span>
+        </Row>
       </Card.Body>
     </Card>
   );
