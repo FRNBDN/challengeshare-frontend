@@ -128,21 +128,19 @@ function DareEditForm() {
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
-    if (tags) {
-      const tagsText = tags.map((tag) => tag.text);
-      challengeData.append("tags", tagsText);
-      console.log(tagsText);
-    }
+    // const tagsText = tags.map((tag) => tag.text);
+    challengeData.append("tags", "tags");
+    // fix tags code when tags are fixed
 
     try {
       await axiosReq.put(`/challenges/${id}`, challengeData);
-
+      console.log(challengeData);
       criteriaFields.forEach((criterion) => {
         const formData = new FormData();
         formData.append("challenge", id);
         formData.append("text", criterion.text);
         if (criterion.eid) {
-          axiosReq.put(`/criteria/${criterion.id}`, formData);
+          axiosReq.put(`/criteria/${criterion.eid}`, formData);
         } else {
           axiosReq.post(`/criteria/`, formData);
         }
