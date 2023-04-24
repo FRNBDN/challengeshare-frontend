@@ -13,6 +13,20 @@ const SubmissionCreateForm = (props) => {
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState([]);
 
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axiosRes.post("submissions/", {
+        text,
+        dare,
+        uploads,
+      });
+    } catch (error) {}
+  };
 
   return (
     <Row>
