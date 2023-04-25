@@ -17,6 +17,12 @@ const SubmissionCreateForm = (props) => {
     setText(e.target.value);
   };
 
+  const handleUpload = (e) => {
+    setUploads([...uploads, ...e.target.files]);
+    e.target.value = null;
+    console.log("uploads handleUpload", uploads);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
