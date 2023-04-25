@@ -102,7 +102,33 @@ const SubmissionCreateForm = (props) => {
               </Container>
             </Col>
             <Col md={5} lg={4} className="d-none d-md-block">
-              <div className="d-none d-md-block">Upload area</div>
+              <div className="d-none d-md-block">
+                <Form.Group controlId="fileInput">
+                  <Form.Label>Upload Proof</Form.Label>
+                  <ListGroup>
+                    {uploads.map((upload, index) => (
+                      <ListGroup.Item key={index}>
+                        {upload.name}
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => {
+                            setUploads(uploads.filter((_, i) => i !== index));
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                  <Form.Control type="file" onChange={handleUpload} />
+                  <Button
+                    onClick={() => document.getElementById("fileInput").click()}
+                  >
+                    Add More
+                  </Button>
+                </Form.Group>
+              </div>
             </Col>
           </Row>
           <div className="m-3">
