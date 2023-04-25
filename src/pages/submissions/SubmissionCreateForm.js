@@ -3,10 +3,11 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { Button, InputGroup } from "react-bootstrap";
-import { axiosRes } from "../../api/axiosDefaults";
+import { Button, InputGroup, ListGroup } from "react-bootstrap";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
 import { Link } from "react-router-dom";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 const SubmissionCreateForm = (props) => {
   const { dare, setDares, setNewSubmission, profileImage, profile_id } = props;
@@ -26,12 +27,25 @@ const SubmissionCreateForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axiosRes.post("submissions/", {
+      const { data } = await axiosRes.post("/submissions/", {
         text,
         dare,
-        uploads,
       });
-    } catch (error) {}
+
+      const uploadsData = [];
+      uploads.forEach((upload) => {
+        const formData = new FormData();
+        formData.append("submission", data.id);
+        formData.append("upload", upload);
+        uploadsData.push(formData);
+      });
+
+      await Promise.all(
+        uploadsData.map((formData) => axiosRes.post("/uploads/", formData))
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
