@@ -40,6 +40,7 @@ const SubmissionCreateForm = (props) => {
                     <Link to={`/profiles/${profile_id}`}>
                       <Avatar src={profileImage} />
                     </Link>
+                    <Form.Label>Additional Comment</Form.Label>
                     <Form.Control
                       placeholder="Write additional info and context to uploaded proof"
                       as="textarea"
@@ -49,7 +50,35 @@ const SubmissionCreateForm = (props) => {
                     />
                   </InputGroup>
                 </Form.Group>
-                <div className="d-md-none">Upload area small</div>
+                <div className="d-md-none">
+                  <Form.Group controlId="fileInput">
+                    <Form.Label>Upload Proof</Form.Label>
+                    <ListGroup>
+                      {uploads.map((upload, index) => (
+                        <ListGroup.Item key={index}>
+                          {upload.name}
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => {
+                              setUploads(uploads.filter((_, i) => i !== index));
+                            }}
+                          >
+                            Delete
+                          </Button>
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                    <Form.Control type="file" onChange={handleUpload} />
+                    <Button
+                      onClick={() =>
+                        document.getElementById("fileInput").click()
+                      }
+                    >
+                      Add More
+                    </Button>
+                  </Form.Group>
+                </div>
               </Container>
             </Col>
             <Col md={5} lg={4} className="d-none d-md-block">
