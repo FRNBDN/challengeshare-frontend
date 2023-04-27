@@ -43,7 +43,17 @@ function DarePage() {
             <Container className="px-0">
               <Dare {...dare.results[0]} setDares={setDare} />
             </Container>
-            <Container>All Submissions</Container>
+            <Container>
+              {submissions.results.length ? (
+                submissions.results.map((submission) => (
+                  <Submission key={submission.id} {...submission} />
+                ))
+              ) : currentUser ? (
+                <span>Be the first to share a submission! </span>
+              ) : (
+                <span>No submissions for this dare.</span>
+              )}
+            </Container>
           </Col>
         </Row>
       </Col>
