@@ -37,6 +37,7 @@ const Dare = (props) => {
     updated_at,
     users_count,
     setDares,
+    Feed,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -161,13 +162,26 @@ const Dare = (props) => {
           </Col>
         </Row>
       </Card.Body>
+
       <Card.Body>
         <div className="d-flex justify-content-between align-items-center mt-0">
-          <div>
-            {title && (
-              <Card.Title className={appStyles.BrandFont}>{title} </Card.Title>
-            )}
-          </div>
+          {Feed ? (
+            <Link to={`/dares/${id}`}>
+              <div>
+                {title && (
+                  <Card.Title className={appStyles.BrandFont}>
+                    {title}
+                  </Card.Title>
+                )}
+              </div>
+            </Link>
+          ) : (
+            <div>
+              {title && (
+                <Card.Title className={appStyles.BrandFont}>{title}</Card.Title>
+              )}
+            </div>
+          )}
           <div className="d-flex align-items-center">
             <span className="me-1">
               <i className={`fa-solid fa-user-group`}></i>:{users_count}

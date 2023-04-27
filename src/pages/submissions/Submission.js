@@ -19,7 +19,6 @@ const Submission = (props) => {
 
   return (
     <div>
-      <hr />
       <Card>
         <Link to={`/profiles/${profile_id}`}>
           <Avatar src={profile_image} />
