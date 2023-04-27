@@ -27,6 +27,7 @@ const Dare = (props) => {
     profile_image,
     submissions_count,
     submissions,
+    has_submitted,
     title,
     cfollow_id,
     tags,
@@ -207,17 +208,51 @@ const Dare = (props) => {
         </Row>
         <Row>
           <Container>
-            <Button
-              onClick={() => setOpen(!open)}
-              aria-controls="submission-form-collapse"
-              aria-expanded={open}
-            >
-              {!open ? "Share Submission" : "Hide Form"}
-            </Button>
+            {has_submitted ? (
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>You can only share one submission</Tooltip>}
+              >
+                <span>
+                  <Button
+                    aria-controls="submission-form-collapse"
+                    disabled
+                    className={`${appStyles.Button} ${appStyles.disabled}`}
+                  >
+                    Submitted
+                  </Button>
+                </span>
+              </OverlayTrigger>
+            ) : currentUser ? (
+              <Button
+                onClick={() => setOpen(!open)}
+                aria-controls="submission-form-collapse"
+                aria-expanded={open}
+                className={`${appStyles.Button}`}
+              >
+                {!open ? "Share Submission" : "Hide Form"}
+              </Button>
+            ) : (
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Sign in to share your submission</Tooltip>}
+              >
+                <span>
+                  <Button
+                    aria-controls="submission-form-collapse"
+                    disabled
+                    className={`${appStyles.Button} ${appStyles.disabled}`}
+                  >
+                    Share Submission
+                  </Button>
+                </span>
+              </OverlayTrigger>
+            )}
+
             <Collapse in={open}>
               <div id="submission-form-collapse">
                 <SubmissionCreateForm
-                  profile_id={currentUser.profile_id}
+                  profile_id={currentUser?.profile_id}
                   profileImage={sub_profile_image}
                   dare={id}
                   setDares={setDares}

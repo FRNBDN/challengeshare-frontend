@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -6,13 +6,15 @@ import Container from "react-bootstrap/Container";
 import { Button, InputGroup, ListGroup } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { upload } from "@testing-library/user-event/dist/upload";
 
 const SubmissionCreateForm = (props) => {
   const { dare, setDares, setNewSubmission, profileImage, profile_id } = props;
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState([]);
+  const fileInput = useRef(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -26,11 +28,14 @@ const SubmissionCreateForm = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const submissionData = new FormData();
+    submissionData.append("challenge", dare);
+    submissionData.append("text", text);
+    submissionData.append("status", 1);
+
     try {
-      const { data } = await axiosRes.post("/submissions/", {
-        text,
-        dare,
-      });
+      const { data } = await axiosRes.post("/submissions/", submissionData);
 
       const uploadsData = [];
       uploads.forEach((upload) => {
@@ -43,6 +48,7 @@ const SubmissionCreateForm = (props) => {
       await Promise.all(
         uploadsData.map((formData) => axiosRes.post("/uploads/", formData))
       );
+      navigate(`/dares/${dare}`);
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +57,7 @@ const SubmissionCreateForm = (props) => {
   return (
     <Row>
       <Col>
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Container>
@@ -60,6 +66,7 @@ const SubmissionCreateForm = (props) => {
                     <Link to={`/profiles/${profile_id}`}>
                       <Avatar src={profileImage} />
                     </Link>
+
                     <Form.Label>Additional Comment</Form.Label>
                     <Form.Control
                       placeholder="Write additional info and context to uploaded proof"
@@ -89,14 +96,17 @@ const SubmissionCreateForm = (props) => {
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
-                    <Form.Control type="file" onChange={handleUpload} />
-                    <Button
-                      onClick={() =>
-                        document.getElementById("fileInput").click()
-                      }
-                    >
-                      Add More
+                    <Button onClick={() => fileInput.current.click()}>
+                      Upload File
                     </Button>
+                    <input
+                      type="file"
+                      ref={fileInput}
+                      onChange={handleUpload}
+                      accept="image/*"
+                      style={{ display: "none" }}
+                    />
+                    {/* <Form.Control type="file" onChange={handleUpload} /> */}
                   </Form.Group>
                 </div>
               </Container>
@@ -104,7 +114,7 @@ const SubmissionCreateForm = (props) => {
             <Col md={5} lg={4} className="d-none d-md-block">
               <div className="d-none d-md-block">
                 <Form.Group controlId="fileInput">
-                  <Form.Label>Upload Proof</Form.Label>
+                  <Form.Label> Uploads: </Form.Label>
                   <ListGroup>
                     {uploads.map((upload, index) => (
                       <ListGroup.Item key={index}>
@@ -121,12 +131,17 @@ const SubmissionCreateForm = (props) => {
                       </ListGroup.Item>
                     ))}
                   </ListGroup>
-                  <Form.Control type="file" onChange={handleUpload} />
-                  <Button
-                    onClick={() => document.getElementById("fileInput").click()}
-                  >
-                    Add More
+                  <Button onClick={() => fileInput.current.click()}>
+                    {uploads.length > 0 ? "Upload Additional" : "Upload Image"}
                   </Button>
+                  <input
+                    type="file"
+                    ref={fileInput}
+                    onChange={handleUpload}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                  />
+                  {/* <Form.Control type="file" onChange={handleUpload} /> */}
                 </Form.Group>
               </div>
             </Col>
