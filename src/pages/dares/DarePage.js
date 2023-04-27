@@ -8,18 +8,24 @@ import { Col } from "react-bootstrap";
 import Dare from "./Dare";
 
 import appStyles from "../../App.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Submission from "../submissions/Submission";
 
 function DarePage() {
   const { id } = useParams();
   const [dare, setDare] = useState({ results: [] });
+  const [submissions, setSubmissions] = useState({ results: [] });
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const [{ data: dare }] = await Promise.all([
+        const [{ data: dare }, { data: submissions }] = await Promise.all([
           axiosReq.get(`challenges/${id}`),
+          axiosReq.get(`/submissions/?challenge=${id}`),
         ]);
         setDare({ results: [dare] });
+        setSubmissions(submissions);
       } catch (error) {
         console.log(error);
       }

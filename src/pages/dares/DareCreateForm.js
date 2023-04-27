@@ -93,7 +93,6 @@ function DareCreateForm() {
     challengeData.append("category", category);
     const tagsText = tags.map((tag) => tag.text);
     challengeData.append("tags", tagsText);
-    console.log(tagsText);
 
     try {
       const { data } = await axiosReq.post("/challenges/", challengeData);
