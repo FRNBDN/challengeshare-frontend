@@ -78,7 +78,7 @@ const SubmissionCreateForm = (props) => {
                 </Form.Group>
                 <div className="d-md-none">
                   <Form.Group controlId="fileInput">
-                    <Form.Label>Upload Proof</Form.Label>
+                    <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
                     <ListGroup>
                       {uploads.map((upload, index) => (
                         <ListGroup.Item key={index}>
@@ -90,14 +90,21 @@ const SubmissionCreateForm = (props) => {
                               setUploads(uploads.filter((_, i) => i !== index));
                             }}
                           >
-                            Delete
+                            x
                           </Button>
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
-                    <Button onClick={() => fileInput.current.click()}>
-                      Upload File
-                    </Button>
+                    {uploads.length < 5 ? (
+                      <Button onClick={() => fileInput.current.click()}>
+                        {uploads.length > 0
+                          ? "Upload Additional"
+                          : "Upload Image"}
+                      </Button>
+                    ) : (
+                      <Button disabled>Limit Reached</Button>
+                    )}
+
                     <input
                       type="file"
                       ref={fileInput}
@@ -105,7 +112,6 @@ const SubmissionCreateForm = (props) => {
                       accept="image/*"
                       style={{ display: "none" }}
                     />
-                    {/* <Form.Control type="file" onChange={handleUpload} /> */}
                   </Form.Group>
                 </div>
               </Container>
@@ -113,7 +119,7 @@ const SubmissionCreateForm = (props) => {
             <Col md={5} lg={4} className="d-none d-md-block">
               <div className="d-none d-md-block">
                 <Form.Group controlId="fileInput">
-                  <Form.Label> Uploads: </Form.Label>
+                  <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
                   <ListGroup>
                     {uploads.map((upload, index) => (
                       <ListGroup.Item key={index}>
@@ -125,14 +131,21 @@ const SubmissionCreateForm = (props) => {
                             setUploads(uploads.filter((_, i) => i !== index));
                           }}
                         >
-                          Delete
+                          x
                         </Button>
                       </ListGroup.Item>
                     ))}
                   </ListGroup>
-                  <Button onClick={() => fileInput.current.click()}>
-                    {uploads.length > 0 ? "Upload Additional" : "Upload Image"}
-                  </Button>
+                  {uploads.length < 5 ? (
+                    <Button onClick={() => fileInput.current.click()}>
+                      {uploads.length > 0
+                        ? "Upload Additional"
+                        : "Upload Image"}
+                    </Button>
+                  ) : (
+                    <Button disabled>Limit Reached</Button>
+                  )}
+
                   <input
                     type="file"
                     ref={fileInput}
@@ -140,7 +153,6 @@ const SubmissionCreateForm = (props) => {
                     accept="image/*"
                     style={{ display: "none" }}
                   />
-                  {/* <Form.Control type="file" onChange={handleUpload} /> */}
                 </Form.Group>
               </div>
             </Col>
