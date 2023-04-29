@@ -26,7 +26,6 @@ const Dare = (props) => {
     profile_id,
     profile_image,
     submissions_count,
-    submissions,
     has_submitted,
     title,
     cfollow_id,
@@ -147,11 +146,12 @@ const Dare = (props) => {
     </OverlayTrigger>
   );
   return (
-    <Card className={`mb-2 ${styles.Card}`}>
-      <Card.Body className={`p-1 ${styles.CardTop}`}>
+    <Card className={`mb-2 ${appStyles.Card} `}>
+      <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
-            <Link to={`profiles/${profile_id}`}>
+            <span className={appStyles.BrandFont}>DARE</span>
+            <Link to={`/profiles/${profile_id}`}>
               <Avatar src={profile_image} height={20} /> {owner}
             </Link>
           </Col>

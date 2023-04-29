@@ -28,9 +28,16 @@ a:hover {
     font-family: 'Gantari', sans-serif;
 }
 
-.card{
-    border-radius: 0%;
+.CardTop{
+    font-size: small;
+    border-bottom: 1px solid #50505082;
 }
+
+.Card{
+    border-radius: 0px;
+    border: 1px solid #50505082;
+}
+
 
 .Button{
    background-color:white ;
@@ -61,3 +68,5 @@ a:hover {
     border-radius: 0%;
     border: 1px solid black;
  }
+
+ 
