@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import { Col } from "react-bootstrap";
 import Dare from "./Dare";
 
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import Submission from "../submissions/Submission";
+import Avatar from "../../components/Avatar";
 
 function DarePage() {
   const { id } = useParams();
@@ -46,7 +46,22 @@ function DarePage() {
             <Container>
               {submissions.results.length ? (
                 submissions.results.map((submission) => (
-                  <Submission key={submission.id} {...submission} />
+                  <div key={submission.id} className="SubmissionList">
+                    <Link to={`profiles/${submission.profile_id}`}>
+                      <Avatar src={submission.profile_image} height={20} />
+                    </Link>
+                    <span>{submission.owner}</span>
+                    <span>Status: </span>
+
+                    {submission.status === 1 ? (
+                      <span>Pending</span>
+                    ) : submission.status === 2 ? (
+                      <span>Pass</span>
+                    ) : (
+                      <span>Failed</span>
+                    )}
+                    <Link to={`/submissions/${submission.id}`}>Review</Link>
+                  </div>
                 ))
               ) : currentUser ? (
                 <span>Be the first to share a submission! </span>
