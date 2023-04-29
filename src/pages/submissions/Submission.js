@@ -51,21 +51,64 @@ const Submission = (props) => {
     setHasLoaded(false);
     fetchUploads();
   }, [id, pathname]);
+
   return (
-    <div>
-      <Card>
-        <Link to={`/profiles/${profile_id}`}>
-          <Avatar src={profile_image} />
-        </Link>
-        <Card.Body className="align-self-center ml-2">
-          <span>{owner}</span>
-          <span>{updated_at}</span>
-          <span>{status}</span>
-          <p>{text}</p>
-          <span>{reviews}</span>
-        </Card.Body>
-      </Card>
-    </div>
+    <Card className={`mb-2 ${appStyles.Card} `}>
+      <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
+        <Row className="d-flex justify-content-between align-items-center mt-0">
+          <Col>
+            <span className={appStyles.BrandFont}>SUB</span>
+            <Link to={`/profiles/${profile_id}`}>
+              <Avatar src={profile_image} height={20} /> {owner}
+            </Link>
+          </Col>
+          <Col>
+            <div className="d-flex justify-content-end me-1">
+              <span>{updated_at}</span>
+            </div>
+          </Col>
+        </Row>
+      </Card.Body>
+
+      <Card.Body>
+        <div className="d-flex justify-content-between align-items-center mt-0">
+          {Feed ? (
+            <Link to={`/submissions/${id}`}>
+              <Card.Text>{text}</Card.Text>
+            </Link>
+          ) : (
+            <Card.Text>{text}</Card.Text>
+          )}
+        </div>
+        <Row className="d-flex justify-content-between">
+          <Col>
+            {hasLoaded ? (
+              <>
+                {uploads.results.length ? (
+                  "Uploads here"
+                ) : (
+                  <Card.Text> No uploads could be displayed </Card.Text>
+                )}
+              </>
+            ) : (
+              <Container>
+                <Asset spinner />
+              </Container>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Container></Container>
+          <span className={`d-flex justify-content-end ${styles.Edit}`}>
+            {is_owner && (
+              <Link to={`/submissions/${id}/edit`}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
+            )}
+          </span>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 };
 
