@@ -1,22 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import {
+  Card,
+  Col,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+  Button,
+  Container,
+} from "react-bootstrap";
+import Collapse from "react-bootstrap/Collapse";
+import { Link, useLocation } from "react-router-dom";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import Asset from "../../components/Asset";
+import appStyles from "../../App.module.css";
+import styles from "../../styles/Submission.module.css";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const Submission = (props) => {
   const {
+    id,
     owner,
     text,
-    is_owner,
     profile_id,
     profile_image,
     status,
     reviews,
-    uploads,
     created_at,
     updated_at,
+    Feed,
   } = props;
 
+  const currentUser = useCurrentUser();
+  const is_owner = currentUser?.username === owner;
+  const [uploads, setUploads] = useState({ results: [] });
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchUploads = async () => {
+      try {
+        const { data } = await axiosReq.get(`/uploads/?submission=${id}`);
+        setUploads(data);
+        setHasLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setHasLoaded(false);
+    fetchUploads();
+  }, [id, pathname]);
   return (
     <div>
       <Card>
