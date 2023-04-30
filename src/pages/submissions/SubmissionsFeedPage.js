@@ -1,3 +1,65 @@
+import React, { useEffect, useState } from "react";
+
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+
+import appStyles from "../../App.module.css";
+import styles from "../../styles/FeedPages.module.css";
+import { Link, useLocation } from "react-router-dom";
+import { axiosReq } from "../../api/axiosDefaults";
+import Submission from "./Submission";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { Form } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
+
+const SubmissionsFeedPage = ({ message, filter = "" }) => {
+  const [submissions, setSubmissions] = useState({ results: [] });
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const { pathname } = useLocation();
+  const currentUser = useCurrentUser();
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      try {
+        const { data } = await axiosReq.get(
+          `/submissions/?${filter}search=${query}`
+        );
+        setSubmissions(data);
+        setHasLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setHasLoaded(false);
+    const timer = setTimeout(() => {
+      fetchSubmissions();
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filter, query, pathname]);
+
+  const userFilters = (
+    <>
+      <Link
+        to="submissions/mysubmissions"
+        className={`${appStyles.Button} m-1 flex-fill`}
+      >
+        My Submissions
+      </Link>
+      <Link
+        to="submissions/byfollowed"
+        className={`${appStyles.Button} m-1 flex-fill`}
+      >
+        By Followed
+      </Link>
+    </>
+  );
+
   return (
     <>
       <h1>
