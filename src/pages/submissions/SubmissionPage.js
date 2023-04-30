@@ -32,7 +32,7 @@ function SubmissionPage() {
 
   return (
     <Row>
-      <h1 className={appStyles.BrandFont}>Submission / Detail</h1>
+      <h1 className={appStyles.BrandFont}>Submissions / Detail</h1>
       <Col md={9}>
         <Row className="d-block d-md-none">Top Bar</Row>
         <Row className="h-100">

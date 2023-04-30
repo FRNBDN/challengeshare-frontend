@@ -150,7 +150,14 @@ const Dare = (props) => {
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
-            <span className={appStyles.BrandFont}>DARE</span>
+            {Feed ? (
+              <Link to={`/dares/${id}`}>
+                <span className={appStyles.BrandFont}>DARE</span>
+              </Link>
+            ) : (
+              <span className={appStyles.BrandFont}>DARE</span>
+            )}
+
             <Link to={`/profiles/${profile_id}`}>
               <Avatar src={profile_image} height={20} /> {owner}
             </Link>
