@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-import styles from "../../styles/DaresFeedPage.module.css";
+import styles from "../../styles/FeedPages.module.css";
 import appStyles from "../../App.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -68,7 +68,7 @@ function DaresFeedPage({ message, filter = "" }) {
 
   return (
     <>
-      <h1 className={appStyles.BrandFont}>
+      <h1>
         <span>Dares</span>
       </h1>
       <Row>
@@ -147,7 +147,7 @@ function DaresFeedPage({ message, filter = "" }) {
           <Row>
             <Container className={`${appStyles.Box} pb-1 mb-2`}>
               <div>
-                <h5 className="mb-0 mt-1">Filter Dares</h5>
+                <h5 className="mb-0 mt-1">Filters Dares</h5>
               </div>
               <hr className="m-1"></hr>
               <div className="d-flex flex-column">

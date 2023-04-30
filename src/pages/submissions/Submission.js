@@ -92,15 +92,18 @@ const Submission = (props) => {
           <Container>
             {hasLoaded ? (
               <>
-                {console.log(uploads)}
                 {uploads.results.length ? (
-                  <Carousel interval={null} variant="dark">
-                    {uploads.results.map((upload) => (
+                  <Carousel
+                    interval={null}
+                    variant="dark"
+                    controls={uploads.results.length === 1 ? false : true}
+                  >
+                    {uploads.results.map((upload, index) => (
                       <Carousel.Item>
                         <img
                           className="d-block w-100 "
                           src={upload.upload}
-                          alt="First slide"
+                          alt={`Slide #${index}`}
                         />
                       </Carousel.Item>
                     ))}
