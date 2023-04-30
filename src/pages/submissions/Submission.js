@@ -9,6 +9,7 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
+import Carousel from "react-bootstrap/Carousel";
 import Collapse from "react-bootstrap/Collapse";
 import { Link, useLocation } from "react-router-dom";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
@@ -27,6 +28,7 @@ const Submission = (props) => {
     status,
     reviews,
     created_at,
+    setSubmissions,
     updated_at,
     Feed,
   } = props;
@@ -57,7 +59,13 @@ const Submission = (props) => {
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
-            <span className={appStyles.BrandFont}>SUB</span>
+            {Feed ? (
+              <Link to={`/submissions/${id}`}>
+                <span className={appStyles.BrandFont}>SUB</span>
+              </Link>
+            ) : (
+              <span className={appStyles.BrandFont}>SUB</span>
+            )}
             <Link to={`/profiles/${profile_id}`}>
               <Avatar src={profile_image} height={20} /> {owner}
             </Link>
@@ -80,12 +88,23 @@ const Submission = (props) => {
             <Card.Text>{text}</Card.Text>
           )}
         </div>
-        <Row className="d-flex justify-content-between">
-          <Col>
+        <Row>
+          <Container>
             {hasLoaded ? (
               <>
+                {console.log(uploads)}
                 {uploads.results.length ? (
-                  "Uploads here"
+                  <Carousel interval={null} variant="dark">
+                    {uploads.results.map((upload) => (
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100 "
+                          src={upload.upload}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
                 ) : (
                   <Card.Text> No uploads could be displayed </Card.Text>
                 )}
@@ -95,10 +114,10 @@ const Submission = (props) => {
                 <Asset spinner />
               </Container>
             )}
-          </Col>
+          </Container>
         </Row>
         <Row>
-          <Container></Container>
+          <Container> Review button here</Container>
           <span className={`d-flex justify-content-end ${styles.Edit}`}>
             {is_owner && (
               <Link to={`/submissions/${id}/edit`}>
