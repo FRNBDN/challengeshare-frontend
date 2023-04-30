@@ -11,6 +11,7 @@ import DaresFeedPage from "./pages/dares/DaresFeedPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import DareEditForm from "./pages/dares/DareEditForm";
 import SubmissionPage from "./pages/submissions/SubmissionPage";
+import SubmissionsFeedPage from "./pages/submissions/SubmissionsFeedPage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -21,8 +22,8 @@ function App() {
       <NavBar />
       <Container>
         <Routes>
-          <Route exact path="/" element={<h1>Submissions</h1>} />
-          <Route exact path="/submissions" element={<h1>Submissions</h1>} />
+          <Route exact path="/" element={<SubmissionsFeedPage />} />
+          <Route exact path="/submissions" element={<SubmissionsFeedPage />} />
           <Route
             exact
             path="/dares"
