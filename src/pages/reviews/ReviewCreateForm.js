@@ -55,6 +55,22 @@ const ReviewCreateForm = (props) => {
     );
     setVotePass(votePass);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const vote_pass = votePass;
+      const { data } = await axiosRes.post("/reviews/", {
+        body,
+        submission,
+        vote_pass,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Row>
       <Col>
