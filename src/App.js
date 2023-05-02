@@ -23,12 +23,38 @@ function App() {
       <Container>
         <Routes>
           <Route exact path="/" element={<SubmissionsFeedPage />} />
-          <Route exact path="/submissions" element={<SubmissionsFeedPage />} />
+          <Route
+            exact
+            path="/submissions"
+            element={<SubmissionsFeedPage />}
+            message="No submissions found matching search"
+          />
+          <Route
+            exact
+            path="/submissions/byfollowed"
+            element={
+              <SubmissionsFeedPage
+                message="No submissions by followed users found"
+                filter={`owner__ufollowed__owner__profile=${profile_id}&`}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/submissions/own"
+            element={
+              <SubmissionsFeedPage
+                message="No submissions by you found"
+                filter={`owner__profile=${profile_id}&`}
+              />
+            }
+          />
           <Route
             exact
             path="/dares"
             element={<DaresFeedPage message="No dares found matching search" />}
           />
+
           <Route
             exact
             path="/dares/byfollowed"
