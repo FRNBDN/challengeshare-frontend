@@ -1,0 +1,26 @@
+.Fail{
+    color: red;
+    background-color: pink;
+    border-color: red;
+}
+.Complete{
+    color: green;
+    background-color: lightgreen;
+    border-color: green;
+}
+
+.Complete:hover{
+    background-color:green ;
+    color: white;
+    border-radius: 0%;
+    border: 1px solid green;
+    text-align: center;
+ }
+
+.Fail:hover{
+    background-color:red ;
+    color: white;
+    border-radius: 0%;
+    border: 1px solid red;
+    text-align: center;
+ }
