@@ -21,6 +21,19 @@ const ReviewCreateForm = (props) => {
     profile_id,
     dare_id,
   } = props;
+  const [body, setBody] = useState("");
+  const [votePass, setVotePass] = useState(false);
+  const [criteria, setCriteria] = useState({ results: [] });
+  const handleChange = (e) => {
+    setBody(e.target.value);
+  };
+
+  const handleCheckboxChange = (e) => {
+    const votePass = criteria.results.every(
+      (criterion) => document.getElementById(`${criterion.id}`).checked
+    );
+    setVotePass(votePass);
+  };
   return (
     <Row>
       <Col>
