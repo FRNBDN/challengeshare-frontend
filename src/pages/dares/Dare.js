@@ -44,7 +44,7 @@ const Dare = (props) => {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [criteria, setCriteria] = useState({ results: [] });
   const { pathname } = useLocation();
-  const sub_profile_image = currentUser?.profile_image;
+  const curr_user_img = currentUser?.profile_image;
   const [newSubmission, setNewSubmission] = useState({ results: [] });
   const [open, setOpen] = useState(false);
 
@@ -238,7 +238,7 @@ const Dare = (props) => {
                   <Button
                     aria-controls="submission-form-collapse"
                     disabled
-                    className={`${appStyles.Button} ${appStyles.disabled}`}
+                    className={`${appStyles.Button} ${appStyles.disabled} ${appStyles.BrandFont}`}
                   >
                     Submitted
                   </Button>
@@ -249,7 +249,7 @@ const Dare = (props) => {
                 onClick={() => setOpen(!open)}
                 aria-controls="submission-form-collapse"
                 aria-expanded={open}
-                className={`${appStyles.Button}`}
+                className={`${appStyles.Button} ${appStyles.BrandFont}`}
               >
                 {!open ? "Share Submission" : "Hide Form"}
               </Button>
@@ -262,7 +262,7 @@ const Dare = (props) => {
                   <Button
                     aria-controls="submission-form-collapse"
                     disabled
-                    className={`${appStyles.Button} ${appStyles.disabled}`}
+                    className={`${appStyles.Button} ${appStyles.disabled} ${appStyles.BrandFont}`}
                   >
                     Share Submission
                   </Button>
@@ -274,7 +274,7 @@ const Dare = (props) => {
               <div id="submission-form-collapse">
                 <SubmissionCreateForm
                   profile_id={currentUser?.profile_id}
-                  profileImage={sub_profile_image}
+                  profileImage={curr_user_img}
                   dare={id}
                   setDares={setDares}
                   setNewSubmission={setNewSubmission}

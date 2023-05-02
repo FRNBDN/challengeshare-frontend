@@ -46,7 +46,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
   const userFilters = (
     <>
       <Link
-        to="submissions/mysubmissions"
+        to="submissions/own"
         className={`${appStyles.Button} m-1 flex-fill`}
       >
         My Submissions

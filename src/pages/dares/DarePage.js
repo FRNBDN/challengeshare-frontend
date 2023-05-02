@@ -21,7 +21,7 @@ function DarePage() {
     const handleMount = async () => {
       try {
         const [{ data: dare }, { data: submissions }] = await Promise.all([
-          axiosReq.get(`challenges/${id}`),
+          axiosReq.get(`/challenges/${id}`),
           axiosReq.get(`/submissions/?challenge=${id}`),
         ]);
         setDare({ results: [dare] });

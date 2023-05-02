@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import { Button, InputGroup, ListGroup } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
+import appStyles from "../../App.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { upload } from "@testing-library/user-event/dist/upload";
 
@@ -84,7 +85,7 @@ const SubmissionCreateForm = (props) => {
                         <ListGroup.Item key={index}>
                           {upload.name}
                           <Button
-                            variant="danger"
+                            className={`${appStyles.BrandFont} ${appStyles.Button}`}
                             size="sm"
                             onClick={() => {
                               setUploads(uploads.filter((_, i) => i !== index));
@@ -96,13 +97,21 @@ const SubmissionCreateForm = (props) => {
                       ))}
                     </ListGroup>
                     {uploads.length < 5 ? (
-                      <Button onClick={() => fileInput.current.click()}>
+                      <Button
+                        className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                        onClick={() => fileInput.current.click()}
+                      >
                         {uploads.length > 0
                           ? "Upload Additional"
                           : "Upload Image"}
                       </Button>
                     ) : (
-                      <Button disabled>Limit Reached</Button>
+                      <Button
+                        className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
+                        disabled
+                      >
+                        Limit Reached
+                      </Button>
                     )}
 
                     <input
@@ -125,7 +134,7 @@ const SubmissionCreateForm = (props) => {
                       <ListGroup.Item key={index}>
                         {upload.name}
                         <Button
-                          variant="danger"
+                          className={`${appStyles.BrandFont} ${appStyles.Button}`}
                           size="sm"
                           onClick={() => {
                             setUploads(uploads.filter((_, i) => i !== index));
@@ -137,13 +146,21 @@ const SubmissionCreateForm = (props) => {
                     ))}
                   </ListGroup>
                   {uploads.length < 5 ? (
-                    <Button onClick={() => fileInput.current.click()}>
+                    <Button
+                      className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                      onClick={() => fileInput.current.click()}
+                    >
                       {uploads.length > 0
                         ? "Upload Additional"
                         : "Upload Image"}
                     </Button>
                   ) : (
-                    <Button disabled>Limit Reached</Button>
+                    <Button
+                      className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
+                      disabled
+                    >
+                      Limit Reached
+                    </Button>
                   )}
 
                   <input
@@ -158,7 +175,12 @@ const SubmissionCreateForm = (props) => {
             </Col>
           </Row>
           <div className="m-3">
-            <Button type="submit">Submit</Button>
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button}`}
+              type="submit"
+            >
+              Submit
+            </Button>
           </div>
         </Form>
       </Col>

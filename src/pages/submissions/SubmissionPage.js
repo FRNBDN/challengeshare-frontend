@@ -20,7 +20,7 @@ function SubmissionPage() {
     const handleMount = async () => {
       try {
         const [{ data: submission }] = await Promise.all([
-          axiosReq.get(`submissions/${id}`),
+          axiosReq.get(`/submissions/${id}`),
         ]);
         setSubmission({ results: [submission] });
       } catch (error) {
@@ -40,7 +40,7 @@ function SubmissionPage() {
             <Container className="px-0">
               <Submission
                 {...submission.results[0]}
-                setSubmissions={setSubmission}
+                setSubmission={setSubmission}
               />
             </Container>
             <Container>Reveiws here</Container>
