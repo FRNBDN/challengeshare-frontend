@@ -22,8 +22,29 @@ const ReviewCreateForm = (props) => {
     dare_id,
   } = props;
   const [body, setBody] = useState("");
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [votePass, setVotePass] = useState(false);
   const [criteria, setCriteria] = useState({ results: [] });
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const fetchCriteria = async () => {
+      try {
+        console.log("dare_id:", dare_id);
+        const { data: criteria } = await axiosReq.get(
+          `/criteria/?challenge=${dare_id}`
+        );
+        console.log("criteria:", criteria);
+        setCriteria(criteria);
+        setHasLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    setHasLoaded(false);
+    fetchCriteria();
+  }, [dare_id, pathname]);
+
   const handleChange = (e) => {
     setBody(e.target.value);
   };
