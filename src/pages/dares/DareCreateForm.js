@@ -209,6 +209,11 @@ function DareCreateForm() {
           </InputGroup>
         ))}
       </Form.Group>
+      {errors.field.text?.map((message, idx) => (
+        <Alert variant="light" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <div className="text-center">
         <Button onClick={handlePlusCriteria}>+</Button>
       </div>

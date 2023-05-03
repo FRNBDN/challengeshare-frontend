@@ -36,7 +36,7 @@ function DareEditForm() {
       try {
         const { data } = await axiosReq.get(`/challenges/${id}`);
         const { title, description, category, criteria, tags, is_owner } = data;
-        
+
         const critDataReq = criteria.map((criterion) => {
           return axiosReq.get(`/criteria/${criterion}`);
         });
@@ -261,6 +261,11 @@ function DareEditForm() {
           </InputGroup>
         ))}
       </Form.Group>
+      {errors.field.text?.map((message, idx) => (
+        <Alert variant="light" key={idx}>
+          {message}
+        </Alert>
+      ))}
       <div className="text-center">
         <Button onClick={handlePlusCriteria}>+</Button>
       </div>
