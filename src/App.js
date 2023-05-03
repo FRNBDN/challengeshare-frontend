@@ -12,6 +12,7 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import DareEditForm from "./pages/dares/DareEditForm";
 import SubmissionPage from "./pages/submissions/SubmissionPage";
 import SubmissionsFeedPage from "./pages/submissions/SubmissionsFeedPage";
+import SubmissionEditForm from "./pages/submissions/SubmissionEditForm";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -81,6 +82,11 @@ function App() {
           <Route exact path="/dares/:id" element={<DarePage />} />
           <Route exact path="/dares/:id/edit" element={<DareEditForm />} />
           <Route exact path="/submissions/:id" element={<SubmissionPage />} />
+          <Route
+            exact
+            path="/submissions/:id/edit"
+            element={<SubmissionEditForm />}
+          />
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
