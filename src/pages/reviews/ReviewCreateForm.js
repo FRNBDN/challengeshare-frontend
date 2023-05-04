@@ -37,7 +37,6 @@ const ReviewCreateForm = (props) => {
         const { data: criteria } = await axiosReq.get(
           `/criteria/?challenge=${dare_id}`
         );
-        console.log("criteria:", criteria);
         setCriteria(criteria);
         setHasLoaded(true);
       } catch (error) {
