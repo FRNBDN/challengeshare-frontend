@@ -4,8 +4,9 @@ import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import Asset from "../../components/Asset";
+import Profile from "./Profile";
 
-const TopProfiles = () => {
+const TopProfiles = ({ mobile }) => {
   const [profileData, setProfileData] = useState({
     pageProfile: { results: [] },
     topProfiles: { results: [] },
@@ -33,18 +34,30 @@ const TopProfiles = () => {
   }, [currentUser]);
 
   return (
-    <Container className={`${appStyles.Box} pb-1 mb-2`}>
+    <Container
+      className={`${appStyles.Box} pb-0 mb-2 px-0 ${
+        mobile && "d-md-none text-center"
+      }`}
+    >
       <div>
-        <h5 className="mb-0 mt-1">
+        <h5 className="mb-0 mt-1 px-2">
           <i className="fa-solid fa-fire-flame-curved"></i> Profiles
         </h5>
       </div>
-      <hr className="m-1"></hr>
-      <div className="d-flex flex-column">
+      <hr className="mt-1 mb-0 mx-2"></hr>
+      <div
+        className={`d-flex ${!mobile && "flex-column"} ${
+          mobile && "justify-content-around flex-row"
+        }`}
+      >
         {topProfiles.results.length ? (
           <>
             {topProfiles.results.map((profile) => (
-              <p key={profile.id}>{profile.owner}</p>
+              <Profile
+                key={profile.id}
+                profile={profile}
+                {...(mobile && { mobile })}
+              />
             ))}
           </>
         ) : (
