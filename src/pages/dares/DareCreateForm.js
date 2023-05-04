@@ -209,13 +209,19 @@ function DareCreateForm() {
           </InputGroup>
         ))}
       </Form.Group>
-      {errors.field.text?.map((message, idx) => (
-        <Alert variant="light" key={idx}>
-          {message}
-        </Alert>
-      ))}
+      {errors.field &&
+        errors.field.text?.map((message, idx) => (
+          <Alert variant="light" key={idx}>
+            {message}
+          </Alert>
+        ))}
       <div className="text-center">
-        <Button onClick={handlePlusCriteria}>+</Button>
+        <Button
+          onClick={handlePlusCriteria}
+          className={` ${appStyles.Button} `}
+        >
+          +
+        </Button>
       </div>
     </div>
   );
@@ -238,8 +244,18 @@ function DareCreateForm() {
             </Col>
           </Row>
           <div className="m-3">
-            <Button type="submit">create</Button>
-            <Button onClick={() => navigate(-1)}>cancel</Button>
+            <Button
+              type="submit"
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+            >
+              create
+            </Button>
+            <Button
+              onClick={() => navigate(-1)}
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+            >
+              cancel
+            </Button>
           </div>
         </Form>
       </Col>

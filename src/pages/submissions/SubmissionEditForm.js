@@ -69,7 +69,6 @@ function DareEditForm() {
           setSubmissionData({ profile_id, profile_image, dare: challenge });
           setText(text);
           setUploads(updateUploads);
-
         } else {
           navigate(-1);
         }
@@ -127,26 +126,87 @@ function DareEditForm() {
     <Row>
       <Col>
         <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col>
-              <Container>
-                <Form.Group>
-                  <InputGroup>
-                    <Link to={`/profiles/${profile_id}`}>
-                      <Avatar src={profile_image} />
-                    </Link>
+          <Container className={appStyles.Box}>
+            <Row>
+              <Col>
+                <Container>
+                  <Form.Group>
+                    <InputGroup>
+                      <Link to={`/profiles/${profile_id}`}>
+                        <Avatar src={profile_image} />
+                      </Link>
 
-                    <Form.Label>Additional Comment</Form.Label>
-                    <Form.Control
-                      placeholder="Write additional info and context to uploaded proof"
-                      as="textarea"
-                      value={text}
-                      onChange={handleChange}
-                      rows={2}
-                    />
-                  </InputGroup>
-                </Form.Group>
-                <div className="d-md-none">
+                      <Form.Label>Additional Comment</Form.Label>
+                      <Form.Control
+                        placeholder="Write additional info and context to uploaded proof"
+                        as="textarea"
+                        value={text}
+                        onChange={handleChange}
+                        rows={2}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                  <div className="d-md-none">
+                    <Form.Group controlId="fileInput">
+                      <Form.Label>
+                        {" "}
+                        Uploads {`${uploads.length}/5`}:{" "}
+                      </Form.Label>
+                      <ListGroup>
+                        {uploads.map((upload, index) => (
+                          <ListGroup.Item key={index}>
+                            {upload.name}
+                            <Button
+                              className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                              size="sm"
+                              onClick={() => {
+                                setUploads(
+                                  uploads.filter((_, i) => i !== index)
+                                );
+                                if (uploads[index].eid) {
+                                  setDeleteUpload((prevDeleteUpload) => [
+                                    ...prevDeleteUpload,
+                                    uploads[index].eid,
+                                  ]);
+                                }
+                              }}
+                            >
+                              x
+                            </Button>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                      {uploads.length < 5 ? (
+                        <Button
+                          className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                          onClick={() => fileInput.current.click()}
+                        >
+                          {uploads.length > 0
+                            ? "Upload Additional"
+                            : "Upload Image"}
+                        </Button>
+                      ) : (
+                        <Button
+                          className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
+                          disabled
+                        >
+                          Limit Reached
+                        </Button>
+                      )}
+
+                      <input
+                        type="file"
+                        ref={fileInput}
+                        onChange={handleUpload}
+                        accept="image/*"
+                        style={{ display: "none" }}
+                      />
+                    </Form.Group>
+                  </div>
+                </Container>
+              </Col>
+              <Col md={5} lg={4} className="d-none d-md-block">
+                <div className="d-none d-md-block">
                   <Form.Group controlId="fileInput">
                     <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
                     <ListGroup>
@@ -198,64 +258,16 @@ function DareEditForm() {
                     />
                   </Form.Group>
                 </div>
-              </Container>
-            </Col>
-            <Col md={5} lg={4} className="d-none d-md-block">
-              <div className="d-none d-md-block">
-                <Form.Group controlId="fileInput">
-                  <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
-                  <ListGroup>
-                    {uploads.map((upload, index) => (
-                      <ListGroup.Item key={index}>
-                        {upload.name}
-                        <Button
-                          className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                          size="sm"
-                          onClick={() => {
-                            setUploads(uploads.filter((_, i) => i !== index));
-                            if (uploads[index].eid) {
-                              setDeleteUpload((prevDeleteUpload) => [
-                                ...prevDeleteUpload,
-                                uploads[index].eid,
-                              ]);
-                            }
-                          }}
-                        >
-                          x
-                        </Button>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                  {uploads.length < 5 ? (
-                    <Button
-                      className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                      onClick={() => fileInput.current.click()}
-                    >
-                      {uploads.length > 0
-                        ? "Upload Additional"
-                        : "Upload Image"}
-                    </Button>
-                  ) : (
-                    <Button
-                      className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
-                      disabled
-                    >
-                      Limit Reached
-                    </Button>
-                  )}
-
-                  <input
-                    type="file"
-                    ref={fileInput}
-                    onChange={handleUpload}
-                    accept="image/*"
-                    style={{ display: "none" }}
-                  />
-                </Form.Group>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Container>
           <div className="m-3">
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
             <Button
               className={`${appStyles.BrandFont} ${appStyles.Button}`}
               type="submit"

@@ -8,7 +8,6 @@ import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
 import appStyles from "../../App.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { upload } from "@testing-library/user-event/dist/upload";
 
 const SubmissionCreateForm = (props) => {
   const { dare, setDares, setNewSubmission, profileImage, profile_id } = props;

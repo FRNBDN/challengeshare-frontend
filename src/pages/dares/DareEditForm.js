@@ -257,17 +257,28 @@ function DareEditForm() {
               value={field.text}
               onChange={(e) => handleCriterionChange(field.id, e.target.value)}
             />
-            <Button onClick={() => handleMinusCriteria(field.id)}>-</Button>
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+              onClick={() => handleMinusCriteria(field.id)}
+            >
+              -
+            </Button>
           </InputGroup>
         ))}
       </Form.Group>
-      {errors.field.text?.map((message, idx) => (
-        <Alert variant="light" key={idx}>
-          {message}
-        </Alert>
-      ))}
+      {errors.field &&
+        errors.field.text?.map((message, idx) => (
+          <Alert variant="light" key={idx}>
+            {message}
+          </Alert>
+        ))}
       <div className="text-center">
-        <Button onClick={handlePlusCriteria}>+</Button>
+        <Button
+          onClick={handlePlusCriteria}
+          className={` ${appStyles.Button} `}
+        >
+          +
+        </Button>
       </div>
     </div>
   );
@@ -290,9 +301,23 @@ function DareEditForm() {
             </Col>
           </Row>
           <div className="m-3">
-            <Button type="submit">create</Button>
-            <Button onClick={() => navigate(-1)}>cancel</Button>
-            <Button variant="danger" onClick={handleDelete}>
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+              type="submit"
+            >
+              Save Changes
+            </Button>
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+              onClick={() => navigate(-1)}
+            >
+              cancel
+            </Button>
+            <Button
+              className={`${appStyles.BrandFont} ${appStyles.Button} `}
+              variant="danger"
+              onClick={handleDelete}
+            >
               delete
             </Button>
           </div>
