@@ -68,28 +68,27 @@ const ReviewCreateForm = (props) => {
         submission,
         vote_pass,
       });
-      {
-        Feed
-          ? setSubmissions((prevSubmissions) => ({
-              results: prevSubmissions.results.map((sub) => {
-                if (sub.id === submission) {
-                  return {
-                    ...sub,
-                    has_reviewed: true,
-                  };
-                }
-                return sub;
-              }),
-            }))
-          : setSubmission((prevSubmission) => ({
-              results: [
-                {
-                  ...prevSubmission.results[0],
+
+      Feed
+        ? setSubmissions((prevSubmissions) => ({
+            results: prevSubmissions.results.map((sub) => {
+              if (sub.id === submission) {
+                return {
+                  ...sub,
                   has_reviewed: true,
-                },
-              ],
-            }));
-      }
+                };
+              }
+              return sub;
+            }),
+          }))
+        : setSubmission((prevSubmission) => ({
+            results: [
+              {
+                ...prevSubmission.results[0],
+                has_reviewed: true,
+              },
+            ],
+          }));
 
       setOpen(false);
     } catch (error) {

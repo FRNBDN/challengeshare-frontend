@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Profile.module.css";
+import styles from "../../styles/TopProfiles.module.css";
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
@@ -17,7 +17,7 @@ const Profile = (props) => {
     <div
       className={`mt-1 d-flex align-items-center ${mobile && "flex-column"} ${
         appStyles.Box
-      }`}
+      } ${styles.Profile}`}
     >
       <div>
         <Link className="align-self-center" to={`/profiles/${id}`}>

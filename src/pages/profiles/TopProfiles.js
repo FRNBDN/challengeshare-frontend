@@ -5,37 +5,15 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import Asset from "../../components/Asset";
 import Profile from "./Profile";
+import { useProfileData } from "../../contexts/ProfileDataContext";
+import styles from "../../styles/TopProfiles.module.css";
 
 const TopProfiles = ({ mobile }) => {
-  const [profileData, setProfileData] = useState({
-    pageProfile: { results: [] },
-    topProfiles: { results: [] },
-  });
-
-  const { topProfiles } = profileData;
-  const currentUser = useCurrentUser();
-
-  useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const { data } = await axiosReq.get(
-          "/profiles/?ordering=-followers_count"
-        );
-        setProfileData((prevState) => ({
-          ...prevState,
-          topProfiles: data,
-        }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    handleMount();
-  }, [currentUser]);
+  const { topProfiles } = useProfileData();
 
   return (
     <Container
-      className={`${appStyles.Box} pb-0 mb-2 px-0 ${
+      className={`${appStyles.Box}  pb-0 mb-2 px-0 ${
         mobile && "d-md-none text-center"
       }`}
     >
@@ -46,9 +24,9 @@ const TopProfiles = ({ mobile }) => {
       </div>
       <hr className="mt-1 mb-0 mx-2"></hr>
       <div
-        className={`d-flex ${!mobile && "flex-column"} ${
-          mobile && "justify-content-around flex-row"
-        }`}
+        className={`${styles.ProfileContainer} pb-1 d-flex ${
+          !mobile && "flex-column"
+        } ${mobile && "justify-content-around flex-row"}`}
       >
         {topProfiles.results.length ? (
           <>
@@ -61,7 +39,7 @@ const TopProfiles = ({ mobile }) => {
             ))}
           </>
         ) : (
-          <Asset spinner />
+          <Asset spinner light />
         )}
       </div>
     </Container>
