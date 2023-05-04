@@ -14,6 +14,7 @@ import Review from "../reviews/Review";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from "../../components/Asset";
 import { fetchMoreData } from "../../utils/utils";
+import TopProfiles from "../profiles/TopProfiles";
 
 function SubmissionPage() {
   const { id } = useParams();
@@ -89,15 +90,7 @@ function SubmissionPage() {
           </Container>
         </Row>
         <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
+          <TopProfiles />
         </Row>
       </Col>
     </Row>
