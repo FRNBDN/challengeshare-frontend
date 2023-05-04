@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../../components/Avatar";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
+import ReviewEditForm from "./ReviewEditForm";
 
 const Review = (props) => {
   const {
@@ -17,7 +18,10 @@ const Review = (props) => {
     vote_pass,
     setSubmission,
     setReviews,
+    submission,
   } = props;
+
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
@@ -30,6 +34,7 @@ const Review = (props) => {
           {
             ...prevSubmission.results[0],
             reviews: prevSubmission.results[0].reviews - 1,
+            has_submitted: false,
           },
         ],
       }));
@@ -51,17 +56,29 @@ const Review = (props) => {
           <span>Voted: {vote_pass ? "Pass" : "Fail"}</span>
           {is_owner && (
             <>
-              <span>
+              <Button onClick={() => setShowEditForm(true)}>
                 <i className="fa-solid fa-pen-to-square"></i>
-              </span>
+              </Button>
               <Button onClick={handleDelete}>
                 <i className="fa-solid fa-x"></i>
               </Button>
             </>
           )}
           <span>{updated_at}</span>
-
-          <p>{body}</p>
+          {showEditForm ? (
+            <ReviewEditForm
+              id={id}
+              profile_id={profile_id}
+              body={body}
+              profileImage={profile_image}
+              setReviews={setReviews}
+              setShowEditForm={setShowEditForm}
+              submission={submission}
+              vote_pass={vote_pass}
+            />
+          ) : (
+            <p>{body}</p>
+          )}
         </Card.Body>
       </Card>
     </div>
