@@ -166,6 +166,21 @@ const Submission = (props) => {
                   </Button>
                 </span>
               </OverlayTrigger>
+            ) : is_owner ? (
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>You cant review your own submission</Tooltip>}
+              >
+                <span>
+                  <Button
+                    aria-controls="review-form-collapse"
+                    disabled
+                    className={`${appStyles.Button} ${appStyles.disabled} ${appStyles.BrandFont}`}
+                  >
+                    Review
+                  </Button>
+                </span>
+              </OverlayTrigger>
             ) : currentUser ? (
               <Button
                 onClick={() => setOpen(!open)}
