@@ -42,7 +42,7 @@ function SubmissionPage() {
     <Row>
       <h1 className={appStyles.BrandFont}>Submissions / Detail</h1>
       <Col md={9}>
-        <Row className="d-block d-md-none">Top Bar</Row>
+        <TopProfiles mobile />
         <Row className="h-100">
           <Col>
             <Container className="px-0">
