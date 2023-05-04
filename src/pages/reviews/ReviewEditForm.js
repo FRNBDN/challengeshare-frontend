@@ -17,6 +17,31 @@ const ReviewEditForm = (props) => {
     setFormVote(e.target.value);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axiosRes.put(`/reviews/${id}`, {
+        body: formBody.trim(),
+        submission: submission,
+        vote_pass: formVote,
+      });
+      setReviews((prevReviews) => ({
+        ...prevReviews,
+        results: prevReviews.results.map((review) => {
+          return review.id === id
+            ? {
+                ...review,
+                body: formBody.trim(),
+                updated_at: "now",
+              }
+            : review;
+        }),
+      }));
+      setShowEditForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="pr-1">
