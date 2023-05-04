@@ -11,6 +11,9 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
 import Submission from "./Submission";
 import Review from "../reviews/Review";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
 
 function SubmissionPage() {
   const { id } = useParams();
@@ -49,15 +52,21 @@ function SubmissionPage() {
             </Container>
             <Container>
               {reviews.results.length ? (
-                reviews.results.map((review) => (
-                  <Review
-                    key={review.id}
-                    {...review}
-                    setSubmission={setSubmission}
-                    setReviews={setReviews}
-                    submission={id}
-                  />
-                ))
+                <InfiniteScroll
+                  children={reviews.results.map((review) => (
+                    <Review
+                      key={review.id}
+                      {...review}
+                      setSubmission={setSubmission}
+                      setReviews={setReviews}
+                      submission={id}
+                    />
+                  ))}
+                  dataLength={reviews.results.length}
+                  loader={<Asset spinner />}
+                  hasMore={!!reviews.next}
+                  next={() => fetchMoreData(reviews, setReviews)}
+                />
               ) : currentUser ? (
                 <span>No reviews yet, be the first to review!</span>
               ) : (
