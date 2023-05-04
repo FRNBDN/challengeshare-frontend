@@ -6,6 +6,17 @@ const ReviewEditForm = (props) => {
   const { id, body, setShowEditForm, setReviews, submission, vote_pass } =
     props;
 
+  const [formBody, setFormBody] = useState(body);
+  const [formVote, setFormVote] = useState(vote_pass);
+
+  const handleChange = (e) => {
+    setFormBody(e.target.value);
+  };
+
+  const handleVoteChange = (e) => {
+    setFormVote(e.target.value);
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="pr-1">
