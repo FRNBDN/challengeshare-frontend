@@ -31,6 +31,7 @@ const Submission = (props) => {
     reviews,
     created_at,
     setSubmission,
+    setSubmissions,
     updated_at,
     Feed,
     has_reviewed,
@@ -55,7 +56,6 @@ const Submission = (props) => {
         ]);
         setUploads(uploads);
         setDare(dare);
-
         setHasLoaded(true);
       } catch (error) {
         console.log(error);
@@ -63,7 +63,7 @@ const Submission = (props) => {
     };
     setHasLoaded(false);
     fetchUploads();
-  }, [id, pathname, challenge]);
+  }, [id, pathname, challenge, reviews, status]);
 
   return (
     <Card className={`mb-2 ${appStyles.Card} `}>
@@ -213,9 +213,12 @@ const Submission = (props) => {
                   profile_id={currentUser?.profile_id}
                   profileImage={curr_user_img}
                   submission={id}
-                  setSubmission={setSubmission}
                   setReview={setReview}
                   dare_id={dare.id}
+                  setSubmissions={setSubmissions}
+                  setSubmission={setSubmission}
+                  setOpen={setOpen}
+                  {...(Feed && { Feed })}
                 />
               </div>
             </Collapse>

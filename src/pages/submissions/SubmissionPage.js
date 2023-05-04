@@ -32,7 +32,7 @@ function SubmissionPage() {
       }
     };
     handleMount();
-  }, [id]);
+  }, [id, reviews, submission]);
 
   return (
     <Row>
@@ -48,6 +48,7 @@ function SubmissionPage() {
               />
             </Container>
             <Container>
+              
               {reviews.results.length ? (
                 reviews.results.map((review) => (
                   <Review

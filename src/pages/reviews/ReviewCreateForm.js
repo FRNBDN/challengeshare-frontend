@@ -16,10 +16,13 @@ const ReviewCreateForm = (props) => {
   const {
     submission,
     setSubmission,
+    setSubmissions,
     setReview,
     profileImage,
     profile_id,
     dare_id,
+    setOpen,
+    Feed,
   } = props;
   const [body, setBody] = useState("");
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -66,6 +69,30 @@ const ReviewCreateForm = (props) => {
         submission,
         vote_pass,
       });
+      {
+        Feed
+          ? setSubmissions((prevSubmissions) => ({
+              results: prevSubmissions.results.map((sub) => {
+                if (sub.id === submission) {
+                  return {
+                    ...sub,
+                    has_reviewed: true,
+                  };
+                }
+                return sub;
+              }),
+            }))
+          : setSubmission((prevSubmission) => ({
+              results: [
+                {
+                  ...prevSubmission.results[0],
+                  has_reviewed: true,
+                },
+              ],
+            }));
+      }
+
+      setOpen(false);
     } catch (error) {
       console.log(error);
     }
