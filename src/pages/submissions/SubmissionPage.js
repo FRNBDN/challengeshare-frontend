@@ -10,19 +10,23 @@ import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
 import Submission from "./Submission";
+import Review from "../reviews/Review";
 
 function SubmissionPage() {
   const { id } = useParams();
   const [submission, setSubmission] = useState({ results: [] });
+  const [reviews, setReviews] = useState({ results: [] });
   const currentUser = useCurrentUser();
 
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const [{ data: submission }] = await Promise.all([
+        const [{ data: submission }, { data: reviews }] = await Promise.all([
           axiosReq.get(`/submissions/${id}`),
+          axiosReq.get(`/reviews/?submission=${id}`),
         ]);
         setSubmission({ results: [submission] });
+        setReviews(reviews);
       } catch (error) {
         console.log(error);
       }
@@ -43,7 +47,17 @@ function SubmissionPage() {
                 setSubmission={setSubmission}
               />
             </Container>
-            <Container>Reveiws here</Container>
+            <Container>
+              {reviews.results.length ? (
+                reviews.results.map((review) => (
+                  <Review key={review.id} {...review} />
+                ))
+              ) : currentUser ? (
+                <span>No reviews yet, be the first to review!</span>
+              ) : (
+                <span>No reviews... yet</span>
+              )}
+            </Container>
           </Col>
         </Row>
       </Col>
