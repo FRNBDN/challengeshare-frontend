@@ -161,10 +161,6 @@ function DareEditForm() {
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/challenges/${id}`);
-
-      await Promise.all(
-        criteria.map((criterion) => axiosRes.delete(`/criteria/${criterion}`))
-      );
       navigate("/dares/");
     } catch (err) {
       console.log(err);
