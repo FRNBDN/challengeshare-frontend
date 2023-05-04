@@ -195,7 +195,7 @@ function DareCreateForm() {
   const renderCriteriaFields = (
     <div>
       <Form.Group>
-        <Form.Label>Criteria</Form.Label>
+        <Form.Label>Criteria ({criteriaFields.length}/6)</Form.Label>
 
         {criteriaFields.map((field) => (
           <InputGroup key={`${field.id}`} className="mb-3">
@@ -205,7 +205,12 @@ function DareCreateForm() {
               value={field.text}
               onChange={(e) => handleCriterionChange(field.id, e.target.value)}
             />
-            <Button onClick={() => handleMinusCriteria(field.id)}>-</Button>
+            <Button
+              className={` ${appStyles.Button} `}
+              onClick={() => handleMinusCriteria(field.id)}
+            >
+              -
+            </Button>
           </InputGroup>
         ))}
       </Form.Group>
@@ -215,14 +220,16 @@ function DareCreateForm() {
             {message}
           </Alert>
         ))}
-      <div className="text-center">
-        <Button
-          onClick={handlePlusCriteria}
-          className={` ${appStyles.Button} `}
-        >
-          +
-        </Button>
-      </div>
+      {criteriaFields.length < 6 && (
+        <div className="text-center">
+          <Button
+            onClick={handlePlusCriteria}
+            className={` ${appStyles.Button} `}
+          >
+            +
+          </Button>
+        </div>
+      )}
     </div>
   );
 
@@ -232,17 +239,19 @@ function DareCreateForm() {
       <Col md={9}>
         <Row className="d-block d-md-none">Top Bar</Row>
         <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col>
-              <Container>
-                <div>{textFields}</div>
-                <div className="d-md-none">{renderCriteriaFields}</div>
-              </Container>
-            </Col>
-            <Col md={5} lg={4} className="d-none d-md-block">
-              <div className="d-none d-md-block">{renderCriteriaFields}</div>
-            </Col>
-          </Row>
+          <Container className={appStyles.Box}>
+            <Row>
+              <Col>
+                <Container>
+                  <div>{textFields}</div>
+                  <div className="d-md-none">{renderCriteriaFields}</div>
+                </Container>
+              </Col>
+              <Col md={5} lg={4} className="d-none d-md-block">
+                <div className="d-none d-md-block">{renderCriteriaFields}</div>
+              </Col>
+            </Row>
+          </Container>
           <div className="m-3">
             <Button
               type="submit"
