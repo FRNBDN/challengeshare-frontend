@@ -48,7 +48,6 @@ function SubmissionPage() {
               />
             </Container>
             <Container>
-              
               {reviews.results.length ? (
                 reviews.results.map((review) => (
                   <Review
@@ -56,6 +55,7 @@ function SubmissionPage() {
                     {...review}
                     setSubmission={setSubmission}
                     setReviews={setReviews}
+                    submission={id}
                   />
                 ))
               ) : currentUser ? (
