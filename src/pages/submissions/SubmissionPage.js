@@ -50,7 +50,12 @@ function SubmissionPage() {
             <Container>
               {reviews.results.length ? (
                 reviews.results.map((review) => (
-                  <Review key={review.id} {...review} />
+                  <Review
+                    key={review.id}
+                    {...review}
+                    setSubmission={setSubmission}
+                    setReviews={setReviews}
+                  />
                 ))
               ) : currentUser ? (
                 <span>No reviews yet, be the first to review!</span>
