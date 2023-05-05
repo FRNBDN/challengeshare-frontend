@@ -37,17 +37,25 @@ const SubmissionSmall = (props) => {
 
   return (
     <Container
-      className={`d-flex align-items-center ${appStyles.Box} justify-content-between px-1`}
+      className={`d-flex align-items-center ${
+        appStyles.Box
+      } justify-content-between ${!Profile && "px-1"} ${Profile && "pe-0"}`}
     >
       <div className="d-flex align-items-center">
-        <Link to={`/profiles/${profile_id}`}>
-          <Avatar src={profile_image} height={40} />
-        </Link>
-        <div>
+        {!Profile && (
           <Link to={`/profiles/${profile_id}`}>
-            <span className={appStyles.BrandFont}>{owner}</span>
+            <Avatar src={profile_image} height={40} />
           </Link>
-          <div className={`${styles.Date} `}>
+        )}
+
+        <div>
+          {!Profile && (
+            <Link to={`/profiles/${profile_id}`}>
+              <span className={appStyles.BrandFont}>{owner}</span>
+            </Link>
+          )}
+
+          <div className={Profile ? appStyles.BrandFont : styles.Date}>
             {updated_at !== created_at ? (
               <OverlayTrigger
                 placement="top"

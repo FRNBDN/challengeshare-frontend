@@ -22,8 +22,8 @@ import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Dare from "../dares/Dare";
 import { fetchMoreData } from "../../utils/utils";
-import Submission from "../submissions/Submission";
 import Profile from "./Profile";
+import SubmissionSmall from "../submissions/SubmissionSmall";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -128,8 +128,9 @@ function ProfilePage({ message, model, filter }) {
           >
             Sub
             <span className="d-inline-block d-md-none d-lg-inline-block">
-              missions
+              mission
             </span>
+            s
           </Link>
           <Link
             to={`/profiles/${id}/dares`}
@@ -154,7 +155,7 @@ function ProfilePage({ message, model, filter }) {
       </Row>
       <Container className={`${appStyles.Box}`}>
         <Row>
-          <Col>
+          <Col className="px-0">
             {
               model === "challenges" ? (
                 profileModels.results.length ? (
@@ -181,11 +182,10 @@ function ProfilePage({ message, model, filter }) {
                 profileModels.results.length ? (
                   <InfiniteScroll
                     children={profileModels.results.map((submission) => (
-                      <Submission
+                      <SubmissionSmall
                         key={submission.id}
                         {...submission}
-                        setSubmissions={setProfileModels}
-                        Feed
+                        Profile
                       />
                     ))}
                     dataLength={profileModels.results.length}
