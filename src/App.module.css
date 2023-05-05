@@ -45,6 +45,7 @@ a:hover {
    border-radius: 0%;
    border: 1px solid black;
    text-align: center;
+   font-family: 'Gantari', sans-serif;
 }
 
 .Button.disabled{

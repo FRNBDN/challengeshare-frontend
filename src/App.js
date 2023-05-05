@@ -13,6 +13,7 @@ import DareEditForm from "./pages/dares/DareEditForm";
 import SubmissionPage from "./pages/submissions/SubmissionPage";
 import SubmissionsFeedPage from "./pages/submissions/SubmissionsFeedPage";
 import SubmissionEditForm from "./pages/submissions/SubmissionEditForm";
+import ProfilePage from "./pages/profiles/ProfilePage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -87,6 +88,7 @@ function App() {
             path="/submissions/:id/edit"
             element={<SubmissionEditForm />}
           />
+          <Route path="/profiles/:id" element={<ProfilePage />} />
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
