@@ -20,10 +20,10 @@ import {
 import { Button, Card, Form, Image, NavLink } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Dare from "../dares/Dare";
 import { fetchMoreData } from "../../utils/utils";
 import Profile from "./Profile";
 import SubmissionSmall from "../submissions/SubmissionSmall";
+import DareSmall from "../dares/DareSmall";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -54,7 +54,7 @@ function ProfilePage({ message, model, filter }) {
       }
     };
     fetchData();
-  }, [id, setProfileData, message]);
+  }, [id, setProfileData, message, model, filter]);
 
   const mainProfile = (
     <>
@@ -160,13 +160,9 @@ function ProfilePage({ message, model, filter }) {
               model === "challenges" ? (
                 profileModels.results.length ? (
                   <InfiniteScroll
+                    className={styles.Overflow}
                     children={profileModels.results.map((dare) => (
-                      <Dare
-                        key={dare.id}
-                        {...dare}
-                        setDares={setProfileModels}
-                        Feed
-                      />
+                      <DareSmall key={dare.id} {...dare} />
                     ))}
                     dataLength={profileModels.results.length}
                     loader={<Asset spinner />}
@@ -181,6 +177,7 @@ function ProfilePage({ message, model, filter }) {
               ) : model === "submissions" ? (
                 profileModels.results.length ? (
                   <InfiniteScroll
+                    className={styles.Overflow}
                     children={profileModels.results.map((submission) => (
                       <SubmissionSmall
                         key={submission.id}
@@ -201,6 +198,7 @@ function ProfilePage({ message, model, filter }) {
               ) : filter === "followed__profile" ? (
                 profileModels.results.length ? (
                   <InfiniteScroll
+                    className={styles.Overflow}
                     children={profileModels.results.map((profile) => (
                       <Profile
                         key={profile.id}
@@ -220,6 +218,7 @@ function ProfilePage({ message, model, filter }) {
                 ) //followers above
               ) : profileModels.results.length ? (
                 <InfiniteScroll
+                  className={styles.Overflow}
                   children={profileModels.results.map((profile) => (
                     <Profile
                       key={profile.id}

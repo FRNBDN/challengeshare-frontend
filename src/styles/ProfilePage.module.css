@@ -3,3 +3,7 @@
     color: gray;
     font-style: italic;
 }
+
+.Overflow{
+    overflow: hidden !important;
+  }

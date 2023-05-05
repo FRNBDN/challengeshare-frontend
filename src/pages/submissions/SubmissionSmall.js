@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
-import {
-  Card,
-  Col,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-  Button,
-  Container,
-} from "react-bootstrap";
-import Carousel from "react-bootstrap/Carousel";
-import Collapse from "react-bootstrap/Collapse";
-import { Link, useLocation } from "react-router-dom";
-import Asset from "../../components/Asset";
-import ReviewCreateForm from "../reviews/ReviewCreateForm";
+import { OverlayTrigger, Tooltip, Container, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/SubmissionSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
+import { axiosReq } from "../../api/axiosDefaults";
 
 const SubmissionSmall = (props) => {
   const {
     id,
     owner,
-    text,
     profile_id,
     profile_image,
     status,
@@ -30,65 +18,99 @@ const SubmissionSmall = (props) => {
     created_at,
     updated_at,
     Profile,
+    challenge,
   } = props;
 
-  const [hasLoaded, setHasLoaded] = useState(false);
-  const { pathname } = useLocation();
+  const [dare, setDare] = useState({ results: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: dare } = await axiosReq.get(`/challenges/${challenge}`);
+        setDare({ results: [dare] });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [id, challenge]);
 
   return (
-    <Container
-      className={`d-flex align-items-center ${
-        appStyles.Box
-      } justify-content-between ${!Profile && "px-1"} ${Profile && "pe-0"}`}
-    >
-      <div className="d-flex align-items-center">
-        {!Profile && (
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatar src={profile_image} height={40} />
-          </Link>
-        )}
-
-        <div>
+    <Container className={` ${appStyles.Box} ${!Profile && "px-1"}`}>
+      <Row>
+        <Col
+          xs={4}
+          className="d-flex align-items-center px-0 justify-content-start"
+        >
           {!Profile && (
             <Link to={`/profiles/${profile_id}`}>
-              <span className={appStyles.BrandFont}>{owner}</span>
+              <Avatar src={profile_image} height={40} />
             </Link>
           )}
 
-          <div className={Profile ? appStyles.BrandFont : styles.Date}>
-            {updated_at !== created_at ? (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
-              >
-                <span className={timeStyle.Updated}>{created_at}</span>
-              </OverlayTrigger>
+          <div>
+            {Profile ? (
+              <Link to={`/dares/${challenge}`} className={appStyles.BrandFont}>
+                {dare.results[0]?.title}
+              </Link>
             ) : (
-              <span>{created_at}</span>
+              <Link to={`/profiles/${profile_id}`}>
+                <span className={appStyles.BrandFont}>{owner}</span>
+              </Link>
             )}
+
+            <div className={styles.Date}>
+              {updated_at !== created_at ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
+                >
+                  <span className={timeStyle.Updated}>{created_at}</span>
+                </OverlayTrigger>
+              ) : (
+                <span>{created_at}</span>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={`d-flex align-items-center`}>
-        <span className={` pe-1 ${appStyles.BrandFont} `}>Status: </span>
-        {status === 1 ? (
-          <span className={`${appStyles.BrandFont} ${styles.Pending}`}>
-            {reviews}/3 Reviews
-          </span>
-        ) : status === 2 ? (
-          <span className={`${appStyles.BrandFont} ${styles.Pass}`}>Pass </span>
-        ) : (
-          <span className={`${appStyles.BrandFont} ${styles.Failed}`}>
-            Failed
-          </span>
-        )}
-      </div>
-      <Link
-        to={`/submissions/${id}`}
-        className={`${appStyles.Button} px-2 py-1`}
-      >
-        View
-      </Link>
+        </Col>
+        <Col
+          xs={4}
+          className={`d-flex align-items-center px-0 justify-content-center`}
+        >
+          <span className={` pe-1 ${appStyles.BrandFont} `}>Status: </span>
+          {status === 1 ? (
+            <span className={`${appStyles.BrandFont} ${styles.Pending}`}>
+              {reviews}/3 Reviews
+            </span>
+          ) : status === 2 ? (
+            <>
+              <span className={`${appStyles.BrandFont} ${styles.Pass}`}>
+                Pass{" "}
+              </span>
+              <span className={`${appStyles.BrandFont}`}>
+                {reviews} Reviews
+              </span>
+            </>
+          ) : (
+            <>
+              <span className={`${appStyles.BrandFont} ${styles.Failed}`}>
+                Failed
+              </span>
+              <span className={`${appStyles.BrandFont}`}>
+                {reviews} Reviews
+              </span>
+            </>
+          )}
+        </Col>
+        <Col xs={4} className="px-0 d-flex justify-content-end">
+          <Link
+            to={`/submissions/${id}`}
+            className={`${appStyles.Button} px-2 py-1 d-flex align-items-center`}
+          >
+            View
+          </Link>
+        </Col>
+      </Row>
     </Container>
   );
 };
