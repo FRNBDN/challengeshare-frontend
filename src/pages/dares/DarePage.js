@@ -10,6 +10,7 @@ import Dare from "./Dare";
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
+import TopProfiles from "../profiles/TopProfiles";
 
 function DarePage() {
   const { id } = useParams();
@@ -37,7 +38,7 @@ function DarePage() {
     <Row>
       <h1 className={appStyles.BrandFont}>Dares / Detail</h1>
       <Col md={9}>
-        <Row className="d-block d-md-none">Top Bar</Row>
+        <TopProfiles mobile />
         <Row className="h-100">
           <Col>
             <Container className="px-0">
@@ -84,26 +85,7 @@ function DarePage() {
           </div>
         </Row>
         <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Dares
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
-        </Row>
-        <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
+          <TopProfiles />
         </Row>
       </Col>
     </Row>

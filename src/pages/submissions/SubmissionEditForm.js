@@ -15,6 +15,7 @@ import TagField from "../../components/TagField";
 import appStyles from "../../App.module.css";
 import Avatar from "../../components/Avatar";
 import { upload } from "@testing-library/user-event/dist/upload";
+import TopProfiles from "../profiles/TopProfiles";
 
 function DareEditForm() {
   const [deleteUpload, setDeleteUpload] = useState([]);
@@ -125,6 +126,9 @@ function DareEditForm() {
   return (
     <Row>
       <Col>
+        <Row>
+          <TopProfiles mobile />
+        </Row>
         <Form onSubmit={handleSubmit}>
           <Container className={appStyles.Box}>
             <Row>
@@ -276,6 +280,21 @@ function DareEditForm() {
             </Button>
           </div>
         </Form>
+      </Col>
+      <Col md={3} className="d-none d-md-block">
+        <Row>
+          <div className="d-flex flex-column px-0 pb-3 ">
+            <Link
+              to="/dares/create"
+              className={`${appStyles.Button} m-0 flex-fill py-2`}
+            >
+              <h6>Create New Dare</h6>
+            </Link>
+          </div>
+        </Row>
+        <Row>
+          <TopProfiles />
+        </Row>
       </Col>
     </Row>
   );

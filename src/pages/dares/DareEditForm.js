@@ -12,6 +12,7 @@ import {
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import TagField from "../../components/TagField";
 import appStyles from "../../App.module.css";
+import TopProfiles from "../profiles/TopProfiles";
 
 function DareEditForm() {
   const [errors, setErrors] = useState({});
@@ -283,7 +284,7 @@ function DareEditForm() {
     <Row>
       <h1 className={appStyles.BrandFont}>Dares / Edit</h1>
       <Col md={9}>
-        <Row className="d-block d-md-none">Top Bar</Row>
+        <TopProfiles mobile />
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
@@ -331,26 +332,7 @@ function DareEditForm() {
           </div>
         </Row>
         <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Dares
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
-        </Row>
-        <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
+          <TopProfiles />
         </Row>
       </Col>
     </Row>
