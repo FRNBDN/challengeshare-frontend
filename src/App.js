@@ -88,7 +88,46 @@ function App() {
             path="/submissions/:id/edit"
             element={<SubmissionEditForm />}
           />
-          <Route path="/profiles/:id" element={<ProfilePage />} />
+          <Route
+            path="/profiles/:id"
+            element={
+              <ProfilePage
+                filter="owner__profile"
+                model="submissions"
+                message="Couldn't find any submissions by user"
+              />
+            }
+          />
+          <Route
+            path="/profiles/:id/dares"
+            element={
+              <ProfilePage
+                filter="owner__profile"
+                model="challenges"
+                message="Couldn't find any dares by user"
+              />
+            }
+          />
+          <Route
+            path="/profiles/:id/following"
+            element={
+              <ProfilePage
+                filter="owner__profile"
+                model="ufollowers"
+                message="No people followed by the user"
+              />
+            }
+          />
+          <Route
+            path="/profiles/:id/followers"
+            element={
+              <ProfilePage
+                filter="followed__profile"
+                model="ufollowers"
+                message="No followers found"
+              />
+            }
+          />
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
