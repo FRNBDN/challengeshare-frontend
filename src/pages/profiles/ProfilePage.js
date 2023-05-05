@@ -164,6 +164,7 @@ function ProfilePage({ message, model, filter }) {
                         key={dare.id}
                         {...dare}
                         setDares={setProfileModels}
+                        Feed
                       />
                     ))}
                     dataLength={profileModels.results.length}
@@ -184,6 +185,7 @@ function ProfilePage({ message, model, filter }) {
                         key={submission.id}
                         {...submission}
                         setSubmissions={setProfileModels}
+                        Feed
                       />
                     ))}
                     dataLength={profileModels.results.length}
