@@ -1,0 +1,17 @@
+.Pending{
+ color: orange;
+}
+
+.Pass{
+    color: green;
+}
+
+.Fail{
+    color: red;
+}
+
+.Date{
+    color: #505050;
+    font-size: x-small;
+    font-style: italic;
+}

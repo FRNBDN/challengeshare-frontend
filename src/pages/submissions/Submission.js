@@ -18,6 +18,7 @@ import ReviewCreateForm from "../reviews/ReviewCreateForm";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/Submission.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import timeStyle from "../../styles/Timestap.module.css";
 
 const Submission = (props) => {
   const {
@@ -83,7 +84,16 @@ const Submission = (props) => {
           </Col>
           <Col>
             <div className="d-flex justify-content-end me-1">
-              <span>{updated_at}</span>
+              {updated_at !== created_at ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
+                >
+                  <span className={timeStyle.Updated}>{created_at}</span>
+                </OverlayTrigger>
+              ) : (
+                <span>{created_at}</span>
+              )}
             </div>
           </Col>
         </Row>

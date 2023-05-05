@@ -18,6 +18,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/Dare.module.css";
 import SubmissionCreateForm from "../submissions/SubmissionCreateForm";
 import Collapse from "react-bootstrap/Collapse";
+import timeStyle from "../../styles/Timestap.module.css";
 
 const Dare = (props) => {
   const {
@@ -165,7 +166,16 @@ const Dare = (props) => {
           </Col>
           <Col>
             <div className="d-flex justify-content-end me-1">
-              <span>{updated_at}</span>
+              {updated_at != created_at ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
+                >
+                  <span className={timeStyle.Updated}>{created_at}</span>
+                </OverlayTrigger>
+              ) : (
+                <span>{created_at}</span>
+              )}
             </div>
           </Col>
         </Row>
