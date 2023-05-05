@@ -11,10 +11,8 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
-import TagField from "../../components/TagField";
 import appStyles from "../../App.module.css";
 import Avatar from "../../components/Avatar";
-import { upload } from "@testing-library/user-event/dist/upload";
 import TopProfiles from "../profiles/TopProfiles";
 
 function DareEditForm() {

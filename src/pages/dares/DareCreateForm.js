@@ -10,8 +10,8 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
-import TagField from "../../components/TagField";
 import appStyles from "../../App.module.css";
+import TopProfiles from "../profiles/TopProfiles";
 
 function DareCreateForm() {
   const [errors, setErrors] = useState({});
@@ -22,10 +22,9 @@ function DareCreateForm() {
     description: "",
     category: "",
     criteria: [],
-    tags: [],
   });
 
-  const { title, description, category, criteria, tags } = dareData;
+  const { title, description, category, criteria } = dareData;
 
   const navigate = useNavigate();
 
@@ -33,13 +32,6 @@ function DareCreateForm() {
     setDareData({
       ...dareData,
       [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleTagsChange = (newTags) => {
-    setDareData({
-      ...dareData,
-      tags: newTags,
     });
   };
 
@@ -91,8 +83,6 @@ function DareCreateForm() {
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
-    const tagsText = tags.map((tag) => tag.text);
-    challengeData.append("tags", tagsText);
 
     try {
       const { data } = await axiosReq.post("/challenges/", challengeData);
@@ -160,31 +150,16 @@ function DareCreateForm() {
           onChange={handleChange}
         >
           <option>Select Category</option>
-          <option value="Spiritual">Spiritual</option>
-          <option value="Financial">Financial</option>
-          <option value="Career">Career</option>
-          <option value="Intellectual">Intellectual</option>
+          <option value="Positivity Spread">Random Acts of Kindness</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Creativity">Creativity</option>
           <option value="Fitness">Fitness</option>
           <option value="Social">Social</option>
-          <option value="Other">Other</option>
+          <option value="Meme">Meme</option>
         </Form.Select>
       </Form.Group>
       {errors.category?.map((message, idx) => (
-        <Alert variant="light" key={idx}>
-          {message}
-        </Alert>
-      ))}
-      <Form.Group>
-        <Form.Label>Tags</Form.Label>
-        <TagField
-          placeholder="Press tab to add tag"
-          name="tags"
-          tags={tags}
-          onChange={handleTagsChange}
-        />
-      </Form.Group>
-
-      {errors.tags?.map((message, idx) => (
         <Alert variant="light" key={idx}>
           {message}
         </Alert>
@@ -195,7 +170,7 @@ function DareCreateForm() {
   const renderCriteriaFields = (
     <div>
       <Form.Group>
-        <Form.Label>Criteria ({criteriaFields.length}/6)</Form.Label>
+        <Form.Label>Criteria ({criteriaFields.length}/5)</Form.Label>
 
         {criteriaFields.map((field) => (
           <InputGroup key={`${field.id}`} className="mb-3">
@@ -220,7 +195,7 @@ function DareCreateForm() {
             {message}
           </Alert>
         ))}
-      {criteriaFields.length < 6 && (
+      {criteriaFields.length < 5 && (
         <div className="text-center">
           <Button
             onClick={handlePlusCriteria}
@@ -270,26 +245,17 @@ function DareCreateForm() {
       </Col>
       <Col md={3} className="d-none d-md-block">
         <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Dares
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
+          <div className="d-flex flex-column px-0 pb-3 ">
+            <Link
+              to="/dares/create"
+              className={`${appStyles.Button} m-0 flex-fill py-2`}
+            >
+              <h6>Create New Dare</h6>
+            </Link>
+          </div>
         </Row>
         <Row>
-          <Container className={`${appStyles.Box} pb-1 mb-2`}>
-            <div>
-              <h5 className="mb-0 mt-1">
-                <i className="fa-solid fa-fire-flame-curved"></i> Profiles
-              </h5>
-            </div>
-            <hr className="m-1"></hr>
-            <div className="d-flex flex-column"></div>
-          </Container>
+          <TopProfiles />
         </Row>
       </Col>
     </Row>

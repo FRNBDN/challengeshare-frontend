@@ -10,7 +10,6 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
-import TagField from "../../components/TagField";
 import appStyles from "../../App.module.css";
 import TopProfiles from "../profiles/TopProfiles";
 
@@ -24,10 +23,9 @@ function DareEditForm() {
     description: "",
     category: "",
     criteria: [],
-    tags: [],
   });
 
-  const { title, description, category, criteria, tags } = dareData;
+  const { title, description, category, criteria } = dareData;
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -36,7 +34,7 @@ function DareEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/challenges/${id}`);
-        const { title, description, category, criteria, tags, is_owner } = data;
+        const { title, description, category, criteria, is_owner } = data;
 
         const critDataReq = criteria.map((criterion) => {
           return axiosReq.get(`/criteria/${criterion}`);
@@ -72,13 +70,6 @@ function DareEditForm() {
     });
   };
 
-  const handleTagsChange = (newTags) => {
-    setDareData({
-      ...dareData,
-      tags: newTags,
-    });
-  };
-
   const handleMinusCriteria = (id) => {
     if (criteriaFields.length > 1) {
       const newCriteriaList = criteriaFields.filter(
@@ -104,10 +95,6 @@ function DareEditForm() {
       const id = criteriaList[criteriaList.length - 1].id + 1;
       criteriaList.push({ id, text: "" });
       setCriteriaFields(criteriaList);
-
-      //   const newCriteriaData = [...criteria];
-      //   newCriteriaData.push("");
-      // //   setDareData({ ...dareData, criteria: newCriteriaData });
     }
   };
 
@@ -115,10 +102,6 @@ function DareEditForm() {
     const newCriteria = [...criteriaFields];
     newCriteria[id].text = text;
     setCriteriaFields(newCriteria);
-
-    // const newCriteriaData = [...criteria];
-    // newCriteriaData[id] = text;
-    // // setDareData({ ...dareData, criteria: newCriteriaData });
   };
 
   const handleSubmit = async (e) => {
@@ -129,9 +112,6 @@ function DareEditForm() {
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
-    // const tagsText = tags.map((tag) => tag.text);
-    challengeData.append("tags", "tags");
-    // fix tags code when tags are fixed
 
     try {
       await axiosReq.put(`/challenges/${id}`, challengeData);
@@ -210,31 +190,16 @@ function DareEditForm() {
           onChange={handleChange}
         >
           <option>Select Category</option>
-          <option value="Spiritual">Spiritual</option>
-          <option value="Financial">Financial</option>
-          <option value="Career">Career</option>
-          <option value="Intellectual">Intellectual</option>
+          <option value="Spread Positivity">Spread Positivity</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Creativity">Creativity</option>
           <option value="Fitness">Fitness</option>
           <option value="Social">Social</option>
-          <option value="ETC">Other</option>
+          <option value="Meme">Meme</option>
         </Form.Select>
       </Form.Group>
       {errors.category?.map((message, idx) => (
-        <Alert variant="light" key={idx}>
-          {message}
-        </Alert>
-      ))}
-      <Form.Group>
-        <Form.Label>Tags</Form.Label>
-        <TagField
-          placeholder="Press tab to add tag"
-          name="tags"
-          tags={tags}
-          onChange={handleTagsChange}
-        />
-      </Form.Group>
-
-      {errors.tags?.map((message, idx) => (
         <Alert variant="light" key={idx}>
           {message}
         </Alert>
