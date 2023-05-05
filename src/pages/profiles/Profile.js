@@ -21,10 +21,10 @@ const Profile = (props) => {
     >
       <div>
         <Link className="align-self-center" to={`/profiles/${id}`}>
-          <Avatar src={image} height={mobile ? 55 : 30} />
+          <Avatar src={image} height={mobile ? 55 : 30} nomargin />
         </Link>
       </div>
-      <div className={`mx-2 ${!mobile && "flex-fill"}`}>
+      <div className={`mx-0 ${!mobile && "flex-fill"}`}>
         <span className={`flex-grow ${appStyles.BrandFont}`}>{owner}</span>
       </div>
       <div className={`text-right`}>

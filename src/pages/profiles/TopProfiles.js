@@ -13,12 +13,10 @@ const TopProfiles = ({ mobile }) => {
 
   return (
     <Container
-      className={`${appStyles.Box}  pb-0 mb-2 px-0 ${
-        mobile && "d-md-none text-center"
-      }`}
+      className={`${appStyles.Box}  pb-0 mb-2 px-0 ${mobile && "d-md-none"}`}
     >
       <div>
-        <h5 className="mb-0 mt-1 px-2">
+        <h5 className="mb-0 mt-1 px-2 ">
           <i className="fa-solid fa-fire-flame-curved"></i> Profiles
         </h5>
       </div>
