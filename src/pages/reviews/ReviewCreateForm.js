@@ -33,7 +33,6 @@ const ReviewCreateForm = (props) => {
   useEffect(() => {
     const fetchCriteria = async () => {
       try {
-        console.log("dare_id:", dare_id);
         const { data: criteria } = await axiosReq.get(
           `/criteria/?challenge=${dare_id}`
         );
@@ -76,6 +75,7 @@ const ReviewCreateForm = (props) => {
                 return {
                   ...sub,
                   has_reviewed: true,
+                  reviews: sub.reviews + 1,
                 };
               }
               return sub;
@@ -86,6 +86,7 @@ const ReviewCreateForm = (props) => {
               {
                 ...prevSubmission.results[0],
                 has_reviewed: true,
+                reviews: prevSubmission.results[0].reviews + 1,
               },
             ],
           }));

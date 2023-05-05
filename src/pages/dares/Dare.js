@@ -36,6 +36,7 @@ const Dare = (props) => {
     updated_at,
     users_count,
     setDares,
+    setDare,
     Feed,
   } = props;
 
@@ -45,7 +46,7 @@ const Dare = (props) => {
   const [criteria, setCriteria] = useState({ results: [] });
   const { pathname } = useLocation();
   const curr_user_img = currentUser?.profile_image;
-  const [newSubmission, setNewSubmission] = useState({ results: [] });
+  const [submission, setSubmission] = useState({ results: [] });
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Dare = (props) => {
     };
     setHasLoaded(false);
     fetchCriteria();
-  }, [id, pathname]);
+  }, [id, pathname, submission]);
 
   const handleFollow = async () => {
     try {
@@ -277,7 +278,10 @@ const Dare = (props) => {
                   profileImage={curr_user_img}
                   dare={id}
                   setDares={setDares}
-                  setNewSubmission={setNewSubmission}
+                  setDare={setSubmission}
+                  setSubmission={setSubmission}
+                  setOpen={setOpen}
+                  {...(Feed && { Feed })}
                 />
               </div>
             </Collapse>

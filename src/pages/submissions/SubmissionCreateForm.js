@@ -10,7 +10,16 @@ import appStyles from "../../App.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const SubmissionCreateForm = (props) => {
-  const { dare, setDares, setNewSubmission, profileImage, profile_id } = props;
+  const {
+    dare,
+    setDares,
+    setSubmission,
+    setSubmissions,
+    profileImage,
+    profile_id,
+    setOpen,
+    Feed,
+  } = props;
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState([]);
   const fileInput = useRef(null);
@@ -34,7 +43,7 @@ const SubmissionCreateForm = (props) => {
     submissionData.append("status", 1);
 
     try {
-      const { data } = await axiosRes.post("/submissions/", submissionData);
+      const { data } = await axiosReq.post("/submissions/", submissionData);
 
       const uploadsData = [];
       uploads.forEach((upload) => {
@@ -45,9 +54,32 @@ const SubmissionCreateForm = (props) => {
       });
 
       await Promise.all(
-        uploadsData.map((formData) => axiosRes.post("/uploads/", formData))
+        uploadsData.map((formData) => axiosReq.post("/uploads/", formData))
       );
-      navigate(`/dares/${dare}`);
+      Feed
+        ? setDares((prevDares) => ({
+            results: prevDares.results.map((listDare) => {
+              if (listDare.id === dare) {
+                return {
+                  ...listDare,
+                  has_submitted: true,
+                  submissions_count: listDare.submissions_count + 1,
+                };
+              }
+              return listDare;
+            }),
+          }))
+        : setDares((prevDare) => ({
+            results: [
+              {
+                ...prevDare.results[0],
+                has_submitted: true,
+                submissions_count: prevDare.results[0].submissions_count + 1,
+              },
+            ],
+          }));
+
+      setOpen(false);
     } catch (error) {
       console.log(error);
     }

@@ -147,7 +147,7 @@ function DaresFeedPage({ message, filter = "" }) {
           <Row>
             <Container className={`${appStyles.Box} pb-1 mb-2`}>
               <div>
-                <h5 className="mb-0 mt-1">Filters Dares</h5>
+                <h5 className="mb-0 mt-1">Filter Dares</h5>
               </div>
               <hr className="m-1"></hr>
               <div className="d-flex flex-column">

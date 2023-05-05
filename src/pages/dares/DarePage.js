@@ -41,7 +41,7 @@ function DarePage() {
         <Row className="h-100">
           <Col>
             <Container className="px-0">
-              <Dare {...dare.results[0]} setDares={setDare} />
+              <Dare {...dare.results[0]} setDare={setDare} />
             </Container>
             <Container>
               {submissions.results.length ? (
