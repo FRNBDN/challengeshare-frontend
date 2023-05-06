@@ -35,10 +35,12 @@ function ProfilePage({ message, model, filter }) {
   const [profile] = pageProfile.results;
   const is_owner = currentUser?.username === profile?.owner;
   const [profileModels, setProfileModels] = useState({ results: [] });
+  const [profileId, setProfileId] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       setHasLoadedData(false);
+      profileId !== id && setHasLoaded(false);
       try {
         const [{ data: pageProfile }, { data: profileModels }] =
           await Promise.all([
@@ -50,6 +52,7 @@ function ProfilePage({ message, model, filter }) {
           pageProfile: { results: [pageProfile] },
         }));
         setProfileModels(profileModels);
+        setProfileId(id);
         setHasLoaded(true);
         setHasLoadedData(true);
       } catch (error) {
@@ -157,15 +160,17 @@ function ProfilePage({ message, model, filter }) {
         </Col>
       </Row>
       <Container className={`${appStyles.Box}`}>
-        <h4>
-          {profile?.owner}'s{" "}
-          {model === "submissions"
-            ? "Submissions"
-            : model === "challenges"
-            ? "Dares"
-            : "Followers"}
-          : {profileModels.results.length}
-        </h4>
+        {hasLoadedData && (
+          <h4>
+            {profile?.owner}'s{" "}
+            {model === "submissions"
+              ? "Submissions"
+              : model === "challenges"
+              ? "Dares"
+              : "Followers"}
+            : {profileModels.results.length}
+          </h4>
+        )}
         <Row>
           <Col className="px-0">
             {hasLoadedData ? (
