@@ -10,7 +10,6 @@ const DareSmall = (props) => {
     id,
     submissions_count,
     title,
-    cfollow_id,
     completed_count,
     created_at,
     updated_at,

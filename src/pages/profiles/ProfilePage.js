@@ -27,6 +27,7 @@ import DareSmall from "../dares/DareSmall";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [hasLoadedData, setHasLoadedData] = useState(false);
   const currentUser = useCurrentUser();
   const { id } = useParams();
   const setProfileData = useSetProfileData();
@@ -37,6 +38,7 @@ function ProfilePage({ message, model, filter }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      setHasLoadedData(false);
       try {
         const [{ data: pageProfile }, { data: profileModels }] =
           await Promise.all([
@@ -49,6 +51,7 @@ function ProfilePage({ message, model, filter }) {
         }));
         setProfileModels(profileModels);
         setHasLoaded(true);
+        setHasLoadedData(true);
       } catch (error) {
         console.log(error);
       }
@@ -154,23 +157,34 @@ function ProfilePage({ message, model, filter }) {
         </Col>
       </Row>
       <Container className={`${appStyles.Box}`}>
+        <h4>
+          {profile?.owner}'s{" "}
+          {model === "submissions"
+            ? "Submissions"
+            : model === "challenges"
+            ? "Dares"
+            : "Followers"}
+          : {profileModels.results.length}
+        </h4>
         <Row>
           <Col className="px-0">
-            {
+            {hasLoadedData ? (
               model === "challenges" ? (
                 profileModels.results.length ? (
-                  <InfiniteScroll
-                    className={styles.Overflow}
-                    children={profileModels.results.map((dare) => (
-                      <DareSmall key={dare.id} {...dare} />
-                    ))}
-                    dataLength={profileModels.results.length}
-                    loader={<Asset spinner />}
-                    hasMore={!!profileModels.next}
-                    next={() => {
-                      fetchMoreData(profileModels, setProfileModels);
-                    }}
-                  />
+                  <>
+                    <InfiniteScroll
+                      className={styles.Overflow}
+                      children={profileModels.results.map((dare) => (
+                        <DareSmall key={dare.id} {...dare} />
+                      ))}
+                      dataLength={profileModels.results.length}
+                      loader={<Asset spinner />}
+                      hasMore={!!profileModels.next}
+                      next={() => {
+                        fetchMoreData(profileModels, setProfileModels);
+                      }}
+                    />
+                  </>
                 ) : (
                   <Asset message={message} />
                 ) //dares above
@@ -236,7 +250,9 @@ function ProfilePage({ message, model, filter }) {
               ) : (
                 <Asset message={message} />
               ) //following above
-            }
+            ) : (
+              <Asset spinner />
+            )}
           </Col>
         </Row>
       </Container>
