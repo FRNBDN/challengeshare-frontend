@@ -86,23 +86,39 @@ function ProfilePage({ message, model, filter }) {
         <hr />
         <Row>
           <Col xs={6}>
-            <div>Submission Points</div>
-            <div>{profile?.submissions_interactions}</div>
+            <div className="text-center">
+              <div className={appStyles.BrandFont}>
+                {profile?.submissions_interactions}
+              </div>
+              <div className={appStyles.BrandFont}>Sub Points</div>
+            </div>
           </Col>
           <Col xs={6}>
-            <div>Dare Points</div>
-            <div>{profile?.challenges_interactions}</div>
+            <div className="text-center">
+              <div className={appStyles.BrandFont}>
+                {profile?.challenges_interactions}
+              </div>
+              <div className={appStyles.BrandFont}>Dare Points</div>
+            </div>
           </Col>
         </Row>
         <hr />
         <Row>
           <Col xs={6}>
-            <div>Followers</div>
-            <div>{profile?.followers_count}</div>
+            <div className="text-center">
+              <div className={appStyles.BrandFont}>
+                {profile?.followers_count}
+              </div>
+              <div className={appStyles.BrandFont}>Followers</div>
+            </div>
           </Col>
           <Col xs={6}>
-            <div>Following</div>
-            <div>{profile?.following_count}</div>
+            <div className="text-center">
+              <div className={appStyles.BrandFont}>
+                {profile?.following_count}
+              </div>
+              <div className={appStyles.BrandFont}>Following</div>
+            </div>
           </Col>
         </Row>
         <Row className="d-flex justify-content-center mt-2">
@@ -265,40 +281,43 @@ function ProfilePage({ message, model, filter }) {
   );
 
   return (
-    <Row>
-      <Col className="p-0" md={9}>
-        <TopProfiles mobile />
-        <Container>
-          {hasLoaded ? (
-            <>
-              <Row>
-                <Col xs={4} className="px-0">
-                  {mainProfile}
-                </Col>
-                <Col xs={8}>{mainProfileContent}</Col>
-              </Row>
-            </>
-          ) : (
-            <Asset spinner />
-          )}
-        </Container>
-      </Col>
-      <Col md={3} className="d-none d-md-block ps-2">
-        <Row>
-          <div className="d-flex flex-column px-0 pb-3 ">
-            <Link
-              to="/dares/create"
-              className={`${appStyles.Button} m-0 flex-fill py-2`}
-            >
-              <h6>Create New Dare</h6>
-            </Link>
-          </div>
-        </Row>
-        <Row>
-          <TopProfiles />
-        </Row>
-      </Col>
-    </Row>
+    <>
+      <h1>Profile</h1>
+      <Row>
+        <Col className="p-0" md={9}>
+          <TopProfiles mobile />
+          <Container>
+            {hasLoaded ? (
+              <>
+                <Row>
+                  <Col xs={4} className="px-0">
+                    {mainProfile}
+                  </Col>
+                  <Col xs={8}>{mainProfileContent}</Col>
+                </Row>
+              </>
+            ) : (
+              <Asset spinner />
+            )}
+          </Container>
+        </Col>
+        <Col md={3} className="d-none d-md-block ps-2">
+          <Row>
+            <div className="d-flex flex-column px-0 pb-3 ">
+              <Link
+                to="/dares/create"
+                className={`${appStyles.Button} m-0 flex-fill py-2`}
+              >
+                <h6>Create New Dare</h6>
+              </Link>
+            </div>
+          </Row>
+          <Row>
+            <TopProfiles />
+          </Row>
+        </Col>
+      </Row>
+    </>
   );
 }
 
