@@ -1,37 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import {
-  Card,
-  Col,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-  Button,
-  Container,
-} from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
-import Avatar from "../../components/Avatar";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
-import Criteria from "./Criteria";
-import Asset from "../../components/Asset";
+import React from "react";
+import { Col, OverlayTrigger, Row, Tooltip, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import appStyles from "../../App.module.css";
-import styles from "../../styles/Dare.module.css";
-import SubmissionCreateForm from "../submissions/SubmissionCreateForm";
-import Collapse from "react-bootstrap/Collapse";
+import styles from "../../styles/DareSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
 
 const DareSmall = (props) => {
   const {
     id,
-    owner,
-    profile_id,
-    profile_image,
     submissions_count,
-    has_submitted,
     title,
     cfollow_id,
-    tags,
-    description,
     completed_count,
     created_at,
     updated_at,
@@ -39,34 +18,72 @@ const DareSmall = (props) => {
   } = props;
 
   return (
-    <Container
-      className={`d-flex align-items-center ${appStyles.Box} justify-content-between pe-0`}
-    >
-      <div className="d-flex align-items-center">
+    <Container className={`${appStyles.Box}`}>
+      <Row>
+        <Col
+          xs={4}
+          className="d-flex align-items-center px-0 justify-content-start"
+        >
+          <div>
+            <div>
+              <Link to={`/dares/${id}`} className={appStyles.BrandFont}>
+                {title}
+              </Link>
+            </div>
 
-        <div>
-          <Link to={`/profiles/${profile_id}`}>
-            <span className={appStyles.BrandFont}>{owner}</span>
-          </Link>
-
-          <div className={appStyles.BrandFont}>
-            {updated_at !== created_at ? (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
-              >
-                <span className={timeStyle.Updated}>{created_at}</span>
-              </OverlayTrigger>
-            ) : (
-              <span>{created_at}</span>
-            )}
+            <div className={`${styles.Date}`}>
+              {updated_at !== created_at ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
+                >
+                  <span className={timeStyle.Updated}>
+                    {"Created on "}
+                    {created_at}
+                  </span>
+                </OverlayTrigger>
+              ) : (
+                <span>
+                  Created on
+                  {created_at}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
-      </div>
-      <div className={`d-flex align-items-center`}></div>
-      <Link to={`/dares/${id}`} className={`${appStyles.Button} px-2 py-1`}>
-        View
-      </Link>
+        </Col>
+        <Col
+          xs={3}
+          className={`d-flex align-items-center px-0 justify-content-center`}
+        >
+          <div className="text-center">
+            <div className={`text-center ${appStyles.BrandFont}`}>
+              {submissions_count} /{" "}
+              <span className={styles.Pass}>{completed_count}</span>
+            </div>
+            <div className={styles.Date}>
+              Subs / <span className={styles.Pass}>Passed</span>{" "}
+            </div>
+          </div>
+        </Col>
+        <Col
+          xs={2}
+          className={`d-flex align-items-center px-0 justify-content-center `}
+        >
+          <div className="text-center">
+            <div className={appStyles.BrandFont}>{users_count}</div>
+            <div className={styles.Date}>Followers</div>
+          </div>
+        </Col>
+
+        <Col xs={3} className="px-0 d-flex justify-content-end">
+          <Link
+            to={`/dares/${id}`}
+            className={`${appStyles.Button} px-2 py-1 d-flex align-items-center`}
+          >
+            View
+          </Link>
+        </Col>
+      </Row>
     </Container>
   );
 };

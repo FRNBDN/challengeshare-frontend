@@ -59,16 +59,22 @@ const SubmissionSmall = (props) => {
               </Link>
             )}
 
-            <div className={styles.Date}>
+            <div className={`${styles.Date}`}>
               {updated_at !== created_at ? (
                 <OverlayTrigger
                   placement="top"
                   overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
                 >
-                  <span className={timeStyle.Updated}>{created_at}</span>
+                  <span className={timeStyle.Updated}>
+                    {Profile && "Submitted on "}
+                    {created_at}
+                  </span>
                 </OverlayTrigger>
               ) : (
-                <span>{created_at}</span>
+                <span>
+                  {Profile && "Submitted on "}
+                  {created_at}
+                </span>
               )}
             </div>
           </div>
