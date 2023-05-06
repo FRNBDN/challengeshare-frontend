@@ -24,6 +24,7 @@ import { fetchMoreData } from "../../utils/utils";
 import Profile from "./Profile";
 import SubmissionSmall from "../submissions/SubmissionSmall";
 import DareSmall from "../dares/DareSmall";
+import ProfileListItem from "./ProfileListItem";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -55,6 +56,7 @@ function ProfilePage({ message, model, filter }) {
         setProfileId(id);
         setHasLoaded(true);
         setHasLoadedData(true);
+        console.log("models fetch data", profileModels);
       } catch (error) {
         console.log(error);
       }
@@ -184,15 +186,18 @@ function ProfilePage({ message, model, filter }) {
       <Container className={`${appStyles.Box}`}>
         {hasLoadedData && (
           <h4>
-            {profile?.owner}'s{" "}
-            {model === "submissions"
-              ? "Submissions"
-              : model === "challenges"
-              ? "Dares"
-              : "Followers"}
-            : {profileModels.results.length}
+            {filter === "followed__profile" && model === "ufollowers"
+              ? `Users following ${profile?.owner}`
+              : `${profile?.owner}'s ${
+                  model === "submissions"
+                    ? "Submissions"
+                    : model === "challenges"
+                    ? "Dares"
+                    : "Followers"
+                }: ${profileModels.results.length}`}
           </h4>
         )}
+
         <Row>
           <Col className="px-0">
             {hasLoadedData ? (
@@ -241,11 +246,7 @@ function ProfilePage({ message, model, filter }) {
                   <InfiniteScroll
                     className={styles.Overflow}
                     children={profileModels.results.map((profile) => (
-                      <Profile
-                        key={profile.id}
-                        {...profile}
-                        setProfile={setProfileModels}
-                      />
+                      <ProfileListItem key={profile.id} id={profile.owner_id} />
                     ))}
                     dataLength={profileModels.results.length}
                     loader={<Asset spinner />}
@@ -261,11 +262,7 @@ function ProfilePage({ message, model, filter }) {
                 <InfiniteScroll
                   className={styles.Overflow}
                   children={profileModels.results.map((profile) => (
-                    <Profile
-                      key={profile.id}
-                      {...profile}
-                      setProfile={setProfileModels}
-                    />
+                    <ProfileListItem key={profile.id} id={profile.followed} />
                   ))}
                   dataLength={profileModels.results.length}
                   loader={<Asset spinner />}

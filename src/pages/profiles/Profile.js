@@ -9,6 +9,7 @@ import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
 const Profile = (props) => {
   const { profile, mobile } = props;
+
   const { id, following_id, image, owner } = profile || {};
 
   const currentUser = useCurrentUser();
@@ -16,6 +17,7 @@ const Profile = (props) => {
 
   const { handleFollow, handleUnfollow } = useSetProfileData();
 
+ 
   return (
     <div
       className={`mt-1 d-flex align-items-center ${mobile && "flex-column"} ${
