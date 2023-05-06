@@ -8,3 +8,46 @@
     overflow: hidden !important;
   }
 
+.BioContainer{
+
+    border: 5px solid #555555;
+    border-radius: 3px;
+    padding: 10px;
+    
+} 
+
+.BorderText{
+    padding: 1px 3px;
+    background: white;
+    position: absolute;
+    top: -8px;
+    left: 28px;
+}
+
+.Relative{
+    position: relative;
+    
+}
+
+.EditHover {
+    position: absolute;
+    top: 46px;
+    left: 61px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .Relative:hover .EditHover{
+    opacity: 1;
+  }
+
+.Black{
+    color: black;
+    font-size: 1.5rem;
+}
+
+.White{
+    color: white;
+    font-size: 1rem;
+}

@@ -17,12 +17,11 @@ const Profile = (props) => {
 
   const { handleFollow, handleUnfollow } = useSetProfileData();
 
- 
   return (
     <div
       className={`mt-1 d-flex align-items-center ${mobile && "flex-column"} ${
         appStyles.Box
-      } ${styles.Profile}`}
+      } ${styles.Profile} mx-1`}
     >
       <div>
         <Link className="align-self-center" to={`/profiles/${id}`}>
