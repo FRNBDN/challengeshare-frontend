@@ -67,38 +67,26 @@ function ProfilePage({ message, model, filter }) {
 
   const mainProfile = (
     <>
-      <Container className={appStyles.Box}>
+      <Container className={`${styles.Relative} ${appStyles.Box}`}>
         <Row className="px-0 text-center d-flex align-items-center">
           <Col xs={3} lg={5} className="text-start">
-            <Row className="text-start">
-              <Link
-                className={`ps-1 ${styles.Relative}`}
-                to={`/profile/${id}/editavatar`}
-              >
-                <Avatar src={profile?.image} height={90} />
-                <div className={`${styles.EditHover} ${styles.Black}`}>
-                  <i className="fa-solid fa-pen-to-square"></i>
-                </div>
-                <div className={`${styles.EditHover} ${styles.White}`}>
-                  <i className="fa-solid fa-pen-to-square"></i>
-                </div>
+            {is_owner && (
+              <Link to={`/profiles/${id}/edit`} className={`${styles.Cog}`}>
+                <i class="fa-solid fa-gear"></i>
               </Link>
+            )}
+            <Row className="text-start">
+              <Avatar src={profile?.image} height={90} />
             </Row>
           </Col>
           <Col xs={7}>
             <Row>
-              <h5 className={`text-start ${appStyles.BrandFont}`}>
+              <h5
+                className={`text-center ${appStyles.BrandFont} text-md-start`}
+              >
                 {profile?.owner}{" "}
-                {is_owner && (
-                  <Link
-                    className={styles.SubText}
-                    to={`/profile/${id}/editusername`}
-                  >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                  </Link>
-                )}
               </h5>
-              <div className={styles.SubText}>
+              <div className={`text-center ${styles.SubText} text-md-start`}>
                 user since {profile?.created_at}
               </div>
             </Row>
@@ -106,12 +94,7 @@ function ProfilePage({ message, model, filter }) {
         </Row>
         <Row className="my-1 d-flex justify-content-center">
           <Container className={styles.Relative}>
-            <h6 className={styles.BorderText}>
-              Bio{" "}
-              <Link to={`/profile/${id}/editbio`}>
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Link>
-            </h6>
+            <h6 className={styles.BorderText}>Bio </h6>
             <Row className={`mx-2 ${styles.BioContainer}`}>
               {profile?.bio.length > 0 ? profile?.bio : "My Dare/Share account"}
             </Row>

@@ -50,7 +50,10 @@ const SubmissionSmall = (props) => {
 
           <div>
             {Profile ? (
-              <Link to={`/dares/${challenge}`} className={appStyles.BrandFont}>
+              <Link
+                to={`/dares/${challenge}`}
+                className={`ps-1 ${appStyles.BrandFont}`}
+              >
                 {dare.results[0]?.title}
               </Link>
             ) : (

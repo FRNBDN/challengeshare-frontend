@@ -25,7 +25,10 @@ const DareSmall = (props) => {
         >
           <div>
             <div>
-              <Link to={`/dares/${id}`} className={appStyles.BrandFont}>
+              <Link
+                to={`/dares/${id}`}
+                className={`ps-1 ${appStyles.BrandFont}`}
+              >
                 {title}
               </Link>
             </div>
