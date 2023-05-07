@@ -34,12 +34,14 @@ const ProfileListItem = (props) => {
       <Row>
         <Col
           xs={4}
-          className="d-flex align-items-center px-0 justify-content-start"
+          className="d-flex align-items-center px-1 justify-content-start"
         >
           <div>
             <Link className="align-self-center" to={`/profiles/${id}`}>
               <Avatar src={profile?.image} height={30} nomargin />
-              <span className={`${appStyles.BrandFont}`}>{profile?.owner}</span>
+              <span className={`${appStyles.BrandFont} ps-1`}>
+                {profile?.owner}
+              </span>
             </Link>
           </div>
         </Col>
