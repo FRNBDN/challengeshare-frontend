@@ -51,7 +51,7 @@ function SubmissionPage() {
                 setSubmission={setSubmission}
               />
             </Container>
-            <Container>
+            <Container className="px-0 ">
               {reviews.results.length ? (
                 <InfiniteScroll
                   children={reviews.results.map((review) => (

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import Avatar from "../../components/Avatar";
-import { Button, Card } from "react-bootstrap";
+import { Col, Container, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
 import ReviewEditForm from "./ReviewEditForm";
+
+import appStyles from "../../App.module.css";
+import styles from "../../styles/Review.module.css";
+import timeStyle from "../../styles/Timestap.module.css";
 
 const Review = (props) => {
   const {
@@ -46,42 +50,80 @@ const Review = (props) => {
   };
 
   return (
-    <div>
-      <Card>
-        <Link to={`/profiles/${profile_id}`}>
-          <Avatar src={profile_image} />
-        </Link>
-        <Card.Body className="align-self-center ml-2">
-          <span>{owner}</span>
-          <span>Voted: {vote_pass ? "Pass" : "Fail"}</span>
-          {is_owner && (
-            <>
-              <Button onClick={() => setShowEditForm(true)}>
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Button>
-              <Button onClick={handleDelete}>
-                <i className="fa-solid fa-x"></i>
-              </Button>
-            </>
-          )}
-          <span>{updated_at}</span>
-          {showEditForm ? (
-            <ReviewEditForm
-              id={id}
-              profile_id={profile_id}
-              body={body}
-              profileImage={profile_image}
-              setReviews={setReviews}
-              setShowEditForm={setShowEditForm}
-              submission={submission}
-              vote_pass={vote_pass}
-            />
-          ) : (
-            <p>{body}</p>
-          )}
-        </Card.Body>
-      </Card>
-    </div>
+    <Container className={`${appStyles.Box}`}>
+      <Row>
+        <Col xs={2} xl={1} className="px-0">
+          <Link to={`/profiles/${profile_id}`}>
+            <Avatar src={profile_image} height={60} />
+          </Link>
+        </Col>
+        <Col>
+          <Row>
+            <Col className="d-flex justify-content-between px-0 ">
+              <div className={``}>
+                <Link to={`/profiles/${profile_id}`}>
+                  <span className={`${appStyles.BrandFont} pe-1`}>{owner}</span>
+                </Link>
+                <span className={`pe-1`}>
+                  {updated_at !== created_at ? (
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
+                    >
+                      <span className={timeStyle.Updated}>{created_at}</span>
+                    </OverlayTrigger>
+                  ) : (
+                    <span>{created_at}</span>
+                  )}
+                </span>
+                {is_owner && (
+                  <Link onClick={() => setShowEditForm(true)}>
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  </Link>
+                )}
+              </div>
+
+              <div className={` ${appStyles.BrandFont}`}>
+                <span className="d-none d-sm-inline-block">Voted: </span>
+                {vote_pass ? (
+                  <span className={styles.Pass}>Pass</span>
+                ) : (
+                  <span className={styles.Fail}>Fail</span>
+                )}
+              </div>
+              <div>
+                {is_owner && (
+                  <Link className="px-2" onClick={handleDelete}>
+                    <i className="fa-solid fa-x"></i>
+                  </Link>
+                )}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            {" "}
+            {showEditForm ? (
+              <ReviewEditForm
+                id={id}
+                profile_id={profile_id}
+                body={body}
+                profileImage={profile_image}
+                setReviews={setReviews}
+                setShowEditForm={setShowEditForm}
+                submission={submission}
+                vote_pass={vote_pass}
+              />
+            ) : (
+              <div
+                className={`d-flex align-items-center justify-content-start `}
+              >
+                {body}
+              </div>
+            )}
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
