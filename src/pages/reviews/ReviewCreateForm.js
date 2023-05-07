@@ -100,7 +100,7 @@ const ReviewCreateForm = (props) => {
       <Col>
         <Form onSubmit={handleSubmit} className="pt-3">
           <Row>
-            <Col>
+            <Col xs={12} md={8}>
               <Form.Group>
                 <InputGroup>
                   <Form.Label className="d-none">Additional Comment</Form.Label>
@@ -117,31 +117,37 @@ const ReviewCreateForm = (props) => {
                 </InputGroup>
               </Form.Group>
             </Col>
-            <Col>
-              <span className={`${appStyles.BrandFont}  mb-1`}>Criteria:</span>
-              {hasLoaded ? (
-                <>
-                  {criteria.results.length ? (
-                    criteria.results.map((criterion) => (
-                      <div key={`${criterion.id}`}>
-                        <Form.Check
-                          className={appStyles.BrandFont}
-                          type="checkbox"
-                          id={`${criterion.id}`}
-                          label={`${criterion.text}`}
-                          onChange={handleCheckboxChange}
-                        />
-                      </div>
-                    ))
-                  ) : (
-                    <span> No criteria submitted </span>
-                  )}
-                </>
-              ) : (
-                <Container>
-                  <Asset spinner />
-                </Container>
-              )}
+            <Col xs={12} md={4}>
+              <Container className="d-flex  justify-content-around d-md-block flex-wrap">
+                <span
+                  className={`${appStyles.BrandFont} text-center mb-1 w-100`}
+                >
+                  Criteria:
+                </span>
+                {hasLoaded ? (
+                  <>
+                    {criteria.results.length ? (
+                      criteria.results.map((criterion) => (
+                        <div key={`${criterion.id}`}>
+                          <Form.Check
+                            className={appStyles.BrandFont}
+                            type="checkbox"
+                            id={`${criterion.id}`}
+                            label={`${criterion.text}`}
+                            onChange={handleCheckboxChange}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <span> No criteria submitted </span>
+                    )}
+                  </>
+                ) : (
+                  <Container>
+                    <Asset spinner />
+                  </Container>
+                )}
+              </Container>
             </Col>
           </Row>
           <div className="m-3">
