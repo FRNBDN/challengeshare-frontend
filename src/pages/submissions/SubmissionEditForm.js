@@ -4,7 +4,6 @@ import {
   Form,
   Button,
   Container,
-  Alert,
   Row,
   Col,
   InputGroup,
@@ -12,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
 import Avatar from "../../components/Avatar";
 import TopProfiles from "../profiles/TopProfiles";
 
@@ -123,6 +123,9 @@ function DareEditForm() {
 
   return (
     <Row>
+      <h1>
+        <Link to={"/submissions"}>Submissions</Link>/Edit
+      </h1>
       <Col>
         <Row>
           <TopProfiles mobile />
@@ -130,93 +133,38 @@ function DareEditForm() {
         <Form onSubmit={handleSubmit}>
           <Container className={appStyles.Box}>
             <Row>
-              <Col>
-                <Container>
+              <Col xs={12} md={7}>
+                <Container className="px-0 pb-2">
                   <Form.Group>
+                    <Form.Label className={`${appStyles.BrandFont}`}>
+                      Additional Comment
+                    </Form.Label>
                     <InputGroup>
-                      <Link to={`/profiles/${profile_id}`}>
-                        <Avatar src={profile_image} />
-                      </Link>
-
-                      <Form.Label>Additional Comment</Form.Label>
                       <Form.Control
+                        className={formStyles.Input}
                         placeholder="Write additional info and context to uploaded proof"
                         as="textarea"
                         value={text}
                         onChange={handleChange}
-                        rows={2}
+                        rows={4}
                       />
                     </InputGroup>
                   </Form.Group>
-                  <div className="d-md-none">
-                    <Form.Group controlId="fileInput">
-                      <Form.Label>
-                        {" "}
-                        Uploads {`${uploads.length}/5`}:{" "}
-                      </Form.Label>
-                      <ListGroup>
-                        {uploads.map((upload, index) => (
-                          <ListGroup.Item key={index}>
-                            {upload.name}
-                            <Button
-                              className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                              size="sm"
-                              onClick={() => {
-                                setUploads(
-                                  uploads.filter((_, i) => i !== index)
-                                );
-                                if (uploads[index].eid) {
-                                  setDeleteUpload((prevDeleteUpload) => [
-                                    ...prevDeleteUpload,
-                                    uploads[index].eid,
-                                  ]);
-                                }
-                              }}
-                            >
-                              x
-                            </Button>
-                          </ListGroup.Item>
-                        ))}
-                      </ListGroup>
-                      {uploads.length < 5 ? (
-                        <Button
-                          className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                          onClick={() => fileInput.current.click()}
-                        >
-                          {uploads.length > 0
-                            ? "Upload Additional"
-                            : "Upload Image"}
-                        </Button>
-                      ) : (
-                        <Button
-                          className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
-                          disabled
-                        >
-                          Limit Reached
-                        </Button>
-                      )}
-
-                      <input
-                        type="file"
-                        ref={fileInput}
-                        onChange={handleUpload}
-                        accept="image/*"
-                        style={{ display: "none" }}
-                      />
-                    </Form.Group>
-                  </div>
                 </Container>
               </Col>
-              <Col md={5} lg={4} className="d-none d-md-block">
-                <div className="d-none d-md-block">
+              <Col xs={12} md={5}>
+                <div>
                   <Form.Group controlId="fileInput">
-                    <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
+                    <Form.Label className={appStyles.BrandFont}>
+                      {" "}
+                      Uploads {`${uploads.length}/5`}:{" "}
+                    </Form.Label>
                     <ListGroup>
                       {uploads.map((upload, index) => (
                         <ListGroup.Item key={index}>
                           {upload.name}
                           <Button
-                            className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                            className={`${appStyles.BrandFont} ${appStyles.Button} float-right`}
                             size="sm"
                             onClick={() => {
                               setUploads(uploads.filter((_, i) => i !== index));
@@ -228,26 +176,20 @@ function DareEditForm() {
                               }
                             }}
                           >
-                            x
+                            <span className="d-none d-md-block">x</span>
+                            <span className="d-block d-md-none">Remove</span>
                           </Button>
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
-                    {uploads.length < 5 ? (
+                    {uploads.length < 5 && (
                       <Button
-                        className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                        className={`${appStyles.BrandFont} ${appStyles.Button} w-100`}
                         onClick={() => fileInput.current.click()}
                       >
                         {uploads.length > 0
                           ? "Upload Additional"
                           : "Upload Image"}
-                      </Button>
-                    ) : (
-                      <Button
-                        className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
-                        disabled
-                      >
-                        Limit Reached
                       </Button>
                     )}
 
@@ -262,21 +204,33 @@ function DareEditForm() {
                 </div>
               </Col>
             </Row>
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="m-3">
+                <Button
+                  className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                  type="submit"
+                >
+                  Save Changes
+                </Button>
+                <span className="mx-2"> /</span>
+                <Link
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  Cancel
+                </Link>
+              </div>
+              <div>
+                <Button
+                  className={`${appStyles.BrandFont} ${appStyles.Button} ${formStyles.Delete}`}
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
           </Container>
-          <div className="m-3">
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-              onClick={handleDelete}
-            >
-              Delete
-            </Button>
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button}`}
-              type="submit"
-            >
-              Save Changes
-            </Button>
-          </div>
         </Form>
       </Col>
       <Col md={3} className="d-none d-md-block">
