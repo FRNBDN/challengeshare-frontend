@@ -3,7 +3,7 @@ import styles from "../styles/Avatar.module.css";
 
 const Avatar = ({ src, height = 30, text, nomargin }) => {
   return (
-    <span>
+    <span className="my-2">
       <img
         className={`${styles.Avatar} ${nomargin && "mx-0"}`}
         src={src}

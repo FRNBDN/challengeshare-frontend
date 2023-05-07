@@ -14,6 +14,7 @@ import SubmissionPage from "./pages/submissions/SubmissionPage";
 import SubmissionsFeedPage from "./pages/submissions/SubmissionsFeedPage";
 import SubmissionEditForm from "./pages/submissions/SubmissionEditForm";
 import ProfilePage from "./pages/profiles/ProfilePage";
+import ProfileEditPage from "./pages/profiles/ProfileEditPage";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -128,6 +129,8 @@ function App() {
               />
             }
           />
+          <Route path="/profiles/:id/edit" element={<ProfileEditPage />} />
+
           <Route path="*" element={<h1>Page not found :(</h1>} />
         </Routes>
       </Container>
