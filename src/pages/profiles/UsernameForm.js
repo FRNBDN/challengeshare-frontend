@@ -15,6 +15,8 @@ import {
 } from "../../contexts/CurrentUserContext";
 
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
+import styles from "../../styles/UsernameForm.module.css";
 
 const UsernameForm = () => {
   const [username, setUsername] = useState("");
@@ -50,30 +52,34 @@ const UsernameForm = () => {
   };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
-        <Container className={appStyles.Content}>
-          <Form onSubmit={handleSubmit} className="my-2">
-            <Form.Group>
-              <Form.Label>Change username</Form.Label>
-              <Form.Control
-                placeholder="username"
-                type="text"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </Form.Group>
-            {errors?.username?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
-            <Button onClick={() => navigate(-1)}>cancel</Button>
-            <Button type="submit">save</Button>
-          </Form>
-        </Container>
-      </Col>
-    </Row>
+    <Container className={`${formStyles.Relative} ${formStyles.ThickBorder}`}>
+      <Form onSubmit={handleSubmit} className="my-2 ">
+        <Form.Group>
+          <Form.Label
+            className={`${formStyles.BorderText} ${styles.TextPosition} ${appStyles.BrandFont}`}
+          >
+            Change Username:
+          </Form.Label>
+          <div className="d-flex ">
+            <Form.Control
+              className={formStyles.Input}
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+            <Button className={appStyles.Button} type="submit">
+              Update
+            </Button>
+          </div>
+        </Form.Group>
+        {errors?.username?.map((message, idx) => (
+          <Alert key={idx} variant="warning">
+            {message}
+          </Alert>
+        ))}
+      </Form>
+    </Container>
   );
 };
 

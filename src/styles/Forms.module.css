@@ -1,0 +1,23 @@
+.BorderText{
+    padding: 1px 3px;
+    background: white;
+    position: absolute;
+
+}
+
+.Relative{
+    position: relative;
+    
+}
+
+.ThickBorder{
+    border: 5px solid #555555;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.Input{
+    border-radius: 0%;
+    border: 1px solid black;
+
+}
