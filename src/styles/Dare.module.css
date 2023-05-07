@@ -18,3 +18,12 @@
 .Color{
     background-color: #ea9999;
 }
+
+.ColorFooter{
+    border-top: 1px solid #ea9999;
+    background-color: #ea99991c;
+}
+
+.Pass{
+    color: green;
+}

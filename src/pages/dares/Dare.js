@@ -30,14 +30,12 @@ const Dare = (props) => {
     has_submitted,
     title,
     cfollow_id,
-    tags,
     description,
     completed_count,
     created_at,
     updated_at,
     users_count,
     setDares,
-    setDare,
     Feed,
   } = props;
 
@@ -166,7 +164,7 @@ const Dare = (props) => {
           </Col>
           <Col>
             <div className="d-flex justify-content-end me-1">
-              {updated_at != created_at ? (
+              {updated_at !== created_at ? (
                 <OverlayTrigger
                   placement="top"
                   overlay={<Tooltip>Updated: {updated_at}</Tooltip>}
@@ -181,7 +179,7 @@ const Dare = (props) => {
         </Row>
       </Card.Body>
 
-      <Card.Body>
+      <Card.Body className="pb-0">
         <div className="d-flex justify-content-between align-items-center mt-0">
           {Feed ? (
             <Link to={`/dares/${id}`}>
@@ -296,13 +294,27 @@ const Dare = (props) => {
               </div>
             </Collapse>
           </Container>
-          <span className={`d-flex justify-content-end ${styles.Edit}`}>
+
+          <div
+            className={`text-muted d-flex align-items-center justify-content-between p-0 m-0 mt-2 ${styles.ColorFooter}`}
+          >
+            <div className="d-flex text-center">
+              <div className={`${appStyles.BrandFont}`}>
+                <div>{submissions_count}</div>
+                <div className={styles.Smaller}>Submissions</div>
+              </div>
+              /
+              <div className={`${appStyles.BrandFont}`}>
+                <div className={`${styles.Pass}`}>{completed_count}</div>
+                <div className={styles.Smaller}>Completed</div>
+              </div>
+            </div>
             {is_owner && (
-              <Link to={`/dares/${id}/edit`}>
+              <Link to={`/dares/${id}/edit`} className="">
                 <i className="fa-solid fa-pen-to-square"></i>
               </Link>
             )}
-          </span>
+          </div>
         </Row>
       </Card.Body>
     </Card>
