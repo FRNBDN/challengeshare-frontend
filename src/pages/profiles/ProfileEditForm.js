@@ -26,10 +26,10 @@ const ProfileEditForm = () => {
 
   const [profileData, setProfileData] = useState({
     name: "",
-    content: "",
+    bio: "",
     image: "",
   });
-  const { name, content, image } = profileData;
+  const { name, bio, image } = profileData;
 
   const [errors, setErrors] = useState({});
 
@@ -42,15 +42,15 @@ const ProfileEditForm = () => {
           setProfileData({ name, content, image });
         } catch (err) {
           console.log(err);
-          history.push("/");
+          navigate("/");
         }
       } else {
-        history.push("/");
+        navigate("/");
       }
     };
 
     handleMount();
-  }, [currentUser, history, id]);
+  }, [currentUser, navigate, id]);
 
   const handleChange = (event) => {
     setProfileData({
@@ -75,7 +75,7 @@ const ProfileEditForm = () => {
         ...currentUser,
         profile_image: data.image,
       }));
-      history.goBack();
+      navigate(-1);
     } catch (err) {
       console.log(err);
       setErrors(err.response?.data);
@@ -102,7 +102,7 @@ const ProfileEditForm = () => {
       ))}
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => history.goBack()}
+        onClick={() => navigate(-1)}
       >
         cancel
       </Button>
