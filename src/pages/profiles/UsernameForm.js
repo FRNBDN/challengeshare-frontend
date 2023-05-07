@@ -44,7 +44,7 @@ const UsernameForm = () => {
         ...prevUser,
         username,
       }));
-      navigate(-1);
+      navigate(`/profiles/${id}`);
     } catch (err) {
       console.log(err);
       setErrors(err.response?.data);

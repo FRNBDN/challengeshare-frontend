@@ -38,10 +38,9 @@ const ProfileEditForm = () => {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/profiles/${id}`);
-        const { name, bio, image } = data;
+        const { bio, image } = data;
 
         setProfileData({ bio, image });
-        console.log(name);
       } catch (err) {
         console.log(err);
       }
@@ -72,7 +71,7 @@ const ProfileEditForm = () => {
         ...currentUser,
         profile_image: data.image,
       }));
-      navigate(-1);
+      navigate(`/profiles/${id}`);
     } catch (err) {
       console.log(err);
       setErrors(err.response?.data);
@@ -158,9 +157,11 @@ const ProfileEditForm = () => {
           <Container>{textFields}</Container>
         </Col>
       </Row>
-      <Button className={`${appStyles.Button} text-right`} type="submit">
-        save
-      </Button>
+      <div className="d-flex">
+        <Button className={`${appStyles.Button} text-right`} type="submit">
+          save
+        </Button>
+      </div>
     </Form>
   );
 };

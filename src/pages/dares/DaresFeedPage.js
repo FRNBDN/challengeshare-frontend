@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 
 import styles from "../../styles/FeedPages.module.css";
 import appStyles from "../../App.module.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Dare from "./Dare";
 import Asset from "../../components/Asset";
@@ -71,7 +71,7 @@ function DaresFeedPage({ message, filter = "" }) {
   return (
     <>
       <h1>
-        <span>Dares</span>
+        <Link to="/submissions">Submissions</Link>/Dares
       </h1>
       <Row>
         <Col md={9}>

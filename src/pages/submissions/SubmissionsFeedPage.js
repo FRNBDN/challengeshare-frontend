@@ -64,7 +64,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
   return (
     <>
       <h1>
-        <span>Submissions</span>
+        Submissions/<Link to="/dares">Dares</Link>
       </h1>
       <Row>
         <Col md={9}>

@@ -35,7 +35,9 @@ const ProfileEditPage = () => {
 
   return (
     <>
-      <h1 className="pb-2">Profile / Edit</h1>
+      <h1 className="pb-2">
+        <Link to={`/profiles/${id}`}>Profile</Link> / Edit
+      </h1>
       <Row>
         <TopProfiles mobile />
         <Col className="p-0" md={9}>
