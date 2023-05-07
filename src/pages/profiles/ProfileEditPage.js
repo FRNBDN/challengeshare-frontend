@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import TopProfiles from "./TopProfiles";
 import ProfileEditForm from "./ProfileEditForm";
@@ -7,25 +7,52 @@ import UserPasswordForm from "./UserPasswordForm";
 
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import Asset from "../../components/Asset";
 
 const ProfileEditPage = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const currentUser = useCurrentUser();
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    const validateProfile = async () => {
+      if (currentUser?.profile_id?.toString() === id) {
+        setHasLoaded(true);
+      } else {
+        navigate(-1);
+      }
+    };
+    const timer = setTimeout(() => {
+      validateProfile();
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [currentUser, navigate, id]);
+
   return (
     <>
       <h1 className="pb-2">Profile / Edit</h1>
       <Row>
         <TopProfiles mobile />
         <Col className="p-0" md={9}>
-          <Row>
-            <Col xs={12} md={4} className="mt-1 mt-md-0">
-              <UsernameForm />
-              <UserPasswordForm />
-            </Col>
+          {hasLoaded ? (
+            <Row>
+              <Col xs={12} md={4} className="mt-1 mt-md-0">
+                <UsernameForm />
+                <UserPasswordForm />
+              </Col>
 
-            <Col xs={12} md={8} className="pe-md-4 ps-md-0">
-              <ProfileEditForm />
-            </Col>
-          </Row>
+              <Col xs={12} md={8} className="pe-md-4 ps-md-0">
+                <ProfileEditForm />
+              </Col>
+            </Row>
+          ) : (
+            <Asset spinner />
+          )}
         </Col>
         <Col md={3} className="d-none d-md-block">
           <Row>
