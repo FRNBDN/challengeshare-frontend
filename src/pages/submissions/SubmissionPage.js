@@ -8,7 +8,6 @@ import { Col } from "react-bootstrap";
 
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import Avatar from "../../components/Avatar";
 import Submission from "./Submission";
 import Review from "../reviews/Review";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -40,7 +39,9 @@ function SubmissionPage() {
 
   return (
     <Row>
-      <h1 className={appStyles.BrandFont}>Submissions / Detail</h1>
+      <h1 className={appStyles.BrandFont}>
+        <Link to={"/submissions"}>Submissions</Link>/Detail
+      </h1>
       <Col md={9}>
         <TopProfiles mobile />
         <Row className="h-100">

@@ -24,8 +24,8 @@ const Profile = (props) => {
       } ${styles.Profile} mx-1`}
     >
       <div>
-        <Link className="align-self-center" to={`/profiles/${id}`}>
-          <Avatar src={image} height={mobile ? 55 : 30} nomargin />
+        <Link className="align-self-center ps-1 mt-2" to={`/profiles/${id}`}>
+          <Avatar src={image} height={mobile ? 50 : 30} nomargin />
         </Link>
       </div>
       <div className={`mx-0 ${!mobile && "flex-fill"}`}>

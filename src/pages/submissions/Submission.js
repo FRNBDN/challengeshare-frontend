@@ -70,19 +70,43 @@ const Submission = (props) => {
     <Card className={`mb-2 ${appStyles.Card} `}>
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
-          <Col>
+          <Col xs={8}>
             {Feed ? (
-              <Link to={`/submissions/${id}`}>
-                <span className={appStyles.BrandFont}>SUB</span>
+              <Link to={`/submissions/${id}`} className={appStyles.BrandFont}>
+                <span>SUB/</span>
+                {status === 1 ? (
+                  <span className={styles.Pending}>
+                    PENDING {reviews}/3 REVIWES
+                  </span>
+                ) : status === 2 ? (
+                  <>
+                    <span className={styles.Pass}>PASS</span>
+                    <span className="ps-2">- {reviews} REVIEWS</span>
+                  </>
+                ) : (
+                  <>
+                    <span className={` ${styles.Failed}`}>Failed</span>
+                    <span className="ps-2">- {reviews} REVIEWS</span>
+                  </>
+                )}
               </Link>
             ) : (
-              <span className={appStyles.BrandFont}>SUB</span>
+              <span className={appStyles.BrandFont}>
+                <span>SUB/</span>
+                {status === 1 ? (
+                  <span>
+                    PENDING{" "}
+                    <span className={styles.Pending}>{reviews}/3 REVIWES</span>
+                  </span>
+                ) : status === 2 ? (
+                  <span className={styles.Pass}>PASS</span>
+                ) : (
+                  <span className={` ${styles.Failed}`}>FAILED</span>
+                )}
+              </span>
             )}
-            <Link to={`/profiles/${profile_id}`}>
-              <Avatar src={profile_image} height={20} /> {owner}
-            </Link>
           </Col>
-          <Col>
+          <Col xs={4}>
             <div className="d-flex justify-content-end me-1">
               {updated_at !== created_at ? (
                 <OverlayTrigger
@@ -116,13 +140,22 @@ const Submission = (props) => {
       </Card.Body>
 
       <Card.Body>
-        <div className="d-flex justify-content-between align-items-center mt-0">
+        <div className="">
+          <Link
+            to={`/profiles/${profile_id}`}
+            className="d-flex align-items-center"
+          >
+            <Avatar src={profile_image} height={30} />{" "}
+            <span className={`${appStyles.BrandFont} ${styles.Owner}`}>
+              {owner}
+            </span>
+          </Link>
           {Feed ? (
             <Link to={`/submissions/${id}`}>
-              <Card.Text>{text}</Card.Text>
+              <Card.Text className="ps-3 py-2">{text}</Card.Text>
             </Link>
           ) : (
-            <Card.Text>{text}</Card.Text>
+            <Card.Text className="ps-3 py-2">{text}</Card.Text>
           )}
         </div>
         <Row>
