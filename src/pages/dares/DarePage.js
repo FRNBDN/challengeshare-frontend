@@ -9,13 +9,14 @@ import Dare from "./Dare";
 
 import appStyles from "../../App.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import Avatar from "../../components/Avatar";
 import TopProfiles from "../profiles/TopProfiles";
 import SubmissionSmall from "../submissions/SubmissionSmall";
+import Asset from "../../components/Asset";
 
 function DarePage() {
   const { id } = useParams();
   const [dare, setDare] = useState({ results: [] });
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [submissions, setSubmissions] = useState({ results: [] });
   const currentUser = useCurrentUser();
 
@@ -28,6 +29,7 @@ function DarePage() {
         ]);
         setDare({ results: [dare] });
         setSubmissions(submissions);
+        setHasLoaded(true);
       } catch (error) {
         console.log(error);
       }
@@ -37,29 +39,36 @@ function DarePage() {
 
   return (
     <Row>
-      <h1 className={appStyles.BrandFont}>Dares / Detail</h1>
+      <h1 className={appStyles.BrandFont}>
+        <Link to="/dares">Dares</Link> / Detail
+      </h1>
       <Col md={9}>
         <TopProfiles mobile />
         <Row className="h-100">
           <Col>
-            <Container className="px-0">
-              <Dare {...dare.results[0]} setDare={setDare} />
-            </Container>
-            <Container className="px-0">
-              <div>
-                <h5>Submissions:</h5>
-              </div>
-
-              {submissions.results.length ? (
-                submissions.results.map((submission) => (
-                  <SubmissionSmall key={submission.id} {...submission} />
-                ))
-              ) : currentUser ? (
-                <span>Be the first to share a submission! </span>
-              ) : (
-                <span>No submissions for this dare.</span>
-              )}
-            </Container>
+            {hasLoaded ? (
+              <>
+                <Container className="px-0">
+                  <Dare {...dare.results[0]} setDare={setDare} />
+                </Container>
+                <Container className="px-0">
+                  <div>
+                    <h5>Submissions:</h5>
+                  </div>
+                  {submissions.results.length ? (
+                    submissions.results.map((submission) => (
+                      <SubmissionSmall key={submission.id} {...submission} />
+                    ))
+                  ) : currentUser ? (
+                    <span>Be the first to share a submission! </span>
+                  ) : (
+                    <span>No submissions for this dare.</span>
+                  )}
+                </Container>
+              </>
+            ) : (
+              <Asset spinner />
+            )}
           </Col>
         </Row>
       </Col>

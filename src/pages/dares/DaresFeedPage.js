@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 
 import styles from "../../styles/FeedPages.module.css";
 import appStyles from "../../App.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import Dare from "./Dare";
 import Asset from "../../components/Asset";
@@ -48,6 +48,7 @@ function DaresFeedPage({ message, filter = "" }) {
 
   useEffect(() => {
     const fetchDares = async () => {
+      console.log("useEffect called with query=", query);
       try {
         const { data } = await axiosReq.get(
           `/challenges/?${filter}search=${query}`

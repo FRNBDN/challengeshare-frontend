@@ -36,7 +36,7 @@ const SubmissionSmall = (props) => {
   }, [id, challenge]);
 
   return (
-    <Container className={` ${appStyles.Box} ${!Profile && "px-1"}`}>
+    <Container className={` ${appStyles.Box} ${!Profile && "ps-1 pe-0"}`}>
       <Row>
         <Col
           xs={4}
@@ -111,7 +111,7 @@ const SubmissionSmall = (props) => {
             </>
           )}
         </Col>
-        <Col xs={4} className="px-0 d-flex justify-content-end">
+        <Col xs={4} className=" d-flex justify-content-end">
           <Link
             to={`/submissions/${id}`}
             className={`${appStyles.Button} px-2 py-1 d-flex align-items-center`}

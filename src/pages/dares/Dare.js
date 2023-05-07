@@ -9,7 +9,7 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Criteria from "./Criteria";
@@ -37,6 +37,7 @@ const Dare = (props) => {
     users_count,
     setDares,
     Feed,
+    category,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -150,17 +151,9 @@ const Dare = (props) => {
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
-            {Feed ? (
-              <Link to={`/dares/${id}`}>
-                <span className={appStyles.BrandFont}>DARE</span>
-              </Link>
-            ) : (
-              <span className={appStyles.BrandFont}>DARE</span>
-            )}
-
-            <Link to={`/profiles/${profile_id}`}>
-              <Avatar src={profile_image} height={20} /> {owner}
-            </Link>
+            <span className={appStyles.BrandFont}>
+              DARE/CATEGORY:{category.toUpperCase()}
+            </span>
           </Col>
           <Col>
             <div className="d-flex justify-content-end me-1">
@@ -296,24 +289,34 @@ const Dare = (props) => {
           </Container>
 
           <div
-            className={`text-muted d-flex align-items-center justify-content-between p-0 m-0 mt-2 ${styles.ColorFooter}`}
+            className={`text-muted d-flex align-items-center justify-content-between p-0 m-0 mt-2 ${styles.ColorFooter} `}
           >
+            <Link
+              className={`${styles.Smaller} ps-1`}
+              to={`/profiles/${profile_id}`}
+            >
+              <Avatar src={profile_image} height={20} /> {owner}
+            </Link>
             <div className="d-flex text-center">
-              <div className={`${appStyles.BrandFont}`}>
-                <div>{submissions_count}</div>
-                <div className={styles.Smaller}>Submissions</div>
+              <div className={`${appStyles.BrandFont} `}>
+                <div className={styles.Small}>{submissions_count}</div>
+                <div className={styles.Smaller}>SUB</div>
               </div>
               /
               <div className={`${appStyles.BrandFont}`}>
-                <div className={`${styles.Pass}`}>{completed_count}</div>
-                <div className={styles.Smaller}>Completed</div>
+                <div className={`${styles.Pass} ${styles.Small}`}>
+                  {completed_count}
+                </div>
+                <div className={styles.Smaller}>PASS</div>
               </div>
             </div>
-            {is_owner && (
-              <Link to={`/dares/${id}/edit`} className="">
-                <i className="fa-solid fa-pen-to-square"></i>
-              </Link>
-            )}
+            <div>
+              {is_owner && (
+                <Link to={`/dares/${id}/edit`} className="">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Link>
+              )}
+            </div>
           </div>
         </Row>
       </Card.Body>
