@@ -12,7 +12,7 @@ import {
 import Carousel from "react-bootstrap/Carousel";
 import Collapse from "react-bootstrap/Collapse";
 import { Link, useLocation } from "react-router-dom";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosReq } from "../../api/axiosDefaults";
 import Asset from "../../components/Asset";
 import ReviewCreateForm from "../reviews/ReviewCreateForm";
 import appStyles from "../../App.module.css";
@@ -43,7 +43,7 @@ const Submission = (props) => {
   const is_owner = currentUser?.username === owner;
   const [uploads, setUploads] = useState({ results: [] });
   const [dare, setDare] = useState({});
-  const [review, setReview] = useState({ results: [] });
+  const [setReview] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,7 +12,6 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 import styles from "../../styles/UserPasswordForm.module.css";
-import { formToJSON } from "axios";
 
 const UserPasswordForm = () => {
   const navigate = useNavigate();

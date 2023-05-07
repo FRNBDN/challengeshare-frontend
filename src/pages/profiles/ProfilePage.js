@@ -17,11 +17,10 @@ import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button, Card, Form, Image, NavLink } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
-import Profile from "./Profile";
 import SubmissionSmall from "../submissions/SubmissionSmall";
 import DareSmall from "../dares/DareSmall";
 import ProfileListItem from "./ProfileListItem";
@@ -63,7 +62,7 @@ function ProfilePage({ message, model, filter }) {
       }
     };
     fetchData();
-  }, [id, setProfileData, message, model, filter]);
+  }, [id, setProfileData, message, model, filter, profileId]);
 
   const mainProfile = (
     <>

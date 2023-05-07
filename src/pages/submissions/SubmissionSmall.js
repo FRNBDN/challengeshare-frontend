@@ -36,7 +36,7 @@ const SubmissionSmall = (props) => {
   }, [id, challenge]);
 
   return (
-    <Container className={` ${appStyles.Box} ${!Profile && "ps-1 pe-0"}`}>
+    <Container className={` ${appStyles.Box} ${!Profile && "ps-1"} pe-0`}>
       <Row>
         <Col
           xs={4}
