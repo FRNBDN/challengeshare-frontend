@@ -12,7 +12,6 @@ import {
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
-import Avatar from "../../components/Avatar";
 import TopProfiles from "../profiles/TopProfiles";
 
 function DareEditForm() {
@@ -23,12 +22,10 @@ function DareEditForm() {
 
   const [submissionData, setSubmissionData] = useState({
     text: "",
-    profile_id: "",
-    profile_image: "",
     dare: "",
   });
 
-  const { profile_id, profile_image, dare } = submissionData;
+  const { dare } = submissionData;
 
   const navigate = useNavigate();
   const { id } = useParams();
