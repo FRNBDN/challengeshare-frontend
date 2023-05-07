@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
+import formStyles from "../../styles/Forms.module.css";
+import styles from "../../styles/SignInUpForm.module.css";
+import appStyles from "../../App.module.css";
 
 const SignUpForm = () => {
   const [signUpData, setSignUpData] = useState({
@@ -35,13 +38,14 @@ const SignUpForm = () => {
 
   return (
     <Row>
-      <Col className="my-auto">
-        <Container className={`p-4`}>
+      <Col xs={12} md={6} lg={4}>
+        <Container className={`p-4 ${appStyles.Box} ${styles.Box} `}>
           <h1>SIGN UP</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">
               <Form.Label className="d-none">Username</Form.Label>
               <Form.Control
+                className={formStyles.Input}
                 type="text"
                 placeholder="Username"
                 name="username"
@@ -58,6 +62,7 @@ const SignUpForm = () => {
             <Form.Group className="mb-3" controlId="password1">
               <Form.Label className="d-none">Password</Form.Label>
               <Form.Control
+                className={formStyles.Input}
                 type="password"
                 placeholder="Password"
                 name="password1"
@@ -74,6 +79,7 @@ const SignUpForm = () => {
             <Form.Group className="mb-3" controlId="password2">
               <Form.Label className="d-none">Confirm Password</Form.Label>
               <Form.Control
+                className={formStyles.Input}
                 type="password"
                 placeholder="Confirm Password"
                 name="password2"
@@ -87,7 +93,7 @@ const SignUpForm = () => {
               </Alert>
             ))}
 
-            <Button variant="primary" type="submit">
+            <Button className={appStyles.Button} type="submit">
               Sign Up
             </Button>
             <span className="mx-2"> /</span>
@@ -100,6 +106,7 @@ const SignUpForm = () => {
           </Form>
         </Container>
       </Col>
+      <Col xs={0} md={6} lg={8}></Col>
     </Row>
   );
 };
