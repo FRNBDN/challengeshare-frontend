@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -6,20 +6,18 @@ import Container from "react-bootstrap/Container";
 import { Button, InputGroup } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Criteria from "../dares/Criteria";
+import { Link, useLocation } from "react-router-dom";
 import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import styles from "../../styles/ReviewCreateFrom.module.css";
+import formStyles from "../../styles/Forms.module.css";
 
 const ReviewCreateForm = (props) => {
   const {
     submission,
     setSubmission,
     setSubmissions,
-    setReview,
     profileImage,
-    profile_id,
     dare_id,
     setOpen,
     Feed,
@@ -62,7 +60,7 @@ const ReviewCreateForm = (props) => {
 
     try {
       const vote_pass = votePass;
-      const { data } = await axiosRes.post("/reviews/", {
+      await axiosRes.post("/reviews/", {
         body,
         submission,
         vote_pass,
@@ -100,28 +98,24 @@ const ReviewCreateForm = (props) => {
   return (
     <Row>
       <Col>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="pt-3">
           <Row>
             <Col>
-              <Container>
-                <Form.Group>
-                  <InputGroup>
-                    <Link to={`/profiles/${profile_id}`}>
-                      <Avatar src={profileImage} />
-                    </Link>
+              <Form.Group>
+                <InputGroup>
+                  <Form.Label className="d-none">Additional Comment</Form.Label>
+                  <Avatar src={profileImage} />
 
-                    <Form.Label>Additional Comment</Form.Label>
-                    <Form.Control
-                      placeholder="Write additional info about your review decision"
-                      as="textarea"
-                      value={body}
-                      onChange={handleChange}
-                      rows={2}
-                    />
-                  </InputGroup>
-                </Form.Group>
-                <div className="d-md-none"></div>
-              </Container>
+                  <Form.Control
+                    className={formStyles.Input}
+                    placeholder="Write additional info about your review decision"
+                    as="textarea"
+                    value={body}
+                    onChange={handleChange}
+                    rows={5}
+                  />
+                </InputGroup>
+              </Form.Group>
             </Col>
             <Col>
               <span className={`${appStyles.BrandFont}  mb-1`}>Criteria:</span>
@@ -131,6 +125,7 @@ const ReviewCreateForm = (props) => {
                     criteria.results.map((criterion) => (
                       <div key={`${criterion.id}`}>
                         <Form.Check
+                          className={appStyles.BrandFont}
                           type="checkbox"
                           id={`${criterion.id}`}
                           label={`${criterion.text}`}
@@ -165,6 +160,18 @@ const ReviewCreateForm = (props) => {
                 Submit / Failed
               </Button>
             )}
+            <span className="mx-2"> /</span>
+            <Link
+              onClick={() => {
+                setBody("");
+                setOpen(false);
+                criteria.results.forEach((criterion) => {
+                  document.getElementById(`${criterion.id}`).checked = false;
+                });
+              }}
+            >
+              Cancel
+            </Link>
           </div>
         </Form>
       </Col>
