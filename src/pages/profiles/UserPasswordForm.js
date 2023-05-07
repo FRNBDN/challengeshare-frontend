@@ -12,6 +12,9 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
+import styles from "../../styles/UserPasswordForm.module.css";
+import { formToJSON } from "axios";
 
 const UserPasswordForm = () => {
   const navigate = useNavigate();
@@ -51,46 +54,52 @@ const UserPasswordForm = () => {
   };
 
   return (
-    <Row>
-      <Col className="py-2 mx-auto text-center" md={6}>
-        <Container className={appStyles.Content}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>New password</Form.Label>
-              <Form.Control
-                placeholder="new password"
-                type="password"
-                value={new_password1}
-                onChange={handleChange}
-                name="new_password1"
-              />
-            </Form.Group>
-            {errors?.new_password1?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
-            <Form.Group>
-              <Form.Label>Confirm password</Form.Label>
-              <Form.Control
-                placeholder="confirm new password"
-                type="password"
-                value={new_password2}
-                onChange={handleChange}
-                name="new_password2"
-              />
-            </Form.Group>
-            {errors?.new_password2?.map((message, idx) => (
-              <Alert key={idx} variant="warning">
-                {message}
-              </Alert>
-            ))}
-            <Button onClick={() => navigate(-1)}>cancel</Button>
-            <Button type="submit">save</Button>
-          </Form>
-        </Container>
-      </Col>
-    </Row>
+    <Container
+      className={`${formStyles.ThickBorder} ${formStyles.Relative} mt-3`}
+    >
+      <h6 className={`${formStyles.BorderText} ${styles.TextPosition}`}>
+        Change Password:
+      </h6>
+      <Form onSubmit={handleSubmit} className="d-flex flex-column">
+        <Form.Group className={appStyles.ThickBorder}>
+          <Form.Label className={appStyles.BrandFont}>New password:</Form.Label>
+          <Form.Control
+            className={formStyles.Input}
+            placeholder="new password"
+            type="password"
+            value={new_password1}
+            onChange={handleChange}
+            name="new_password1"
+          />
+        </Form.Group>
+        {errors?.new_password1?.map((message, idx) => (
+          <Alert key={idx} variant="warning">
+            {message}
+          </Alert>
+        ))}
+        <Form.Group>
+          <Form.Label className={appStyles.BrandFont}>
+            Confirm password:
+          </Form.Label>
+          <Form.Control
+            className={formStyles.Input}
+            placeholder="confirm new password"
+            type="password"
+            value={new_password2}
+            onChange={handleChange}
+            name="new_password2"
+          />
+        </Form.Group>
+        {errors?.new_password2?.map((message, idx) => (
+          <Alert key={idx} variant="warning">
+            {message}
+          </Alert>
+        ))}
+        <Button className={`flex-fill ${appStyles.Button} mt-3`} type="submit">
+          Update
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
