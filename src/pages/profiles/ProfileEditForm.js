@@ -16,6 +16,8 @@ import {
 } from "../../contexts/CurrentUserContext";
 
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
+import styles from "../../styles/ProfileEditForm.module.css";
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
@@ -28,7 +30,7 @@ const ProfileEditForm = () => {
     bio: "",
     image: "",
   });
-  const { name, bio, image } = profileData;
+  const { bio, image } = profileData;
 
   const [errors, setErrors] = useState({});
 
@@ -79,14 +81,19 @@ const ProfileEditForm = () => {
 
   const textFields = (
     <>
-      <Form.Group>
-        <Form.Label>Bio</Form.Label>
+      <Form.Group className="mt-3">
+        <Form.Label
+          className={`${appStyles.BrandFont} ${appStyles.Box} m-0 w-100`}
+        >
+          Change Bio
+        </Form.Label>
         <Form.Control
+          className={formStyles.Input}
           as="textarea"
           value={bio}
           onChange={handleChange}
           name="bio"
-          rows={7}
+          rows={6}
         />
       </Form.Group>
 
@@ -95,19 +102,23 @@ const ProfileEditForm = () => {
           {message}
         </Alert>
       ))}
-      <Button onClick={() => navigate(-1)}>cancel</Button>
-      <Button type="submit">save</Button>
     </>
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form
+      onSubmit={handleSubmit}
+      className={`${formStyles.Relative} ${formStyles.ThickBorder} mt-3 mt-md-0 mx-0`}
+    >
+      <h6 className={`${formStyles.BorderText} ${styles.TextPosition} `}>
+        Update Profile:{" "}
+      </h6>
       <Row>
         <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
           <Container>
-            <Form.Group>
+            <Form.Group className={`${appStyles.Box} `}>
               {image && (
-                <figure>
+                <figure className="m-0">
                   <Image src={image} fluid />
                 </figure>
               )}
@@ -116,12 +127,16 @@ const ProfileEditForm = () => {
                   {message}
                 </Alert>
               ))}
-              <div>
-                <Form.Label className={` btn my-auto`} htmlFor="image-upload">
-                  Change the image
+              <div className="d-flex">
+                <Form.Label
+                  className={`${appStyles.Button} flex-grow-1 m-0`}
+                  htmlFor="image-upload"
+                >
+                  Change Image
                 </Form.Label>
               </div>
               <Form.Control
+                className={`d-none`}
                 type="file"
                 id="image-upload"
                 ref={imageFile}
@@ -143,6 +158,9 @@ const ProfileEditForm = () => {
           <Container>{textFields}</Container>
         </Col>
       </Row>
+      <Button className={`${appStyles.Button} text-right`} type="submit">
+        save
+      </Button>
     </Form>
   );
 };
