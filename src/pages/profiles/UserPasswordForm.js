@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
 const UserPasswordForm = () => {
@@ -37,7 +36,6 @@ const UserPasswordForm = () => {
   useEffect(() => {
     if (currentUser?.profile_id?.toString() !== id) {
       // redirect user if they are not the owner of this profile
-      navigate("/");
     }
   }, [currentUser, navigate, id]);
 
@@ -87,18 +85,8 @@ const UserPasswordForm = () => {
                 {message}
               </Alert>
             ))}
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => navigate(-1)}
-            >
-              cancel
-            </Button>
-            <Button
-              type="submit"
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-            >
-              save
-            </Button>
+            <Button onClick={() => navigate(-1)}>cancel</Button>
+            <Button type="submit">save</Button>
           </Form>
         </Container>
       </Col>

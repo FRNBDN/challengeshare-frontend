@@ -72,7 +72,7 @@ function ProfilePage({ message, model, filter }) {
           <Col xs={3} lg={5} className="text-start">
             {is_owner && (
               <Link to={`/profiles/${id}/edit`} className={`${styles.Cog}`}>
-                <i class="fa-solid fa-gear"></i>
+                <i className="fa-solid fa-gear"></i>
               </Link>
             )}
             <Row className="text-start">

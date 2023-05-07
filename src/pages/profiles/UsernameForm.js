@@ -14,7 +14,6 @@ import {
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
 
-import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
 
 const UsernameForm = () => {
@@ -30,8 +29,6 @@ const UsernameForm = () => {
   useEffect(() => {
     if (currentUser?.profile_id?.toString() === id) {
       setUsername(currentUser.username);
-    } else {
-      navigate("/");
     }
   }, [currentUser, navigate, id]);
 
@@ -71,18 +68,8 @@ const UsernameForm = () => {
                 {message}
               </Alert>
             ))}
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              onClick={() => navigate(-1)}
-            >
-              cancel
-            </Button>
-            <Button
-              className={`${btnStyles.Button} ${btnStyles.Blue}`}
-              type="submit"
-            >
-              save
-            </Button>
+            <Button onClick={() => navigate(-1)}>cancel</Button>
+            <Button type="submit">save</Button>
           </Form>
         </Container>
       </Col>

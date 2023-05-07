@@ -25,7 +25,6 @@ const ProfileEditForm = () => {
   const imageFile = useRef();
 
   const [profileData, setProfileData] = useState({
-    name: "",
     bio: "",
     image: "",
   });
@@ -35,17 +34,14 @@ const ProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
-      if (currentUser?.profile_id?.toString() === id) {
-        try {
-          const { data } = await axiosReq.get(`/profiles/${id}/`);
-          const { name, content, image } = data;
-          setProfileData({ name, content, image });
-        } catch (err) {
-          console.log(err);
-          navigate("/");
-        }
-      } else {
-        navigate("/");
+      try {
+        const { data } = await axiosReq.get(`/profiles/${id}`);
+        const { name, bio, image } = data;
+
+        setProfileData({ bio, image });
+        console.log(name);
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -62,15 +58,14 @@ const ProfileEditForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("content", content);
+    formData.append("bio", bio);
 
     if (imageFile?.current?.files[0]) {
       formData.append("image", imageFile?.current?.files[0]);
     }
 
     try {
-      const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
+      const { data } = await axiosReq.put(`/profiles/${id}`, formData);
       setCurrentUser((currentUser) => ({
         ...currentUser,
         profile_image: data.image,
@@ -88,27 +83,20 @@ const ProfileEditForm = () => {
         <Form.Label>Bio</Form.Label>
         <Form.Control
           as="textarea"
-          value={content}
+          value={bio}
           onChange={handleChange}
-          name="content"
+          name="bio"
           rows={7}
         />
       </Form.Group>
 
-      {errors?.content?.map((message, idx) => (
+      {errors?.bio?.map((message, idx) => (
         <Alert variant="warning" key={idx}>
           {message}
         </Alert>
       ))}
-      <Button
-        className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => navigate(-1)}
-      >
-        cancel
-      </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-        save
-      </Button>
+      <Button onClick={() => navigate(-1)}>cancel</Button>
+      <Button type="submit">save</Button>
     </>
   );
 
@@ -116,7 +104,7 @@ const ProfileEditForm = () => {
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
-          <Container className={appStyles.Content}>
+          <Container>
             <Form.Group>
               {image && (
                 <figure>
@@ -129,14 +117,12 @@ const ProfileEditForm = () => {
                 </Alert>
               ))}
               <div>
-                <Form.Label
-                  className={`${btnStyles.Button} ${btnStyles.Blue} btn my-auto`}
-                  htmlFor="image-upload"
-                >
+                <Form.Label className={` btn my-auto`} htmlFor="image-upload">
                   Change the image
                 </Form.Label>
               </div>
-              <Form.File
+              <Form.Control
+                type="file"
                 id="image-upload"
                 ref={imageFile}
                 accept="image/*"
@@ -154,7 +140,7 @@ const ProfileEditForm = () => {
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">
-          <Container className={appStyles.Content}>{textFields}</Container>
+          <Container>{textFields}</Container>
         </Col>
       </Row>
     </Form>
