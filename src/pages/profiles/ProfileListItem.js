@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/ProfileListItem.module.css";
 import appStyles from "../../App.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Avatar from "../../components/Avatar";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useSetProfileData } from "../../contexts/ProfileDataContext";
 
 const ProfileListItem = (props) => {
   const { id } = props;
@@ -23,11 +21,6 @@ const ProfileListItem = (props) => {
     };
     handleMount();
   }, [id]);
-
-  const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === profile?.owner;
-
-  const { handleFollow, handleUnfollow } = useSetProfileData();
 
   return (
     <Container className={`${appStyles.Box}`}>
