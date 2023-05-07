@@ -21,3 +21,8 @@
     border: 1px solid black;
 
 }
+
+
+.Delete:hover{
+    background-color: red;
+}

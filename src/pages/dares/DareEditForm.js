@@ -11,12 +11,15 @@ import {
 } from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
 import TopProfiles from "../profiles/TopProfiles";
+import Asset from "../../components/Asset";
 
 function DareEditForm() {
   const [errors, setErrors] = useState({});
   const [criteriaFields, setCriteriaFields] = useState([{ id: 0, text: "" }]);
-  const [deleteCrit, setDeleteCrit] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
+  const [deleteCrit] = useState([]);
 
   const [dareData, setDareData] = useState({
     title: "",
@@ -41,6 +44,8 @@ function DareEditForm() {
         });
 
         const critData = await Promise.all(critDataReq);
+
+        setHasLoaded(true);
 
         const updateCriteriaFields = critData.map((field, index) => {
           return {
@@ -151,8 +156,9 @@ function DareEditForm() {
   const textFields = (
     <div>
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Title</Form.Label>
         <Form.Control
+          className={formStyles.Input}
           type="text"
           name="title"
           value={title}
@@ -165,8 +171,9 @@ function DareEditForm() {
         </Alert>
       ))}
       <Form.Group>
-        <Form.Label>Description</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Description</Form.Label>
         <Form.Control
+          className={formStyles.Input}
           as="textarea"
           rows={3}
           name="description"
@@ -182,15 +189,16 @@ function DareEditForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Category</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Category</Form.Label>
         <Form.Select
+          className={formStyles.Input}
           aria-label="Select Category"
           name="category"
           value={category}
           onChange={handleChange}
         >
           <option>Select Category</option>
-          <option value="Spread Positivity">Spread Positivity</option>
+          <option value="Positivity Spread">Random Acts of Kindness</option>
           <option value="Fitness">Fitness</option>
           <option value="Adventure">Adventure</option>
           <option value="Creativity">Creativity</option>
@@ -210,21 +218,26 @@ function DareEditForm() {
   const renderCriteriaFields = (
     <div>
       <Form.Group>
-        <Form.Label>Criteria</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>
+          Criteria ({criteriaFields.length}/5)
+        </Form.Label>
         {criteriaFields.map((field) => (
           <InputGroup key={`${field.id}`} className="mb-3">
             <Form.Control
+              className={formStyles.Input}
               type="text"
               placeholder="What has to be done?"
               value={field.text}
               onChange={(e) => handleCriterionChange(field.id, e.target.value)}
             />
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-              onClick={() => handleMinusCriteria(field.id)}
-            >
-              -
-            </Button>
+            {criteriaFields.length > 1 && (
+              <Button
+                className={` ${appStyles.Button} `}
+                onClick={() => handleMinusCriteria(field.id)}
+              >
+                -
+              </Button>
+            )}
           </InputGroup>
         ))}
       </Form.Group>
@@ -234,56 +247,66 @@ function DareEditForm() {
             {message}
           </Alert>
         ))}
-      <div className="text-center">
-        <Button
-          onClick={handlePlusCriteria}
-          className={` ${appStyles.Button} `}
-        >
-          +
-        </Button>
-      </div>
+      {criteriaFields.length < 5 && (
+        <div className="text-center">
+          <Button
+            onClick={handlePlusCriteria}
+            className={` ${appStyles.Button} `}
+          >
+            +
+          </Button>
+        </div>
+      )}
     </div>
   );
 
   return (
     <Row>
-      <h1 className={appStyles.BrandFont}>Dares / Edit</h1>
+      <h1>
+        <Link to="/dares">Dares</Link> / Edit
+      </h1>
       <Col md={9}>
         <TopProfiles mobile />
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col>
-              <Container>
-                <div>{textFields}</div>
-                <div className="d-md-none">{renderCriteriaFields}</div>
-              </Container>
-            </Col>
-            <Col md={5} lg={4} className="d-none d-md-block">
-              <div className="d-none d-md-block">{renderCriteriaFields}</div>
-            </Col>
-          </Row>
-          <div className="m-3">
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-              type="submit"
-            >
-              Save Changes
-            </Button>
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-              onClick={() => navigate(-1)}
-            >
-              cancel
-            </Button>
-            <Button
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-              variant="danger"
-              onClick={handleDelete}
-            >
-              delete
-            </Button>
-          </div>
-        </Form>
+        {hasLoaded ? (
+          <Form onSubmit={handleSubmit}>
+            <Container className={`pt-2 pb-1 ${appStyles.Box}`}>
+              <Row>
+                <Col className="pb-md-5">
+                  <Container>
+                    <div>{textFields}</div>
+                    <div className="d-md-none">{renderCriteriaFields}</div>
+                  </Container>
+                </Col>
+                <Col md={5} lg={4} className="d-none d-md-block">
+                  <div className="d-none d-md-block">
+                    {renderCriteriaFields}
+                  </div>
+                </Col>
+              </Row>
+              <div className="m-3 d-flex align-items-center justify-content-between">
+                <div className="d-flex align-items-center">
+                  <Button
+                    className={`${appStyles.BrandFont} ${appStyles.Button} `}
+                    type="submit"
+                  >
+                    Save Changes
+                  </Button>
+                  <span className="mx-2"> /</span>
+                  <Link onClick={() => navigate(-1)}>Cancel</Link>
+                </div>
+                <Button
+                  className={`${appStyles.BrandFont} ${appStyles.Button} ${formStyles.Delete}`}
+                  variant="danger"
+                  onClick={handleDelete}
+                >
+                  delete
+                </Button>
+              </div>
+            </Container>
+          </Form>
+        ) : (
+          <Asset spinner />
+        )}
       </Col>
       <Col md={3} className="d-none d-md-block">
         <Row>

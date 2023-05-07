@@ -11,6 +11,8 @@ import {
 } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
+
 import TopProfiles from "../profiles/TopProfiles";
 
 function DareCreateForm() {
@@ -111,8 +113,9 @@ function DareCreateForm() {
   const textFields = (
     <div>
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Title</Form.Label>
         <Form.Control
+          className={formStyles.Input}
           type="text"
           name="title"
           value={title}
@@ -125,8 +128,9 @@ function DareCreateForm() {
         </Alert>
       ))}
       <Form.Group>
-        <Form.Label>Description</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Description</Form.Label>
         <Form.Control
+          className={formStyles.Input}
           as="textarea"
           rows={3}
           name="description"
@@ -142,8 +146,9 @@ function DareCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Category</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>Category</Form.Label>
         <Form.Select
+          className={formStyles.Input}
           aria-label="Select Category"
           name="category"
           value={category}
@@ -170,22 +175,27 @@ function DareCreateForm() {
   const renderCriteriaFields = (
     <div>
       <Form.Group>
-        <Form.Label>Criteria ({criteriaFields.length}/5)</Form.Label>
+        <Form.Label className={appStyles.BrandFont}>
+          Criteria ({criteriaFields.length}/5)
+        </Form.Label>
 
         {criteriaFields.map((field) => (
           <InputGroup key={`${field.id}`} className="mb-3">
             <Form.Control
+              className={formStyles.Input}
               type="text"
               placeholder="What has to be done?"
               value={field.text}
               onChange={(e) => handleCriterionChange(field.id, e.target.value)}
             />
-            <Button
-              className={` ${appStyles.Button} `}
-              onClick={() => handleMinusCriteria(field.id)}
-            >
-              -
-            </Button>
+            {criteriaFields.length > 1 && (
+              <Button
+                className={` ${appStyles.Button} `}
+                onClick={() => handleMinusCriteria(field.id)}
+              >
+                -
+              </Button>
+            )}
           </InputGroup>
         ))}
       </Form.Group>
@@ -210,11 +220,13 @@ function DareCreateForm() {
 
   return (
     <Row>
-      <h1 className={appStyles.BrandFont}>Dares / Create</h1>
+      <h1>
+        <Link to="/dares">Dares</Link> / Create
+      </h1>
       <Col md={9}>
-        <Row className="d-block d-md-none">Top Bar</Row>
+        <TopProfiles mobile />
         <Form onSubmit={handleSubmit}>
-          <Container className={appStyles.Box}>
+          <Container className={`pt-2 pb-3 ${appStyles.Box}`}>
             <Row>
               <Col>
                 <Container>
@@ -226,21 +238,14 @@ function DareCreateForm() {
                 <div className="d-none d-md-block">{renderCriteriaFields}</div>
               </Col>
             </Row>
+            <div className="m-3">
+              <Button type="submit" className={`${appStyles.Button} `}>
+                Create
+              </Button>
+              <span className="mx-2"> /</span>
+              <Link onClick={() => navigate(-1)}>Cancel</Link>
+            </div>
           </Container>
-          <div className="m-3">
-            <Button
-              type="submit"
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-            >
-              create
-            </Button>
-            <Button
-              onClick={() => navigate(-1)}
-              className={`${appStyles.BrandFont} ${appStyles.Button} `}
-            >
-              cancel
-            </Button>
-          </div>
         </Form>
       </Col>
       <Col md={3} className="d-none d-md-block">
