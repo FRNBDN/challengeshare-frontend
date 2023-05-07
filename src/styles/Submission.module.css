@@ -1,5 +1,5 @@
 .Color{
-    background-color: #9fc5f8;
+    background-color: white;
 }
 
 .ImageField{
@@ -20,3 +20,20 @@
     position: absolute;
     top: 37px;
 }
+
+.Owner{
+    font-size: 1.3rem;
+}
+
+.Pending{
+    color: orange;
+
+   }
+   
+   .Pass{
+       color: green;
+   }
+   
+   .Failed{
+       color: red;
+   }

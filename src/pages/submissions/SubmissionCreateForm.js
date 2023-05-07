@@ -4,27 +4,17 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { Button, InputGroup, ListGroup } from "react-bootstrap";
-import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+import { axiosReq } from "../../api/axiosDefaults";
 import Avatar from "../../components/Avatar";
 import appStyles from "../../App.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import formStyles from "../../styles/Forms.module.css";
+import { Link } from "react-router-dom";
 
 const SubmissionCreateForm = (props) => {
-  const {
-    dare,
-    setDares,
-    setSubmission,
-    setSubmissions,
-    profileImage,
-    profile_id,
-    setOpen,
-    Feed,
-  } = props;
+  const { dare, setDares, profileImage, profile_id, setOpen, Feed } = props;
   const [text, setText] = useState("");
   const [uploads, setUploads] = useState([]);
   const fileInput = useRef(null);
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     setText(e.target.value);
   };
@@ -88,9 +78,9 @@ const SubmissionCreateForm = (props) => {
   return (
     <Row>
       <Col>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="pt-3">
           <Row>
-            <Col>
+            <Col xs={12} md={7}>
               <Container>
                 <Form.Group>
                   <InputGroup>
@@ -98,8 +88,11 @@ const SubmissionCreateForm = (props) => {
                       <Avatar src={profileImage} />
                     </Link>
 
-                    <Form.Label>Additional Comment</Form.Label>
+                    <Form.Label className="d-none">
+                      Additional Comment
+                    </Form.Label>
                     <Form.Control
+                      className={formStyles.Input}
                       placeholder="Write additional info and context to uploaded proof"
                       as="textarea"
                       value={text}
@@ -108,89 +101,40 @@ const SubmissionCreateForm = (props) => {
                     />
                   </InputGroup>
                 </Form.Group>
-                <div className="d-md-none">
-                  <Form.Group controlId="fileInput">
-                    <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
-                    <ListGroup>
-                      {uploads.map((upload, index) => (
-                        <ListGroup.Item key={index}>
-                          {upload.name}
-                          <Button
-                            className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                            size="sm"
-                            onClick={() => {
-                              setUploads(uploads.filter((_, i) => i !== index));
-                            }}
-                          >
-                            x
-                          </Button>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                    {uploads.length < 5 ? (
-                      <Button
-                        className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                        onClick={() => fileInput.current.click()}
-                      >
-                        {uploads.length > 0
-                          ? "Upload Additional"
-                          : "Upload Image"}
-                      </Button>
-                    ) : (
-                      <Button
-                        className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
-                        disabled
-                      >
-                        Limit Reached
-                      </Button>
-                    )}
-
-                    <input
-                      type="file"
-                      ref={fileInput}
-                      onChange={handleUpload}
-                      accept="image/*"
-                      style={{ display: "none" }}
-                    />
-                  </Form.Group>
-                </div>
               </Container>
             </Col>
-            <Col md={5} lg={4} className="d-none d-md-block">
-              <div className="d-none d-md-block">
+            <Col xs={12} md={5}>
+              <div className="">
                 <Form.Group controlId="fileInput">
-                  <Form.Label> Uploads {`${uploads.length}/5`}: </Form.Label>
+                  <Form.Label className={`${appStyles.BrandFont}`}>
+                    {" "}
+                    Uploads {`${uploads.length}/5`}:{" "}
+                  </Form.Label>
                   <ListGroup>
                     {uploads.map((upload, index) => (
                       <ListGroup.Item key={index}>
                         {upload.name}
                         <Button
-                          className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                          className={`${appStyles.BrandFont} ${appStyles.Button} float-end`}
                           size="sm"
                           onClick={() => {
                             setUploads(uploads.filter((_, i) => i !== index));
                           }}
                         >
-                          x
+                          <span className="d-none d-md-block">x</span>
+                          <span className="d-block d-md-none">Remove</span>
                         </Button>
                       </ListGroup.Item>
                     ))}
                   </ListGroup>
-                  {uploads.length < 5 ? (
+                  {uploads.length < 5 && (
                     <Button
-                      className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                      className={`${appStyles.BrandFont} ${appStyles.Button} w-100`}
                       onClick={() => fileInput.current.click()}
                     >
                       {uploads.length > 0
                         ? "Upload Additional"
                         : "Upload Image"}
-                    </Button>
-                  ) : (
-                    <Button
-                      className={`${appStyles.BrandFont} ${appStyles.Button} ${appStyles.Button.disabled}`}
-                      disabled
-                    >
-                      Limit Reached
                     </Button>
                   )}
 
@@ -212,6 +156,16 @@ const SubmissionCreateForm = (props) => {
             >
               Submit
             </Button>
+            <span className="mx-2"> /</span>
+            <Link
+              onClick={() => {
+                setOpen(false);
+                setText("");
+                setUploads([]);
+              }}
+            >
+              Cancel
+            </Link>
           </div>
         </Form>
       </Col>
