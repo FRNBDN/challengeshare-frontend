@@ -3,7 +3,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/ProfileListItem.module.css";
 import appStyles from "../../App.module.css";
 import Avatar from "../../components/Avatar";
-import { Col, Container, Row, Placeholder, Spinner } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ProfileListItem = (props) => {

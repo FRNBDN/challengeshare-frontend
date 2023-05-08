@@ -10,8 +10,8 @@ import appStyles from "../../App.module.css";
 import { useRedirect } from "../../hooks/useRedirect";
 
 const SignInForm = () => {
-  const setCurrentUser = useSetCurrentUser();
   useRedirect("loggedIn");
+  const setCurrentUser = useSetCurrentUser();
 
   const [signInData, setSignInData] = useState({
     username: "",
@@ -46,7 +46,7 @@ const SignInForm = () => {
       <Row>
         <Col xs={12} md={6} lg={4}>
           <h1 className={styles.BackgroundText}>
-            DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/
+            DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/
           </h1>
           <Container className={`p-4 ${appStyles.Box} ${styles.Box} `}>
             <h1>SIGN IN</h1>
