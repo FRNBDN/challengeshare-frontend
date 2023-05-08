@@ -44,7 +44,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname]);
+  }, [filter, query, pathname, currentUser]);
 
   const userFilters = (
     <>

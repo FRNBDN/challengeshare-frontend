@@ -79,7 +79,7 @@ function DaresFeedPage({ message, filter = "" }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname, message]);
+  }, [filter, query, pathname, message, currentUser]);
 
   return (
     <>
