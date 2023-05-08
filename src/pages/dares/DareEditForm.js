@@ -62,7 +62,7 @@ function DareEditForm() {
           navigate("/");
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     handleMount();
@@ -137,7 +137,7 @@ function DareEditForm() {
 
       navigate(`/dares/${id}`);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       if (error.response?.status !== 401) {
         setErrors(error.response?.data);
       }
@@ -148,8 +148,8 @@ function DareEditForm() {
     try {
       await axiosRes.delete(`/challenges/${id}`);
       navigate("/dares/");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      // console.log(error);
     }
   };
 

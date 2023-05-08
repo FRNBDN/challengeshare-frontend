@@ -42,7 +42,7 @@ const ReviewCreateForm = (props) => {
         setCriteria(criteria);
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     setHasLoaded(false);
@@ -96,7 +96,7 @@ const ReviewCreateForm = (props) => {
 
       setOpen(false);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

@@ -77,7 +77,7 @@ const SubmissionCreateForm = (props) => {
 
       setOpen(false);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

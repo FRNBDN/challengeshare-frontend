@@ -56,7 +56,7 @@ const Dare = (props) => {
         setCriteria(data);
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     setHasLoaded(false);
@@ -79,7 +79,7 @@ const Dare = (props) => {
         }),
       }));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -99,7 +99,7 @@ const Dare = (props) => {
         }),
       }));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

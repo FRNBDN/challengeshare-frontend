@@ -33,7 +33,7 @@ function SubmissionPage() {
         setSubmission({ results: [submission] });
         setReviews(reviews);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     handleMount();

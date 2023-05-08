@@ -74,7 +74,7 @@ function DareEditForm() {
         }
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     handleMount();
@@ -109,7 +109,7 @@ function DareEditForm() {
       );
       navigate(`/submissions/${id}`);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -118,8 +118,8 @@ function DareEditForm() {
       await axiosRes.delete(`/submissions/${id}`);
 
       navigate("/submissions/");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      //console.log(error);
     }
   };
 

@@ -37,7 +37,7 @@ const SubmissionSmall = (props) => {
         const { data: dare } = await axiosReq.get(`/challenges/${challenge}`);
         setDare({ results: [dare] });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     fetchData();

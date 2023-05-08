@@ -41,8 +41,8 @@ const ProfileEditForm = () => {
         const { bio, image } = data;
 
         setProfileData({ bio, image });
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        // console.log(error);
       }
     };
 
@@ -72,9 +72,9 @@ const ProfileEditForm = () => {
         profile_image: data.image,
       }));
       navigate(`/profiles/${id}`);
-    } catch (err) {
-      console.log(err);
-      setErrors(err.response?.data);
+    } catch (error) {
+      // console.log(error);
+      setErrors(error.response?.data);
     }
   };
 

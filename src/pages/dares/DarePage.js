@@ -32,7 +32,7 @@ function DarePage() {
         setSubmissions(submissions);
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     handleMount();

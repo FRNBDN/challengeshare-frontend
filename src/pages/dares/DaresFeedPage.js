@@ -70,7 +70,7 @@ function DaresFeedPage({ message, filter = "" }) {
         }
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     const timer = setTimeout(() => {

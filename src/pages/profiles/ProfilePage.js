@@ -18,13 +18,14 @@ import { fetchMoreData } from "../../utils/utils";
 
 import Asset from "../../components/Asset";
 import TopProfiles from "./TopProfiles";
+
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
+
 import SubmissionSmall from "../submissions/SubmissionSmall";
 import DareSmall from "../dares/DareSmall";
 import ProfileListItem from "./ProfileListItem";
 import Avatar from "../../components/Avatar";
-
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -58,9 +59,8 @@ function ProfilePage({ message, model, filter }) {
         setProfileId(id);
         setHasLoaded(true);
         setHasLoadedData(true);
-        console.log("models fetch data", profileModels);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     fetchData();

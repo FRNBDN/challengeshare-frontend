@@ -61,7 +61,7 @@ const Submission = (props) => {
         setDare(dare);
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     setHasLoaded(false);

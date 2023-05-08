@@ -34,7 +34,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
         setSubmissions(data);
         setHasLoaded(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     };
     setHasLoaded(false);
