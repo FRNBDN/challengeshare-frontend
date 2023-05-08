@@ -26,47 +26,60 @@ function DaresFeedPage({ message, filter = "" }) {
   const userFilters = (
     <>
       <Link
-        to="/dares/incomplete"
-        className={`${appStyles.Button} m-1 flex-fill`}
+        to="/dares/nonsub"
+        className={`${appStyles.Button} m-1 flex-fill ${
+          pathname === "/dares/nonsub" && appStyles.Active
+        }`}
       >
-        Incomplete
+        Not Submitted
       </Link>
       <Link
         to="/dares/byfollowed"
-        className={`${appStyles.Button} m-1 flex-fill`}
+        className={`${appStyles.Button} m-1 flex-fill ${
+          pathname === "/dares/byfollowed" && appStyles.Active
+        }`}
       >
-        By Followed
+        by Followed Users
       </Link>
       <Link
-        to="/dares/following"
-        className={`${appStyles.Button} m-1 flex-fill`}
+        to="/dares/bookmarked"
+        className={`${appStyles.Button} m-1 flex-fill ${
+          pathname === "/dares/bookmarked" && appStyles.Active
+        }`}
       >
-        Followed
+        Bookmarked
       </Link>
     </>
   );
 
   useEffect(() => {
     const fetchDares = async () => {
-      console.log("useEffect called with query=", query);
+      console.log(pathname);
       try {
         const { data } = await axiosReq.get(
           `/challenges/?${filter}search=${query}`
         );
-        setDares(data);
+
+        if (message === "No dares not submitted to found") {
+          const filteredData = data.results.filter(
+            (dare) => !dare.has_submitted
+          );
+          setDares({ results: filteredData });
+        } else {
+          setDares(data);
+        }
         setHasLoaded(true);
       } catch (error) {
         console.log(error);
       }
     };
-    setHasLoaded(false);
     const timer = setTimeout(() => {
       fetchDares();
     }, 1000);
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname]);
+  }, [filter, query, pathname, message]);
 
   return (
     <>
@@ -93,7 +106,9 @@ function DaresFeedPage({ message, filter = "" }) {
               <div className="d-flex justify-content-between flex-wrap flex-fill my-1">
                 <Link
                   to="/dares"
-                  className={`${appStyles.Button} m-1 flex-fill`}
+                  className={`${appStyles.Button} m-1 flex-fill ${
+                    pathname === "/dares" && appStyles.Active
+                  }`}
                 >
                   All
                 </Link>
@@ -155,7 +170,9 @@ function DaresFeedPage({ message, filter = "" }) {
               <div className="d-flex flex-column">
                 <Link
                   to="/dares"
-                  className={`${appStyles.Button} m-1 flex-fill`}
+                  className={`${appStyles.Button} m-1 flex-fill ${
+                    pathname === "/dares" && appStyles.Active
+                  }`}
                 >
                   All
                 </Link>

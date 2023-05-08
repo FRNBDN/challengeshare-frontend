@@ -60,6 +60,14 @@ function App() {
 
           <Route
             exact
+            path="/dares/nonsub"
+            element={
+              <DaresFeedPage message="No dares not submitted to found" />
+            }
+          />
+
+          <Route
+            exact
             path="/dares/byfollowed"
             element={
               <DaresFeedPage
@@ -70,7 +78,7 @@ function App() {
           />
           <Route
             exact
-            path="/dares/following"
+            path="/dares/bookmarked"
             element={
               <DaresFeedPage
                 message="Your followed dares will show up here"

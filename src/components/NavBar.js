@@ -29,15 +29,15 @@ const NavBar = () => {
 
   const loggedInItems = (
     <>
+      <NavLink to="/" className={styles.NavLink} onClick={handleSignOut}>
+        Sign Out
+      </NavLink>
       <NavLink
         className={`d-none d-lg-block ${styles.NavLink}`}
         to={`profiles/${currentUser?.profile_id}`}
       >
+        <span>{currentUser?.username}</span>
         <Avatar src={currentUser?.profile_image} />
-        {currentUser?.username}
-      </NavLink>
-      <NavLink to="/" className={styles.NavLink} onClick={handleSignOut}>
-        Sign Out
       </NavLink>
     </>
   );
@@ -99,7 +99,7 @@ const NavBar = () => {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body id="NavBarLinks">
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav className="justify-content-end flex-grow-1 pe-3 align-items-baseline">
                 <NavLink to="/" className={styles.NavLink}>
                   Submissions
                 </NavLink>

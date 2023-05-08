@@ -48,15 +48,19 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
     <>
       <Link
         to="/submissions/own"
-        className={`${appStyles.Button} m-1 flex-fill`}
+        className={`${appStyles.Button} m-1 flex-fill ${
+          pathname === "/submissions/own" && appStyles.Active
+        }`}
       >
         My Submissions
       </Link>
       <Link
         to="/submissions/byfollowed"
-        className={`${appStyles.Button} m-1 flex-fill`}
+        className={`${appStyles.Button} m-1 flex-fill ${
+          pathname === "/submissions/byfollowed" && appStyles.Active
+        }`}
       >
-        By Followed
+        by Followed Users
       </Link>
     </>
   );
@@ -86,7 +90,10 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
               <div className="d-flex justify-content-between flex-wrap flex-fill my-1">
                 <Link
                   to="/submissions"
-                  className={`${appStyles.Button} m-1 flex-fill`}
+                  className={`${appStyles.Button} m-1 flex-fill ${
+                    (pathname === "/submissions" || pathname === "/") &&
+                    appStyles.Active
+                  }`}
                 >
                   All
                 </Link>
@@ -148,7 +155,10 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
               <div className="d-flex flex-column">
                 <Link
                   to="/submissions"
-                  className={`${appStyles.Button} m-1 flex-fill`}
+                  className={`${appStyles.Button} m-1 flex-fill ${
+                    (pathname === "/submissions" || pathname === "/") &&
+                    appStyles.Active
+                  }`}
                 >
                   All
                 </Link>

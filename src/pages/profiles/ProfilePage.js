@@ -18,7 +18,7 @@ import {
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import SubmissionSmall from "../submissions/SubmissionSmall";
@@ -37,12 +37,14 @@ function ProfilePage({ message, model, filter }) {
   const is_owner = currentUser?.username === profile?.owner;
   const [profileModels, setProfileModels] = useState({ results: [] });
   const [profileId, setProfileId] = useState();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
       setHasLoadedData(false);
       profileId !== id && setHasLoaded(false);
       try {
+        console.log(pathname);
         const [{ data: pageProfile }, { data: profileModels }] =
           await Promise.all([
             axiosReq.get(`/profiles/${id}`),
@@ -62,7 +64,7 @@ function ProfilePage({ message, model, filter }) {
       }
     };
     fetchData();
-  }, [id, setProfileData, message, model, filter, profileId]);
+  }, [id, setProfileData, message, model, filter, profileId, pathname]);
 
   const mainProfile = (
     <>
@@ -169,7 +171,9 @@ function ProfilePage({ message, model, filter }) {
           >
             <Link
               to={`/profiles/${id}`}
-              className={`${appStyles.Button} flex-fill`}
+              className={`${appStyles.Button} flex-fill  ${
+                pathname === `/profiles/${id}` && appStyles.Active
+              }`}
             >
               Sub
               <span className="d-inline-block d-md-none d-lg-inline-block">
@@ -179,20 +183,26 @@ function ProfilePage({ message, model, filter }) {
             </Link>
             <Link
               to={`/profiles/${id}/dares`}
-              className={`${appStyles.Button} flex-fill `}
+              className={`${appStyles.Button} flex-fill  ${
+                pathname === `/profiles/${id}/dares` && appStyles.Active
+              }`}
             >
               Dares
             </Link>
 
             <Link
               to={`/profiles/${id}/followers`}
-              className={`${appStyles.Button} flex-fill`}
+              className={`${appStyles.Button} flex-fill ${
+                pathname === `/profiles/${id}/followers` && appStyles.Active
+              }`}
             >
               Followers
             </Link>
             <Link
               to={`/profiles/${id}/following`}
-              className={`${appStyles.Button} flex-fill`}
+              className={`${appStyles.Button} flex-fill ${
+                pathname === `/profiles/${id}/following` && appStyles.Active
+              }`}
             >
               Following
             </Link>
