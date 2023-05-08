@@ -7,9 +7,11 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import formStyles from "../../styles/Forms.module.css";
 import styles from "../../styles/SignInUpForm.module.css";
 import appStyles from "../../App.module.css";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const SignInForm = () => {
   const setCurrentUser = useSetCurrentUser();
+  useRedirect("loggedIn");
 
   const [signInData, setSignInData] = useState({
     username: "",
@@ -33,7 +35,7 @@ const SignInForm = () => {
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
-      navigate("/");
+      navigate(-1);
     } catch (err) {
       setErrors(err.response?.data);
     }

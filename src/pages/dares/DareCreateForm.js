@@ -14,8 +14,10 @@ import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 
 import TopProfiles from "../profiles/TopProfiles";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function DareCreateForm() {
+  useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
   const [criteriaFields, setCriteriaFields] = useState([{ id: 0, text: "" }]);
 
