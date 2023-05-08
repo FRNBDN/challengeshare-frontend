@@ -74,8 +74,8 @@ export const ProfileDataProvider = ({ children }) => {
           ...prevState,
           topProfiles: data,
         }));
-      } catch (err) {
-        // console.log(err);
+      } catch (error) {
+        // console.log(error);
       }
     };
 

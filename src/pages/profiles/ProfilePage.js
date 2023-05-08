@@ -45,7 +45,6 @@ function ProfilePage({ message, model, filter }) {
       setHasLoadedData(false);
       profileId !== id && setHasLoaded(false);
       try {
-        console.log(pathname);
         const [{ data: pageProfile }, { data: profileModels }] =
           await Promise.all([
             axiosReq.get(`/profiles/${id}`),

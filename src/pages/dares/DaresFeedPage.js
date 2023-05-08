@@ -54,7 +54,6 @@ function DaresFeedPage({ message, filter = "" }) {
 
   useEffect(() => {
     const fetchDares = async () => {
-      console.log(pathname);
       try {
         const { data } = await axiosReq.get(
           `/challenges/?${filter}search=${query}`
