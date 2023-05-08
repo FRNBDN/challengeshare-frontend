@@ -13,10 +13,12 @@ import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 import TopProfiles from "../profiles/TopProfiles";
+import Asset from "../../components/Asset";
 
 function DareEditForm() {
   const [deleteUpload, setDeleteUpload] = useState([]);
   const [uploads, setUploads] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [text, setText] = useState("");
   const fileInput = useRef(null);
 
@@ -68,6 +70,7 @@ function DareEditForm() {
         } else {
           navigate(-1);
         }
+        setHasLoaded(true);
       } catch (error) {
         console.log(error);
       }
@@ -127,108 +130,114 @@ function DareEditForm() {
         <Row>
           <TopProfiles mobile />
         </Row>
-        <Form onSubmit={handleSubmit}>
-          <Container className={appStyles.Box}>
-            <Row>
-              <Col xs={12} md={7}>
-                <Container className="px-0 pb-2">
-                  <Form.Group>
-                    <Form.Label className={`${appStyles.BrandFont}`}>
-                      Additional Comment
-                    </Form.Label>
-                    <InputGroup>
-                      <Form.Control
-                        className={formStyles.Input}
-                        placeholder="Write additional info and context to uploaded proof"
-                        as="textarea"
-                        value={text}
-                        onChange={handleChange}
-                        rows={4}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                </Container>
-              </Col>
-              <Col xs={12} md={5}>
-                <div>
-                  <Form.Group controlId="fileInput">
-                    <Form.Label className={appStyles.BrandFont}>
-                      {" "}
-                      Uploads {`${uploads.length}/5`}:{" "}
-                    </Form.Label>
-                    <ListGroup>
-                      {uploads.map((upload, index) => (
-                        <ListGroup.Item key={index}>
-                          {upload.name}
-                          <Button
-                            className={`${appStyles.BrandFont} ${appStyles.Button} float-right`}
-                            size="sm"
-                            onClick={() => {
-                              setUploads(uploads.filter((_, i) => i !== index));
-                              if (uploads[index].eid) {
-                                setDeleteUpload((prevDeleteUpload) => [
-                                  ...prevDeleteUpload,
-                                  uploads[index].eid,
-                                ]);
-                              }
-                            }}
-                          >
-                            <span className="d-none d-md-block">x</span>
-                            <span className="d-block d-md-none">Remove</span>
-                          </Button>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                    {uploads.length < 5 && (
-                      <Button
-                        className={`${appStyles.BrandFont} ${appStyles.Button} w-100`}
-                        onClick={() => fileInput.current.click()}
-                      >
-                        {uploads.length > 0
-                          ? "Upload Additional"
-                          : "Upload Image"}
-                      </Button>
-                    )}
+        {hasLoaded ? (
+          <Form onSubmit={handleSubmit}>
+            <Container className={appStyles.Box}>
+              <Row>
+                <Col xs={12} md={7}>
+                  <Container className="px-0 pb-2">
+                    <Form.Group>
+                      <Form.Label className={`${appStyles.BrandFont}`}>
+                        Additional Comment
+                      </Form.Label>
+                      <InputGroup>
+                        <Form.Control
+                          className={formStyles.Input}
+                          placeholder="Write additional info and context to uploaded proof"
+                          as="textarea"
+                          value={text}
+                          onChange={handleChange}
+                          rows={4}
+                        />
+                      </InputGroup>
+                    </Form.Group>
+                  </Container>
+                </Col>
+                <Col xs={12} md={5}>
+                  <div>
+                    <Form.Group controlId="fileInput">
+                      <Form.Label className={appStyles.BrandFont}>
+                        {" "}
+                        Uploads {`${uploads.length}/5`}:{" "}
+                      </Form.Label>
+                      <ListGroup>
+                        {uploads.map((upload, index) => (
+                          <ListGroup.Item key={index}>
+                            {upload.name}
+                            <Button
+                              className={`${appStyles.BrandFont} ${appStyles.Button} float-right`}
+                              size="sm"
+                              onClick={() => {
+                                setUploads(
+                                  uploads.filter((_, i) => i !== index)
+                                );
+                                if (uploads[index].eid) {
+                                  setDeleteUpload((prevDeleteUpload) => [
+                                    ...prevDeleteUpload,
+                                    uploads[index].eid,
+                                  ]);
+                                }
+                              }}
+                            >
+                              <span className="d-none d-md-block">x</span>
+                              <span className="d-block d-md-none">Remove</span>
+                            </Button>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                      {uploads.length < 5 && (
+                        <Button
+                          className={`${appStyles.BrandFont} ${appStyles.Button} w-100`}
+                          onClick={() => fileInput.current.click()}
+                        >
+                          {uploads.length > 0
+                            ? "Upload Additional"
+                            : "Upload Image"}
+                        </Button>
+                      )}
 
-                    <input
-                      type="file"
-                      ref={fileInput}
-                      onChange={handleUpload}
-                      accept="image/*"
-                      style={{ display: "none" }}
-                    />
-                  </Form.Group>
+                      <input
+                        type="file"
+                        ref={fileInput}
+                        onChange={handleUpload}
+                        accept="image/*"
+                        style={{ display: "none" }}
+                      />
+                    </Form.Group>
+                  </div>
+                </Col>
+              </Row>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="m-3">
+                  <Button
+                    className={`${appStyles.BrandFont} ${appStyles.Button}`}
+                    type="submit"
+                  >
+                    Save Changes
+                  </Button>
+                  <span className="mx-2"> /</span>
+                  <Link
+                    onClick={() => {
+                      navigate(-1);
+                    }}
+                  >
+                    Cancel
+                  </Link>
                 </div>
-              </Col>
-            </Row>
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="m-3">
-                <Button
-                  className={`${appStyles.BrandFont} ${appStyles.Button}`}
-                  type="submit"
-                >
-                  Save Changes
-                </Button>
-                <span className="mx-2"> /</span>
-                <Link
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  Cancel
-                </Link>
+                <div>
+                  <Button
+                    className={`${appStyles.BrandFont} ${appStyles.Button} ${formStyles.Delete}`}
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button
-                  className={`${appStyles.BrandFont} ${appStyles.Button} ${formStyles.Delete}`}
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-          </Container>
-        </Form>
+            </Container>
+          </Form>
+        ) : (
+          <Asset spinner />
+        )}
       </Col>
       <Col md={3} className="d-none d-md-block">
         <Row>
