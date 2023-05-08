@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
+
 import { axiosReq } from "../../api/axiosDefaults";
+import Avatar from "../../components/Avatar";
+
 import styles from "../../styles/ProfileListItem.module.css";
 import appStyles from "../../App.module.css";
-import Avatar from "../../components/Avatar";
-import { Col, Container, Row, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const ProfileListItem = (props) => {
   const { id } = props;

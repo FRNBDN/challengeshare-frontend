@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { Link, useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 
-import Asset from "../../components/Asset";
-
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
-
-import TopProfiles from "./TopProfiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { useParams } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 import {
   useProfileData,
   useSetProfileData,
 } from "../../contexts/ProfileDataContext";
-import { Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+
+import Asset from "../../components/Asset";
+import TopProfiles from "./TopProfiles";
 import SubmissionSmall from "../submissions/SubmissionSmall";
 import DareSmall from "../dares/DareSmall";
 import ProfileListItem from "./ProfileListItem";
 import Avatar from "../../components/Avatar";
+
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
 
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);

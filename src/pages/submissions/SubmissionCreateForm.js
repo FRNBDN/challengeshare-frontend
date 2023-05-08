@@ -1,14 +1,20 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { Button, InputGroup, ListGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import ListGroup from "react-bootstrap/ListGroup";
+
 import { axiosReq } from "../../api/axiosDefaults";
+
 import Avatar from "../../components/Avatar";
+
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
-import { Link } from "react-router-dom";
 
 const SubmissionCreateForm = (props) => {
   const { dare, setDares, profileImage, profile_id, setOpen, Feed } = props;

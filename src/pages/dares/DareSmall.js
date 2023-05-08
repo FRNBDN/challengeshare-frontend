@@ -1,6 +1,12 @@
 import React from "react";
-import { Col, OverlayTrigger, Row, Tooltip, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Row from "react-bootstrap/Row";
+import Tooltip from "react-bootstrap/Tooltip";
+import Container from "react-bootstrap/Container";
+
 import appStyles from "../../App.module.css";
 import styles from "../../styles/DareSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import Avatar from "../../components/Avatar";
-import { Col, Container, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Row from "react-bootstrap/Row";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
+
+import Avatar from "../../components/Avatar";
 import ReviewEditForm from "./ReviewEditForm";
 
 import appStyles from "../../App.module.css";

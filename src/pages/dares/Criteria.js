@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 import Styles from "../../styles/Dare.module.css";
 
 const Criteria = (props) => {

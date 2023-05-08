@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "../../components/Avatar";
-import { OverlayTrigger, Tooltip, Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+import { axiosReq } from "../../api/axiosDefaults";
+
+import Avatar from "../../components/Avatar";
+
 import appStyles from "../../App.module.css";
 import styles from "../../styles/SubmissionSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
-import { axiosReq } from "../../api/axiosDefaults";
 
 const SubmissionSmall = (props) => {
   const {

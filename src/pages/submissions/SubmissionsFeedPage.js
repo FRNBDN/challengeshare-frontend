@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+
+import { axiosReq } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { fetchMoreData } from "../../utils/utils";
+
+import Submission from "./Submission";
+import TopProfiles from "../profiles/TopProfiles";
+import Asset from "../../components/Asset";
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/FeedPages.module.css";
-import { Link, useLocation } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
-import Submission from "./Submission";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Form } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
-import TopProfiles from "../profiles/TopProfiles";
 
 const SubmissionsFeedPage = ({ message, filter = "" }) => {
   const [submissions, setSubmissions] = useState({ results: [] });

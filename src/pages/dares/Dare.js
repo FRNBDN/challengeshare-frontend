@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import {
-  Card,
-  Col,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-  Button,
-  Container,
-} from "react-bootstrap";
+
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Tooltip from "react-bootstrap/Tooltip";
+import Card from "react-bootstrap/Card";
+
 import { Link, useLocation } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";

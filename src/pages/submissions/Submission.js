@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "../../components/Avatar";
-import {
-  Card,
-  Col,
-  OverlayTrigger,
-  Row,
-  Tooltip,
-  Button,
-  Container,
-} from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Row from "react-bootstrap/Row";
+import Tooltip from "react-bootstrap/Tooltip";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Carousel from "react-bootstrap/Carousel";
 import Collapse from "react-bootstrap/Collapse";
-import { Link, useLocation } from "react-router-dom";
+
 import { axiosReq } from "../../api/axiosDefaults";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 import Asset from "../../components/Asset";
 import ReviewCreateForm from "../reviews/ReviewCreateForm";
+import Avatar from "../../components/Avatar";
+
 import appStyles from "../../App.module.css";
 import styles from "../../styles/Submission.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import timeStyle from "../../styles/Timestap.module.css";
 
 const Submission = (props) => {

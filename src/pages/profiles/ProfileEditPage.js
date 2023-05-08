@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
+import Asset from "../../components/Asset";
 import TopProfiles from "./TopProfiles";
 import ProfileEditForm from "./ProfileEditForm";
 import UsernameForm from "./UsernameForm";
 import UserPasswordForm from "./UserPasswordForm";
 
 import appStyles from "../../App.module.css";
-
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import Asset from "../../components/Asset";
 
 const ProfileEditPage = () => {
   const navigate = useNavigate();

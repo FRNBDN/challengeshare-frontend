@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import {
-  Form,
-  Button,
-  Container,
-  Alert,
-  Row,
-  Col,
-  InputGroup,
-} from "react-bootstrap";
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
+
 import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 import TopProfiles from "../profiles/TopProfiles";

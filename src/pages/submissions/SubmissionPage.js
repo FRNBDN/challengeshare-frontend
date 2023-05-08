@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import { Link, useParams } from "react-router-dom";
-import { axiosReq } from "../../api/axiosDefaults";
-import { Col } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 
-import appStyles from "../../App.module.css";
+import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { fetchMoreData } from "../../utils/utils";
+
 import Submission from "./Submission";
 import Review from "../reviews/Review";
-import InfiniteScroll from "react-infinite-scroll-component";
 import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
 import TopProfiles from "../profiles/TopProfiles";
+
+import appStyles from "../../App.module.css";
 
 function SubmissionPage() {
   const { id } = useParams();

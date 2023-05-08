@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  Form,
-  Button,
-  Container,
-  Alert,
-  Row,
-  Col,
-  InputGroup,
-} from "react-bootstrap";
+
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+
 import { axiosReq } from "../../api/axiosDefaults";
-import appStyles from "../../App.module.css";
-import formStyles from "../../styles/Forms.module.css";
 
 import TopProfiles from "../profiles/TopProfiles";
 import { useRedirect } from "../../hooks/useRedirect";
+
+import appStyles from "../../App.module.css";
+import formStyles from "../../styles/Forms.module.css";
 
 function DareCreateForm() {
   useRedirect("loggedOut");
