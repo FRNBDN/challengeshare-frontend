@@ -35,14 +35,16 @@ const ReviewCreateForm = (props) => {
 
   useEffect(() => {
     const fetchCriteria = async () => {
-      try {
-        const { data: criteria } = await axiosReq.get(
-          `/criteria/?challenge=${dare_id}`
-        );
-        setCriteria(criteria);
-        setHasLoaded(true);
-      } catch (error) {
-        //console.log(error);
+      if (dare_id !== undefined) {
+        try {
+          const { data: criteria } = await axiosReq.get(
+            `/criteria/?challenge=${dare_id}`
+          );
+          setCriteria(criteria);
+          setHasLoaded(true);
+        } catch (error) {
+          //console.log(error);
+        }
       }
     };
     setHasLoaded(false);
