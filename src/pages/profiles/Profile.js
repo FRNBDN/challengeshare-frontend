@@ -31,16 +31,9 @@ const Profile = (props) => {
       <div className={`mx-0 ${!mobile && "flex-fill"}`}>
         <span className={`flex-grow ${appStyles.BrandFont}`}>{owner}</span>
       </div>
-      <div className={`text-right`}>
+      <div className={`text-right ${styles.ButtonContainer}`}>
         {currentUser &&
-          (is_owner ? (
-            <Button
-              disabled
-              className={`${appStyles.Button} ${appStyles.BrandFont} ${appStyles.disabled}`}
-            >
-              follow
-            </Button>
-          ) : following_id ? (
+          (is_owner ? null : following_id ? (
             <Button
               className={`${appStyles.Button} ${appStyles.BrandFont}`}
               onClick={() => handleUnfollow(profile)}
