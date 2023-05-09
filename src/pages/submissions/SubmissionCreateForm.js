@@ -50,7 +50,9 @@ const SubmissionCreateForm = (props) => {
       });
       // create each upload, with submission id as foreign key
       await Promise.all(
-        uploadsData.map((formData) => axiosReq.post("/uploads/", formData))
+        uploadsData
+          .reverse()
+          .map((formData) => axiosReq.post("/uploads/", formData))
       );
       // if the submission create form is on the feed page this code updates the
       // dare has_submit and submissions_count there
@@ -123,7 +125,10 @@ const SubmissionCreateForm = (props) => {
                   </Form.Label>
                   <ListGroup>
                     {uploads.map((upload, index) => (
-                      <ListGroup.Item key={index}>
+                      <ListGroup.Item
+                        key={index}
+                        className="d-flex justify-content-between"
+                      >
                         {upload.name}
                         <Button
                           className={`${appStyles.BrandFont} ${appStyles.Button} float-end`}

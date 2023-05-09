@@ -98,7 +98,7 @@ function DareEditForm() {
       await axiosRes.put(`/submissions/${id}`, { text, challenge: dare });
       // like with criteria im using eid to identify previously uploaded
       // images
-      uploads.forEach((upload) => {
+      uploads.reverse().forEach((upload) => {
         const formData = new FormData();
         formData.append("submission", id);
         formData.append("upload", upload);
@@ -172,7 +172,10 @@ function DareEditForm() {
                         {uploads.map((upload, index) => (
                           // add uploads to listgroup and add a delete
                           // button next to them to make it possible to delete
-                          <ListGroup.Item key={index}>
+                          <ListGroup.Item
+                            key={index}
+                            className="d-flex justify-content-between"
+                          >
                             {upload.name}
                             <Button
                               className={`${appStyles.BrandFont} ${appStyles.Button} float-right`}
