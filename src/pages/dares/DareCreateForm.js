@@ -171,11 +171,10 @@ function DareCreateForm() {
           onChange={handleChange}
         >
           <option>Select Category</option>
-          <option value="Positivity Spread">Random Acts of Kindness</option>
+          <option value="Spread Positivity">Spread Positivity</option>
           <option value="Fitness">Fitness</option>
           <option value="Adventure">Adventure</option>
           <option value="Creativity">Creativity</option>
-          <option value="Fitness">Fitness</option>
           <option value="Social">Social</option>
           <option value="Meme">Meme</option>
         </Form.Select>
