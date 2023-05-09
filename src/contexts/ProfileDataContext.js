@@ -17,6 +17,8 @@ export const ProfileDataProvider = ({ children }) => {
 
   const currentUser = useCurrentUser();
 
+  //Unfollow handler, deletes the userfollower of clicked profile update
+  // the state of all profiles in both components
   const handleUnfollow = async (clickedProfile) => {
     try {
       await axiosRes.delete(`/ufollowers/${clickedProfile.following_id}`);
@@ -39,6 +41,8 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
+  //Follow handler, creates the userfollower of clicked profile, update
+  // the state of all profiles in both components
   const handleFollow = async (clickedProfile) => {
     try {
       const { data } = await axiosRes.post("/ufollowers/", {
@@ -64,6 +68,8 @@ export const ProfileDataProvider = ({ children }) => {
     }
   };
 
+  //Orders the profiles in decending order
+  // with highest followers first
   useEffect(() => {
     const handleMount = async () => {
       try {

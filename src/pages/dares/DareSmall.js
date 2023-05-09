@@ -11,6 +11,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/DareSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
 
+// small dare component right now only used on the profile page
 const DareSmall = (props) => {
   const {
     id,

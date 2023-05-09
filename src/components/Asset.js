@@ -2,6 +2,8 @@ import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import styles from "../styles/Asset.module.css";
 
+// Asset with a custom light variant prop
+
 const Asset = ({ spinner, src, message, light }) => {
   return (
     <div className={`${styles.Asset} p-4`}>

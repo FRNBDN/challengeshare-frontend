@@ -17,6 +17,7 @@ import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
 
 const SignInForm = () => {
+  // if logged in, redirects to home
   useRedirect("loggedIn");
   const setCurrentUser = useSetCurrentUser();
 
@@ -30,6 +31,7 @@ const SignInForm = () => {
 
   const navigate = useNavigate();
 
+  //updates any changes in value of from input
   const handleChange = (event) => {
     setSignInData({
       ...signInData,
@@ -37,6 +39,8 @@ const SignInForm = () => {
     });
   };
 
+  // post an api request to log in on submit, sets current user
+  // if successfull
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -53,12 +57,15 @@ const SignInForm = () => {
     <Container className={styles.Background}>
       <Row>
         <Col xs={12} md={6} lg={4}>
+          {/* Stylized background for the form */}
           <h1 className={styles.BackgroundText}>
             DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/
           </h1>
           <Container className={`p-4 ${appStyles.Box} ${styles.Box} `}>
             <h1>SIGN IN</h1>
+            {/* Form start */}
             <Form onSubmit={handleSubmit}>
+              {/* Username group start */}
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label className="d-none">Username</Form.Label>
                 <Form.Control
@@ -75,6 +82,7 @@ const SignInForm = () => {
                   {message}
                 </Alert>
               ))}
+              {/* password group start */}
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label className="d-none">Password</Form.Label>
                 <Form.Control
@@ -91,6 +99,7 @@ const SignInForm = () => {
                   {message}
                 </Alert>
               ))}
+              {/* Button/link start */}
               <Button className={appStyles.Button} type="submit">
                 Sign In
               </Button>

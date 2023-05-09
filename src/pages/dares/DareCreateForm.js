@@ -18,6 +18,7 @@ import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 
 function DareCreateForm() {
+  // redirects user to home if logged out
   useRedirect("loggedOut");
   const [errors, setErrors] = useState({});
   const [criteriaFields, setCriteriaFields] = useState([{ id: 0, text: "" }]);
@@ -33,6 +34,7 @@ function DareCreateForm() {
 
   const navigate = useNavigate();
 
+  // handles changes in title, description, category
   const handleChange = (e) => {
     setDareData({
       ...dareData,
@@ -40,6 +42,8 @@ function DareCreateForm() {
     });
   };
 
+  // handles removal of a criteria field on the form, keeps updaint index
+  // on the fields
   const handleMinusCriteria = (id) => {
     if (criteriaFields.length > 1) {
       const newCriteriaList = criteriaFields.filter(
@@ -57,6 +61,8 @@ function DareCreateForm() {
     }
   };
 
+  //handles addition of criteria fields, give them ids, as in indexes
+  // as theyre created
   const handlePlusCriteria = () => {
     if (criteriaFields.length < 8) {
       const criteriaList = [...criteriaFields];
@@ -70,6 +76,8 @@ function DareCreateForm() {
     }
   };
 
+  // handles changes in criterion, takes id and text
+  // to ensure that the right criteria is being changed
   const handleCriterionChange = (id, text) => {
     const newCriteria = [...criteriaFields];
     newCriteria[id].text = text;
@@ -84,14 +92,16 @@ function DareCreateForm() {
     e.preventDefault();
 
     const challengeData = new FormData();
-
+    // appends challenge information into challenge data
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
 
+    // makes an api request to create the challenge
     try {
       const { data } = await axiosReq.post("/challenges/", challengeData);
 
+      // adds all the criterion to the criteria data
       const criteriaData = [];
       criteria.forEach((criterion) => {
         const formData = new FormData();
@@ -100,10 +110,12 @@ function DareCreateForm() {
         criteriaData.push(formData);
       });
 
+      // makes api post request for each criteira
       await Promise.all(
         criteriaData.map((formData) => axiosReq.post("/criteria/", formData))
       );
 
+      // navigate to darepage of newly created dare
       navigate(`/dares/${data.id}`);
     } catch (error) {
       // console.log(error);
@@ -113,6 +125,7 @@ function DareCreateForm() {
     }
   };
 
+  // text fields aka not critera
   const textFields = (
     <div>
       <Form.Group>
@@ -175,6 +188,8 @@ function DareCreateForm() {
     </div>
   );
 
+  // criteriafields renders programmatically based on the amount of fields in the
+  // criteriafields hook up to 5
   const renderCriteriaFields = (
     <div>
       <Form.Group>
@@ -221,6 +236,7 @@ function DareCreateForm() {
     </div>
   );
 
+  // page rendering starts here
   return (
     <Row>
       <h1>
@@ -228,20 +244,24 @@ function DareCreateForm() {
       </h1>
       <Col md={9}>
         <TopProfiles mobile />
+        {/* form start */}
         <Form onSubmit={handleSubmit}>
           <Container className={`pt-2 pb-3 ${appStyles.Box}`}>
             <Row>
               <Col>
                 <Container>
+                  {/* text fields here */}
                   <div>{textFields}</div>
                   <div className="d-md-none">{renderCriteriaFields}</div>
                 </Container>
               </Col>
+              {/* vertical on <md screens  criteriafields start here*/}
               <Col md={5} lg={4} className="d-none d-md-block">
                 <div className="d-none d-md-block">{renderCriteriaFields}</div>
               </Col>
             </Row>
             <div className="m-3">
+              {/* buttons starts here */}
               <Button type="submit" className={`${appStyles.Button} `}>
                 Create
               </Button>
@@ -251,6 +271,7 @@ function DareCreateForm() {
           </Container>
         </Form>
       </Col>
+      {/* sidebar starts here */}
       <Col md={3} className="d-none d-md-block">
         <Row>
           <div className="d-flex flex-column px-0 pb-3 ">

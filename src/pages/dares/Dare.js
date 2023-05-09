@@ -50,6 +50,7 @@ const Dare = (props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    // fetches criteria if id,pathname,submission props changes in the dare component
     const fetchCriteria = async () => {
       try {
         const { data } = await axiosReq.get(`/criteria/?challenge=${id}`);
@@ -63,6 +64,9 @@ const Dare = (props) => {
     fetchCriteria();
   }, [id, pathname, submission]);
 
+  //follow handler for challengefollowers, now bookmark
+  // increase the users_count by 1 and cfollow_id so the user
+  // cant follow again, set button to unfollow
   const handleFollow = async () => {
     try {
       const { data } = await axiosRes.post("cfollowers/", { challenge: id });
@@ -83,6 +87,10 @@ const Dare = (props) => {
     }
   };
 
+  //unfollow handler for challengefollowers, now bookmark
+  // decreases the users_count by 1 and cfollow_id false so the user
+  // cant unfollow again, set button to follow
+
   const handleUnfollow = async () => {
     try {
       await axiosRes.delete(`cfollowers/${cfollow_id}`);
@@ -102,7 +110,7 @@ const Dare = (props) => {
       // console.log(error);
     }
   };
-
+  // render disabled follow btn with tooltip if owner
   const follow_btn = is_owner ? (
     <OverlayTrigger
       placement="top"
@@ -117,14 +125,16 @@ const Dare = (props) => {
         </Button>
       </span>
     </OverlayTrigger>
-  ) : cfollow_id ? (
+  ) : // render unfollow btn if following
+  cfollow_id ? (
     <Button
       className={`${styles.Smaller} ${appStyles.Button} ${styles.Followed} py-1 px-2`}
       onClick={handleUnfollow}
     >
       <i className="fa-solid fa-bookmark"></i>
     </Button>
-  ) : currentUser ? (
+  ) : // render follow btn if logged in
+  currentUser ? (
     <Button
       className={` ${appStyles.Button} ${styles.Smaller} py-1 px-2`}
       onClick={handleFollow}
@@ -132,6 +142,7 @@ const Dare = (props) => {
       <i className="fa-regular fa-bookmark"></i>
     </Button>
   ) : (
+    // render disable button with login prompt for non authenticated users
     <OverlayTrigger
       placement="top"
       overlay={<Tooltip>Log in to follow</Tooltip>}
@@ -149,6 +160,7 @@ const Dare = (props) => {
   return (
     <Card className={`mb-2 ${appStyles.Card} `}>
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
+        {/* card top start  */}
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col>
             <span className={appStyles.BrandFont}>
@@ -171,7 +183,7 @@ const Dare = (props) => {
           </Col>
         </Row>
       </Card.Body>
-
+      {/* Main card body start */}
       <Card.Body className="pb-0">
         <div className="d-flex justify-content-between align-items-center mt-0">
           {Feed ? (
@@ -205,6 +217,7 @@ const Dare = (props) => {
             )}
           </Col>
           <Col>
+            {/* Criteria start */}
             <Card.Text className={`${appStyles.BrandFont}  mb-1`}>
               Criteria:
             </Card.Text>
@@ -230,8 +243,10 @@ const Dare = (props) => {
           </Col>
         </Row>
         <Row>
+          {/* submission create start */}
           <Container>
             {has_submitted ? (
+              //render disabled button and tooltip if already submitted
               <OverlayTrigger
                 placement="top"
                 overlay={<Tooltip>You can only share one submission</Tooltip>}
@@ -247,6 +262,7 @@ const Dare = (props) => {
                 </span>
               </OverlayTrigger>
             ) : currentUser ? (
+              //render button if logged in
               <Button
                 onClick={() => setOpen(!open)}
                 aria-controls="submission-form-collapse"
@@ -256,6 +272,7 @@ const Dare = (props) => {
                 {!open ? "Share Submission" : "Hide Form"}
               </Button>
             ) : (
+              //render disabled button and tooltip for login
               <OverlayTrigger
                 placement="top"
                 overlay={<Tooltip>Sign in to share your submission</Tooltip>}
@@ -271,7 +288,7 @@ const Dare = (props) => {
                 </span>
               </OverlayTrigger>
             )}
-
+            {/* collapsible submission form start here */}
             <Collapse in={open}>
               <div id="submission-form-collapse">
                 <SubmissionCreateForm
@@ -287,7 +304,7 @@ const Dare = (props) => {
               </div>
             </Collapse>
           </Container>
-
+          {/* card footer starts here */}
           <div
             className={`text-muted d-flex align-items-center justify-content-between p-0 m-0 mt-2 ${styles.ColorFooter} `}
           >

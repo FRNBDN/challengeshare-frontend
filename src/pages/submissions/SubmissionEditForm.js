@@ -46,12 +46,14 @@ function DareEditForm() {
           profile_image,
           challenge,
         } = data;
-
+        // maps upload data get the uploads from api
         const uploadsDataReq = uploads.map((upload) => {
           return axiosReq.get(`/uploads/${upload}`);
         });
 
         const uploadsData = await Promise.all(uploadsDataReq);
+        // maps through each upload and spice out the profile name of
+        // it from the cloudinary url for it, to have names for old uploads
         const updateUploads = uploadsData.map((upload, index) => {
           const imgUrl = upload.data.upload.toString();
           const imgNameStart = imgUrl.indexOf("uploads/") + "uploads/".length;
@@ -94,7 +96,8 @@ function DareEditForm() {
 
     try {
       await axiosRes.put(`/submissions/${id}`, { text, challenge: dare });
-
+      // like with criteria im using eid to identify previously uploaded
+      // images
       uploads.forEach((upload) => {
         const formData = new FormData();
         formData.append("submission", id);
@@ -133,11 +136,13 @@ function DareEditForm() {
           <TopProfiles mobile />
         </Row>
         {hasLoaded ? (
+          // from start
           <Form onSubmit={handleSubmit}>
             <Container className={appStyles.Box}>
               <Row>
                 <Col xs={12} md={7}>
                   <Container className="px-0 pb-2">
+                    {/* text form group */}
                     <Form.Group>
                       <Form.Label className={`${appStyles.BrandFont}`}>
                         Additional Comment
@@ -157,6 +162,7 @@ function DareEditForm() {
                 </Col>
                 <Col xs={12} md={5}>
                   <div>
+                    {/* image formgroup */}
                     <Form.Group controlId="fileInput">
                       <Form.Label className={appStyles.BrandFont}>
                         {" "}
@@ -164,6 +170,8 @@ function DareEditForm() {
                       </Form.Label>
                       <ListGroup>
                         {uploads.map((upload, index) => (
+                          // add uploads to listgroup and add a delete
+                          // button next to them to make it possible to delete
                           <ListGroup.Item key={index}>
                             {upload.name}
                             <Button
@@ -241,6 +249,7 @@ function DareEditForm() {
           <Asset spinner />
         )}
       </Col>
+      {/* sidebar */}
       <Col md={3} className="d-none d-md-block">
         <Row>
           <div className="d-flex flex-column px-0 pb-3 ">

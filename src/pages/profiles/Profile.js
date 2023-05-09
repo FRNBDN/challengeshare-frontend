@@ -10,6 +10,7 @@ import { useSetProfileData } from "../../contexts/ProfileDataContext";
 import styles from "../../styles/TopProfiles.module.css";
 import appStyles from "../../App.module.css";
 
+// profiel component, used only on top profiles right now
 const Profile = (props) => {
   const { profile, mobile } = props;
 

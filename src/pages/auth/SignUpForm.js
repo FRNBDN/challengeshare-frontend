@@ -15,7 +15,9 @@ import appStyles from "../../App.module.css";
 import { useRedirect } from "../../hooks/useRedirect";
 
 const SignUpForm = () => {
+  // redirect to home if logged in
   useRedirect("loggedIn");
+
   const [signUpData, setSignUpData] = useState({
     username: "",
     password1: "",
@@ -27,6 +29,7 @@ const SignUpForm = () => {
 
   const navigate = useNavigate();
 
+  //updates any changes in value of from input
   const handleChange = (event) => {
     setSignUpData({
       ...signUpData,
@@ -34,6 +37,7 @@ const SignUpForm = () => {
     });
   };
 
+  //post registration to api on submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -48,11 +52,13 @@ const SignUpForm = () => {
     <Container className={styles.Background}>
       <Row>
         <Col xs={12} md={6} lg={4}>
+          {/* stylized background for form */}
           <h1 className={`${styles.BackgroundText}`}>
             DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/DARE/SHARE/
           </h1>
           <Container className={`p-4 ${appStyles.Box} ${styles.Box} `}>
             <h1>SIGN UP</h1>
+            {/* Username starts here */}
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label className="d-none">Username</Form.Label>
@@ -70,7 +76,7 @@ const SignUpForm = () => {
                   {message}
                 </Alert>
               ))}
-
+              {/* password 1 start here */}
               <Form.Group className="mb-3" controlId="password1">
                 <Form.Label className="d-none">Password</Form.Label>
                 <Form.Control
@@ -88,6 +94,7 @@ const SignUpForm = () => {
                 </Alert>
               ))}
 
+              {/* password 2 starts here */}
               <Form.Group className="mb-3" controlId="password2">
                 <Form.Label className="d-none">Confirm Password</Form.Label>
                 <Form.Control
@@ -104,7 +111,7 @@ const SignUpForm = () => {
                   {message}
                 </Alert>
               ))}
-
+              {/* buttons start here */}
               <Button className={appStyles.Button} type="submit">
                 Sign Up
               </Button>

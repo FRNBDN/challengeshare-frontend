@@ -10,6 +10,7 @@ import Profile from "./Profile";
 import appStyles from "../../App.module.css";
 import styles from "../../styles/TopProfiles.module.css";
 
+// top profiles, changes from column to row if passed mobile prop
 const TopProfiles = ({ mobile }) => {
   const { topProfiles } = useProfileData();
 
@@ -28,6 +29,7 @@ const TopProfiles = ({ mobile }) => {
           !mobile && "flex-column"
         } ${mobile && "justify-content-around flex-row"}`}
       >
+        {/* render profiles */}
         {topProfiles.results.length ? (
           <>
             {topProfiles.results.map((profile) => (
@@ -39,6 +41,7 @@ const TopProfiles = ({ mobile }) => {
             ))}
           </>
         ) : (
+          // use light spinner due to background color
           <Asset spinner light />
         )}
       </div>

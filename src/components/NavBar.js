@@ -17,6 +17,8 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 
+  // Hook that checks if user clicks away from a modal of any sort,
+  // Modal, Dropdown, OffCanvas
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
@@ -29,6 +31,7 @@ const NavBar = () => {
     }
   };
 
+  //NavLinks that show when logged in
   const loggedInItems = (
     <>
       <NavLink to="/" className={styles.NavLink} onClick={handleSignOut}>
@@ -44,6 +47,7 @@ const NavBar = () => {
     </>
   );
 
+  //NavLinks that show when logged out
   const loggedOutItems = (
     <>
       <>
@@ -66,6 +70,8 @@ const NavBar = () => {
               <i className="fa-solid fa-share-nodes"></i> DARE/SHARE
             </Navbar.Brand>
           </NavLink>
+
+          {/* Checks if logged in, renders the right navitems */}
           {currentUser ? (
             <></>
           ) : (
@@ -88,8 +94,10 @@ const NavBar = () => {
             aria-labelledby="offcanvasNavbarLabel"
             placement="end"
           >
+            {/* Sidebar code starts here */}
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id="offcanvasNavbarLabel">
+                {/* Title is user avatar if logged in */}
                 {currentUser ? (
                   <NavLink to={`profiles/${currentUser?.profile_id}`}>
                     <Avatar src={currentUser?.profile_image} />
@@ -100,6 +108,8 @@ const NavBar = () => {
                 )}
               </Offcanvas.Title>
             </Offcanvas.Header>
+
+            {/* sidebar navitems start here */}
             <Offcanvas.Body id="NavBarLinks">
               <Nav className="justify-content-end flex-grow-1 pe-3 align-items-baseline">
                 <NavLink to="/" className={styles.NavLink}>

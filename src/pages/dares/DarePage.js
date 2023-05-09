@@ -22,6 +22,7 @@ function DarePage() {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
+    // fetch challenge and submissions on the challenge
     const handleMount = async () => {
       try {
         const [{ data: dare }, { data: submissions }] = await Promise.all([
@@ -30,6 +31,7 @@ function DarePage() {
         ]);
         setDare({ results: [dare] });
         setSubmissions(submissions);
+        // loaded hook true
         setHasLoaded(true);
       } catch (error) {
         // console.log(error);
@@ -40,6 +42,7 @@ function DarePage() {
 
   return (
     <Row>
+      {/* topbar  here */}
       <h1 className={appStyles.BrandFont}>
         <Link to="/dares">Dares</Link> / Detail
       </h1>
@@ -47,12 +50,15 @@ function DarePage() {
         <TopProfiles mobile />
         <Row className="h-100">
           <Col>
+            {/* loaded ternary starts here */}
             {hasLoaded ? (
               <>
                 <Container className="px-0">
+                  {/* dare component here */}
                   <Dare {...dare.results[0]} setDare={setDare} />
                 </Container>
                 <Container className="px-0">
+                  {/* submissions start here */}
                   <div>
                     <h5>Submissions:</h5>
                   </div>
@@ -73,6 +79,7 @@ function DarePage() {
           </Col>
         </Row>
       </Col>
+      {/* sidebar starts here */}
       <Col md={3} className="d-none d-md-block">
         <Row>
           <div className="d-flex flex-column px-0 pb-3 ">

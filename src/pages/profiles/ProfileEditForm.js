@@ -35,6 +35,7 @@ const ProfileEditForm = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
+    // fetch profile data to pass to setprofiledata
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/profiles/${id}`);
@@ -49,6 +50,7 @@ const ProfileEditForm = () => {
     handleMount();
   }, [currentUser, navigate, id]);
 
+  // handles change
   const handleChange = (event) => {
     setProfileData({
       ...profileData,
@@ -60,13 +62,15 @@ const ProfileEditForm = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("bio", bio);
-
+    // checks to see if there is an image to upload, appends if there is
     if (imageFile?.current?.files[0]) {
       formData.append("image", imageFile?.current?.files[0]);
     }
 
     try {
+      // makes api requets
       const { data } = await axiosReq.put(`/profiles/${id}`, formData);
+      // sets the currentuser image so it instantly updates
       setCurrentUser((currentUser) => ({
         ...currentUser,
         profile_image: data.image,
@@ -78,6 +82,7 @@ const ProfileEditForm = () => {
     }
   };
 
+  // textfields added here to make layout more easily understood
   const textFields = (
     <>
       <Form.Group className="mt-3">

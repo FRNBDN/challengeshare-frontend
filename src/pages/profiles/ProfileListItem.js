@@ -12,6 +12,7 @@ import Avatar from "../../components/Avatar";
 import styles from "../../styles/ProfileListItem.module.css";
 import appStyles from "../../App.module.css";
 
+// profile component for the profilepage followers/following list
 const ProfileListItem = (props) => {
   const { id } = props;
   const [profile, setProfile] = useState({});

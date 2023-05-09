@@ -15,6 +15,8 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/SubmissionSmall.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
 
+//small submission component used for profilepage
+
 const SubmissionSmall = (props) => {
   const {
     id,

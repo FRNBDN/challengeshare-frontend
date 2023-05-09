@@ -2,6 +2,8 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Styles from "../../styles/Dare.module.css";
 
+// Component to render criteria on dare page
+
 const Criteria = (props) => {
   const { text } = props;
   return (

@@ -14,6 +14,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
+  // async function that makes an api request to get auth user data, store it in setCurrentUser
   const handleMount = async () => {
     try {
       const { data } = await axiosRes.get("dj-rest-auth/user/");
@@ -27,6 +28,8 @@ export const CurrentUserProvider = ({ children }) => {
     handleMount();
   }, []);
 
+  //when navigation changes the function checks if tokens need to be refreshed or if user
+  // needs to sign in again
   useMemo(() => {
     axiosReq.interceptors.request.use(
       async (config) => {
@@ -74,6 +77,7 @@ export const CurrentUserProvider = ({ children }) => {
   }, [navigate]);
 
   return (
+    //Wrap the app in currentusercontext so it can be used all over the app
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {children}

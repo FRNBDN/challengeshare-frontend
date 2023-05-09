@@ -37,6 +37,8 @@ const ReviewCreateForm = (props) => {
     const fetchCriteria = async () => {
       if (dare_id !== undefined) {
         try {
+          // fetches the criteria after making sure that it
+          // has gotten a dare_id value
           const { data: criteria } = await axiosReq.get(
             `/criteria/?challenge=${dare_id}`
           );
@@ -55,6 +57,8 @@ const ReviewCreateForm = (props) => {
     setBody(e.target.value);
   };
 
+  // checks if all checkboxes have been clicked, if so
+  // the vote_pass = true
   const handleCheckboxChange = (e) => {
     const votePass = criteria.results.every(
       (criterion) => document.getElementById(`${criterion.id}`).checked
@@ -133,6 +137,7 @@ const ReviewCreateForm = (props) => {
                 </span>
                 {hasLoaded ? (
                   <>
+                    {/* render all the criteria */}
                     {criteria.results.length ? (
                       criteria.results.map((criterion) => (
                         <div key={`${criterion.id}`}>

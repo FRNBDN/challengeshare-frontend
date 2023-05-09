@@ -13,6 +13,7 @@ import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 import styles from "../../styles/UserPasswordForm.module.css";
 
+// user password form on the edit profile page
 const UserPasswordForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();

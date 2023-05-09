@@ -54,11 +54,13 @@ const Submission = (props) => {
     const fetchUploads = async () => {
       try {
         const [{ data: uploads }, { data: dare }] = await Promise.all([
+          // fetch submission challenge, uploads
           axiosReq.get(`/uploads/?submission=${id}`),
           axiosReq.get(`/challenges/${challenge}`),
         ]);
         setUploads(uploads);
         setDare(dare);
+        // set loaded to true
         setHasLoaded(true);
       } catch (error) {
         //console.log(error);
@@ -70,12 +72,15 @@ const Submission = (props) => {
 
   return (
     <Card className={`mb-2 ${appStyles.Card} `}>
+      {/* card top starts here */}
       <Card.Body className={`p-1 ${appStyles.CardTop} ${styles.Color}`}>
         <Row className="d-flex justify-content-between align-items-center mt-0">
           <Col xs={8}>
+            {/* ternary for if it is a feed, link if so */}
             {Feed ? (
               <Link to={`/submissions/${id}`} className={appStyles.BrandFont}>
                 <span>SUB/</span>
+                {/* ternary for if the status is pending, pass or fail */}
                 {status === 1 ? (
                   <span className={styles.Pending}>
                     PENDING {reviews}/3 REVIWES
@@ -109,6 +114,8 @@ const Submission = (props) => {
             )}
           </Col>
           <Col xs={4}>
+            {/* checks if updated at is different then created at, and if solid
+            show updated at in a tooltip */}
             <div className="d-flex justify-content-end me-1">
               {updated_at !== created_at ? (
                 <OverlayTrigger
@@ -125,6 +132,7 @@ const Submission = (props) => {
         </Row>
       </Card.Body>
       <Card.Body>
+        {/* dare window here */}
         <Link to={`/dares/${dare.id}`}>
           <Container>
             <h6 className={styles.BorderText}>Dare</h6>
@@ -142,7 +150,8 @@ const Submission = (props) => {
       </Card.Body>
 
       <Card.Body>
-        <div className="">
+        {/* card body starts here */}
+        <div>
           <Link
             to={`/profiles/${profile_id}`}
             className="d-flex align-items-center"
@@ -162,6 +171,7 @@ const Submission = (props) => {
         </div>
         <Row>
           <Container className={styles.ImageField}>
+            {/* load uploads for submission in carousel */}
             {hasLoaded ? (
               <>
                 {uploads.results.length ? (
@@ -194,6 +204,7 @@ const Submission = (props) => {
         </Row>
         <Row>
           <Container>
+            {/* conditionally render review button */}
             {has_reviewed ? (
               <OverlayTrigger
                 placement="top"
@@ -251,7 +262,7 @@ const Submission = (props) => {
                 </span>
               </OverlayTrigger>
             )}
-
+            {/* reviewcreateform here */}
             <Collapse in={open}>
               <div id="review-form-collapse">
                 <ReviewCreateForm

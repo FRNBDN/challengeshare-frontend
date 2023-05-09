@@ -17,6 +17,7 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/Review.module.css";
 import timeStyle from "../../styles/Timestap.module.css";
 
+//review component on submissionpage
 const Review = (props) => {
   const {
     id,
@@ -37,6 +38,8 @@ const Review = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
 
+  // delete function, updates reviews count on the submission, the has submitted filed
+  // and remove the review from the rendered list
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/reviews/${id}`);
@@ -83,6 +86,7 @@ const Review = (props) => {
                     <span>{created_at}</span>
                   )}
                 </span>
+                {/* shows edit form on the review component */}
                 {is_owner && (
                   <Link onClick={() => setShowEditForm(true)}>
                     <i className="fa-solid fa-pen-to-square"></i>

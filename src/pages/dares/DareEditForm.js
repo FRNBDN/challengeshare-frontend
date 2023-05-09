@@ -34,6 +34,7 @@ function DareEditForm() {
   const { id } = useParams();
 
   useEffect(() => {
+    // Fetches the data from the api to fill in the form before it is loaded
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/challenges/${id}`);
@@ -44,9 +45,11 @@ function DareEditForm() {
         });
 
         const critData = await Promise.all(critDataReq);
-
+        // data is fetched, loading ends
         setHasLoaded(true);
-
+        // criteria fields from api gets their ids saved in eid
+        // for context of know which ones are new and old
+        // index is id as on create
         const updateCriteriaFields = critData.map((field, index) => {
           return {
             id: index,
@@ -54,11 +57,12 @@ function DareEditForm() {
             eid: field.data.id,
           };
         });
-
+        // checks to see if user is owner, and set the data
         if (is_owner) {
           setDareData({ title, description, category, criteria });
           setCriteriaFields(updateCriteriaFields);
         } else {
+          // booted out of edit otherwise
           navigate("/");
         }
       } catch (error) {
@@ -68,6 +72,7 @@ function DareEditForm() {
     handleMount();
   }, [navigate, id]);
 
+  // handles changes in title, description, category
   const handleChange = (e) => {
     setDareData({
       ...dareData,
@@ -75,6 +80,8 @@ function DareEditForm() {
     });
   };
 
+  // handles removal of a criteria field on the form, keeps updaint index
+  // on the fields
   const handleMinusCriteria = (id) => {
     if (criteriaFields.length > 1) {
       const newCriteriaList = criteriaFields.filter(
@@ -84,6 +91,8 @@ function DareEditForm() {
       const newCriteriaData = [...criteria];
       newCriteriaData.splice(id, 1);
       setDareData({ ...dareData, criteria: newCriteriaData });
+      // if a criteria with eid is removed, it is saved
+      // so it can be deleted
       if (criteriaFields[id].eid) {
         deleteCrit.push(criteriaFields[id].eid);
       }
@@ -94,6 +103,8 @@ function DareEditForm() {
     }
   };
 
+  //handles addition of criteria fields, give them ids, as in indexes
+  // as theyre created
   const handlePlusCriteria = () => {
     if (criteriaFields.length < 8) {
       const criteriaList = [...criteriaFields];
@@ -103,6 +114,8 @@ function DareEditForm() {
     }
   };
 
+  // handles changes in criterion, takes id and text
+  // to ensure that the right criteria is being changed
   const handleCriterionChange = (id, text) => {
     const newCriteria = [...criteriaFields];
     newCriteria[id].text = text;
@@ -113,13 +126,14 @@ function DareEditForm() {
     e.preventDefault();
 
     const challengeData = new FormData();
-
+    // appends challenge information into challenge data
     challengeData.append("title", title);
     challengeData.append("description", description);
     challengeData.append("category", category);
-
+    // makes an api request to create the challenge
     try {
       await axiosReq.put(`/challenges/${id}`, challengeData);
+      // goes through and sort criteria that needs to be updated created
       criteriaFields.forEach((criterion) => {
         const formData = new FormData();
         formData.append("challenge", id);
@@ -130,11 +144,11 @@ function DareEditForm() {
           axiosReq.post(`/criteria/`, formData);
         }
       });
-
+      // delete all the removed criteria from database
       await Promise.all(
         deleteCrit.map((criterion) => axiosRes.delete(`/criteria/${criterion}`))
       );
-
+      // navigate to darepage of updated dare
       navigate(`/dares/${id}`);
     } catch (error) {
       // console.log(error);
@@ -143,7 +157,8 @@ function DareEditForm() {
       }
     }
   };
-
+  // delete handler, since criteria is cascade, no need to
+  // include them here
   const handleDelete = async () => {
     try {
       await axiosRes.delete(`/challenges/${id}`);
@@ -153,6 +168,7 @@ function DareEditForm() {
     }
   };
 
+  // text fields aka not critera
   const textFields = (
     <div>
       <Form.Group>
@@ -214,7 +230,8 @@ function DareEditForm() {
       ))}
     </div>
   );
-
+  // criteriafields renders programmatically based on the amount of fields in the
+  // criteriafields hook up to 5
   const renderCriteriaFields = (
     <div>
       <Form.Group>
@@ -259,7 +276,7 @@ function DareEditForm() {
       )}
     </div>
   );
-
+  // page rendering starts here
   return (
     <Row>
       <h1>
@@ -267,16 +284,19 @@ function DareEditForm() {
       </h1>
       <Col md={9}>
         <TopProfiles mobile />
+        {/* form start after hasloaded */}
         {hasLoaded ? (
           <Form onSubmit={handleSubmit}>
             <Container className={`pt-2 pb-1 ${appStyles.Box}`}>
               <Row>
                 <Col className="pb-md-5">
                   <Container>
+                    {/* text fields here */}
                     <div>{textFields}</div>
                     <div className="d-md-none">{renderCriteriaFields}</div>
                   </Container>
                 </Col>
+                {/* vertical on <md screens  criteriafields start here*/}
                 <Col md={5} lg={4} className="d-none d-md-block">
                   <div className="d-none d-md-block">
                     {renderCriteriaFields}
@@ -285,6 +305,7 @@ function DareEditForm() {
               </Row>
               <div className="m-3 d-flex align-items-center justify-content-between">
                 <div className="d-flex align-items-center">
+                  {/* buttons starts here */}
                   <Button
                     className={`${appStyles.BrandFont} ${appStyles.Button} `}
                     type="submit"
@@ -308,6 +329,7 @@ function DareEditForm() {
           <Asset spinner />
         )}
       </Col>
+      {/* sidebar starts here */}
       <Col md={3} className="d-none d-md-block">
         <Row>
           <div className="d-flex flex-column px-0 pb-3 ">

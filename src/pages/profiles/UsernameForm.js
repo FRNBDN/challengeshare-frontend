@@ -16,6 +16,7 @@ import appStyles from "../../App.module.css";
 import formStyles from "../../styles/Forms.module.css";
 import styles from "../../styles/UsernameForm.module.css";
 
+// username update form component that is on the profile edit page
 const UsernameForm = () => {
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState({});
@@ -32,6 +33,7 @@ const UsernameForm = () => {
     }
   }, [currentUser, navigate, id]);
 
+  // updates individually
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

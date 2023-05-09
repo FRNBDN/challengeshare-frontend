@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "../styles/Avatar.module.css";
 
-const Avatar = ({ src, height = 30, text, nomargin }) => {
+//Avatar component for displaying profile pictures in various sizes
+
+const Avatar = ({ src, height = 30, nomargin }) => {
   return (
     <span className="my-2">
       <img

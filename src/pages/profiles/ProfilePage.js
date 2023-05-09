@@ -27,6 +27,7 @@ import DareSmall from "../dares/DareSmall";
 import ProfileListItem from "./ProfileListItem";
 import Avatar from "../../components/Avatar";
 
+// props from route to be able to filter by different models
 function ProfilePage({ message, model, filter }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const [hasLoadedData, setHasLoadedData] = useState(false);
@@ -42,9 +43,13 @@ function ProfilePage({ message, model, filter }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      // keep the loader spinning untill data is ready and profile
       setHasLoadedData(false);
+      // this line ensures that the profile component will not load
+      // data from a previous profile
       profileId !== id && setHasLoaded(false);
       try {
+        // loads the profile and the models from the route filters
         const [{ data: pageProfile }, { data: profileModels }] =
           await Promise.all([
             axiosReq.get(`/profiles/${id}`),
@@ -57,6 +62,7 @@ function ProfilePage({ message, model, filter }) {
         setProfileModels(profileModels);
         setProfileId(id);
         setHasLoaded(true);
+        // separate hasloaded for the data in the table
         setHasLoadedData(true);
       } catch (error) {
         //console.log(error);
@@ -65,11 +71,13 @@ function ProfilePage({ message, model, filter }) {
     fetchData();
   }, [id, setProfileData, message, model, filter, profileId, pathname]);
 
+  // main profiel code
   const mainProfile = (
     <>
       <Container className={`${styles.Relative} ${appStyles.Box}`}>
         <Row className="px-0 text-center d-flex align-items-center">
           <Col xs={3} lg={5} className="text-start">
+            {/* edit button if owner */}
             {is_owner && (
               <Link to={`/profiles/${id}/edit`} className={`${styles.Cog}`}>
                 <i className="fa-solid fa-gear"></i>
@@ -96,12 +104,14 @@ function ProfilePage({ message, model, filter }) {
           <Container className={styles.Relative}>
             <h6 className={styles.BorderText}>Bio </h6>
             <Row className={`mx-2 ${styles.BioContainer}`}>
+              {/* placeholder bio if it hasnt been set */}
               {profile?.bio.length > 0 ? profile?.bio : "My Dare/Share account"}
             </Row>
           </Container>
         </Row>
         <hr />
         <Row>
+          {/* profile stats start here */}
           <Col xs={6}>
             <div className="text-center">
               <div className={appStyles.BrandFont}>
@@ -139,6 +149,7 @@ function ProfilePage({ message, model, filter }) {
           </Col>
         </Row>
         <Row className="d-flex justify-content-center mt-2">
+          {/* follow button if not own profile, unfollow if following user */}
           {currentUser &&
             !is_owner &&
             (profile?.following_id ? (
@@ -168,6 +179,7 @@ function ProfilePage({ message, model, filter }) {
           <Col
             className={`d-flex flex-wrap flex-md-nowrap flex-column flex-md-row`}
           >
+            {/* filter link tabs start here */}
             <Link
               to={`/profiles/${id}`}
               className={`${appStyles.Button} flex-fill  ${
@@ -207,7 +219,9 @@ function ProfilePage({ message, model, filter }) {
             </Link>
           </Col>
         </Row>
+
         <Container className={`${appStyles.Box}`}>
+          {/* main content header here */}
           {hasLoadedData && (
             <h4>
               {filter === "followed__profile" && model === "ufollowers"
@@ -224,10 +238,12 @@ function ProfilePage({ message, model, filter }) {
 
           <Row>
             <Col className="px-0">
+              {/* main contet starts here */}
               {hasLoadedData ? (
                 model === "challenges" ? (
                   profileModels.results.length ? (
                     <>
+                      {/* renders challenges if route gives prop challenges */}
                       <InfiniteScroll
                         className={styles.Overflow}
                         children={profileModels.results.map((dare) => (
@@ -243,9 +259,10 @@ function ProfilePage({ message, model, filter }) {
                     </>
                   ) : (
                     <Asset message={message} />
-                  ) //dares above
+                  )
                 ) : model === "submissions" ? (
                   profileModels.results.length ? (
+                    // renders submissions if submission model prop
                     <InfiniteScroll
                       className={styles.Overflow}
                       children={profileModels.results.map((submission) => (
@@ -264,7 +281,7 @@ function ProfilePage({ message, model, filter }) {
                     />
                   ) : (
                     <Asset message={message} />
-                  ) //subs above
+                  ) // if followers
                 ) : filter === "followed__profile" ? (
                   profileModels.results.length ? (
                     <InfiniteScroll
@@ -284,7 +301,7 @@ function ProfilePage({ message, model, filter }) {
                     />
                   ) : (
                     <Asset message={message} />
-                  ) //followers above
+                  ) //if following
                 ) : profileModels.results.length ? (
                   <InfiniteScroll
                     className={styles.Overflow}
@@ -300,7 +317,7 @@ function ProfilePage({ message, model, filter }) {
                   />
                 ) : (
                   <Asset message={message} />
-                ) //following above
+                )
               ) : (
                 <Asset spinner />
               )}

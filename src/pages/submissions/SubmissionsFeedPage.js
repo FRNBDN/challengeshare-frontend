@@ -38,6 +38,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
       }
     };
     setHasLoaded(false);
+    // timer to give grace period for search
     const timer = setTimeout(() => {
       fetchSubmissions();
     }, 1000);
@@ -46,6 +47,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
     };
   }, [filter, query, pathname, currentUser]);
 
+  // user filters visible when logged in
   const userFilters = (
     <>
       <Link
@@ -108,6 +110,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
               {hasLoaded ? (
                 <>
                   {submissions.results.length ? (
+                    // submission infite scroll
                     <InfiniteScroll
                       className={styles.Overflow}
                       children={submissions.results.map((submission) => (
@@ -138,6 +141,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
           </Row>
         </Col>
         <Col md={3} className="d-none d-md-block">
+          {/* sidebar */}
           <Row>
             <div className="d-flex flex-column px-0 pb-3 ">
               <Link

@@ -32,7 +32,7 @@ const SubmissionCreateForm = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // appen submission data and create
     const submissionData = new FormData();
     submissionData.append("challenge", dare);
     submissionData.append("text", text);
@@ -48,10 +48,12 @@ const SubmissionCreateForm = (props) => {
         formData.append("upload", upload);
         uploadsData.push(formData);
       });
-
+      // create each upload, with submission id as foreign key
       await Promise.all(
         uploadsData.map((formData) => axiosReq.post("/uploads/", formData))
       );
+      // if the submission create form is on the feed page this code updates the
+      // dare has_submit and submissions_count there
       Feed
         ? setDares((prevDares) => ({
             results: prevDares.results.map((listDare) => {
@@ -65,7 +67,8 @@ const SubmissionCreateForm = (props) => {
               return listDare;
             }),
           }))
-        : setDares((prevDare) => ({
+        : // otherwise on the dare page, it updates it there
+          setDares((prevDare) => ({
             results: [
               {
                 ...prevDare.results[0],
@@ -88,6 +91,7 @@ const SubmissionCreateForm = (props) => {
           <Row>
             <Col xs={12} md={7}>
               <Container>
+                {/* text input here */}
                 <Form.Group>
                   <InputGroup>
                     <Link to={`/profiles/${profile_id}`}>
@@ -111,6 +115,7 @@ const SubmissionCreateForm = (props) => {
             </Col>
             <Col xs={12} md={5}>
               <div className="">
+                {/* uploads here, vertical on <md screens, up to 5 uploads */}
                 <Form.Group controlId="fileInput">
                   <Form.Label className={`${appStyles.BrandFont}`}>
                     {" "}
@@ -133,6 +138,7 @@ const SubmissionCreateForm = (props) => {
                       </ListGroup.Item>
                     ))}
                   </ListGroup>
+                  {/* if 5 inputs, button disappears */}
                   {uploads.length < 5 && (
                     <Button
                       className={`${appStyles.BrandFont} ${appStyles.Button} w-100`}

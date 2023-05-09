@@ -21,8 +21,10 @@ const ProfileEditPage = () => {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
+    // checks if user indeed is profile owner
     const validateProfile = async () => {
       if (currentUser?.profile_id?.toString() === id) {
+        // keeps loader spinning untill its confirmed
         setHasLoaded(true);
       } else {
         navigate(-1);
@@ -44,6 +46,7 @@ const ProfileEditPage = () => {
       <Row>
         <TopProfiles mobile />
         <Col className="p-0" md={9}>
+          {/* all acount forms rendered in one page */}
           {hasLoaded ? (
             <Row>
               <Col xs={12} md={4} className="mt-1 mt-md-0">
@@ -59,6 +62,7 @@ const ProfileEditPage = () => {
             <Asset spinner />
           )}
         </Col>
+        {/* sidebar */}
         <Col md={3} className="d-none d-md-block">
           <Row>
             <div className="d-flex flex-column px-0 pb-3 ">

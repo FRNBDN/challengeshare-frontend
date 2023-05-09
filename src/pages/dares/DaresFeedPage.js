@@ -15,14 +15,46 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
 import TopProfiles from "../profiles/TopProfiles";
-
+// message and filter passed from route,
 function DaresFeedPage({ message, filter = "" }) {
   const [dares, setDares] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
   const currentUser = useCurrentUser();
+  // query for search bar
   const [query, setQuery] = useState("");
 
+  useEffect(() => {
+    const fetchDares = async () => {
+      try {
+        // filters the challenges based on pathname filter and search bar query
+        const { data } = await axiosReq.get(
+          `/challenges/?${filter}search=${query}`
+        );
+
+        if (message === "No dares not submitted to found") {
+          const filteredData = data.results.filter(
+            (dare) => !dare.has_submitted
+          );
+          setDares({ results: filteredData });
+        } else {
+          setDares(data);
+        }
+        setHasLoaded(true);
+      } catch (error) {
+        // console.log(error);
+      }
+    };
+    // delay to give a grace period for searching
+    const timer = setTimeout(() => {
+      fetchDares();
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filter, query, pathname, message, currentUser]);
+
+  // user filters need to be logged in to see these
   const userFilters = (
     <>
       <Link
@@ -52,34 +84,6 @@ function DaresFeedPage({ message, filter = "" }) {
     </>
   );
 
-  useEffect(() => {
-    const fetchDares = async () => {
-      try {
-        const { data } = await axiosReq.get(
-          `/challenges/?${filter}search=${query}`
-        );
-
-        if (message === "No dares not submitted to found") {
-          const filteredData = data.results.filter(
-            (dare) => !dare.has_submitted
-          );
-          setDares({ results: filteredData });
-        } else {
-          setDares(data);
-        }
-        setHasLoaded(true);
-      } catch (error) {
-        // console.log(error);
-      }
-    };
-    const timer = setTimeout(() => {
-      fetchDares();
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [filter, query, pathname, message, currentUser]);
-
   return (
     <>
       <h1>
@@ -87,6 +91,7 @@ function DaresFeedPage({ message, filter = "" }) {
       </h1>
       <Row>
         <Col md={9}>
+          {/* top bar starts here */}
           <Row className="d-block d-md-none">
             <Col>
               <div className="my-1 flex-fill">
@@ -111,18 +116,23 @@ function DaresFeedPage({ message, filter = "" }) {
                 >
                   All
                 </Link>
+                {/* user filters rendered here */}
                 {currentUser && userFilters}
               </div>
             </Col>
           </Row>
+
           <Row className="h-100">
             <Col>
+              {/* feed starts here */}
               {hasLoaded ? (
                 <>
                   {dares.results.length ? (
+                    // infinte scroll component to avoid overfetching
                     <InfiniteScroll
                       className={styles.Overflow}
                       children={dares.results.map((dare) => (
+                        // dare component here with feed prop, which includes some extra links
                         <Dare
                           key={dare.id}
                           {...dare}
@@ -149,6 +159,7 @@ function DaresFeedPage({ message, filter = "" }) {
             </Col>
           </Row>
         </Col>
+        {/* sidebar starts here */}
         <Col md={3} className="d-none d-md-block">
           <Row>
             <div className="d-flex flex-column px-0 pb-3 ">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -58,6 +58,7 @@ function SubmissionPage() {
               {reviews.results.length ? (
                 <InfiniteScroll
                   children={reviews.results.map((review) => (
+                    // review Component infinite scorll
                     <Review
                       key={review.id}
                       {...review}
@@ -80,6 +81,7 @@ function SubmissionPage() {
           </Col>
         </Row>
       </Col>
+      {/* sidebar */}
       <Col md={3} className="d-none d-md-block">
         <Row>
           <Container className={`${appStyles.Box} pb-1 mb-2`}>

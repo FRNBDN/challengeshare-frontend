@@ -17,14 +17,16 @@ const ReviewEditForm = (props) => {
   const [formBody, setFormBody] = useState(body);
   const [formVote, setFormVote] = useState(vote_pass);
 
+  // handle text change
   const handleChange = (e) => {
     setFormBody(e.target.value);
   };
-
+  // handle vote dropdown change
   const handleVoteChange = (e) => {
     setFormVote(e.target.value);
   };
 
+  // push data to api, set data on the page
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
