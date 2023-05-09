@@ -35,18 +35,22 @@ const Profile = (props) => {
       <div className={`mx-0 ${!mobile && "flex-fill"}`}>
         <span className={`flex-grow ${appStyles.BrandFont}`}>{owner}</span>
       </div>
-      <div className={`text-right ${styles.ButtonContainer}`}>
+      <div className={`text-end ${styles.ButtonContainer}`}>
         {currentUser &&
           (is_owner ? null : following_id ? (
             <Button
-              className={`${appStyles.Button} ${appStyles.BrandFont}`}
+              className={`${appStyles.Button} ${appStyles.BrandFont} px-1 ${
+                mobile && "w-100"
+              }`}
               onClick={() => handleUnfollow(profile)}
             >
               unfollow
             </Button>
           ) : (
             <Button
-              className={`${appStyles.Button} ${appStyles.BrandFont}`}
+              className={`${appStyles.Button} ${appStyles.BrandFont} ${
+                mobile && "w-100"
+              }`}
               onClick={() => handleFollow(profile)}
             >
               follow

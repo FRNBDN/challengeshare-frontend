@@ -76,6 +76,7 @@ const SubmissionsFeedPage = ({ message, filter = "" }) => {
       </h1>
       <Row>
         <Col md={9}>
+          <TopProfiles mobile />
           <Row className="d-block d-md-none">
             <Col>
               <div className="my-1 flex-fill">

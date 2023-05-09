@@ -27,7 +27,9 @@ const TopProfiles = ({ mobile }) => {
       <div
         className={`${styles.ProfileContainer} pb-1 d-flex ${
           !mobile && "flex-column"
-        } ${mobile && "justify-content-around flex-row"}`}
+        } ${mobile && "justify-content-around flex-row"} ${
+          mobile && styles.OverflowX
+        }`}
       >
         {/* render profiles */}
         {topProfiles.results.length ? (

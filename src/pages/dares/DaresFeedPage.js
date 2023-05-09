@@ -91,6 +91,7 @@ function DaresFeedPage({ message, filter = "" }) {
       </h1>
       <Row>
         <Col md={9}>
+          <TopProfiles mobile />
           {/* top bar starts here */}
           <Row className="d-block d-md-none">
             <Col>

@@ -8,4 +8,9 @@
 
 .ButtonContainer{
     height: 38px;
+    width: 90px;
+}
+
+.OverflowX{
+    overflow-x: scroll;
 }
