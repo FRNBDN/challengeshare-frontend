@@ -353,6 +353,26 @@ Pretty simple, ill let the pictures do the work here, i follow profiles on the r
 <img src='src/assets/followpost.png'>
 <img src='src/assets/unfollowpost.png'>
 
+### Manual Test Case - Bookmark functionality
+
+Below are picutres showing the different states of the bookmark button.
+
+The neutral state is first, for signed in users not owners of the dare
+
+<img src='src/assets/cfollow.png'>
+
+second how it looks when following
+
+<img src='src/assets/cfollowsuccess.png'>
+
+how it looks when you cant follow it, different tooltip for when you're not signed in!
+
+<img src='src/assets/cantfollow.png'>
+
+Here is also filtering on the bookmark
+
+<img src='src/assets/bookmarkfilter.png'>
+
 ## Automated testing
 
 I did not manage to get automated testing to work, I kept running in to erros that the tutors wouldnt be able to solve either.
