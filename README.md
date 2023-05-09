@@ -245,7 +245,55 @@ The style.css code has been validated by the W3C CSS validator and passed withou
 
 ## Manual Testing
 
-Manual test here
+### Manual Test Case - Dare CRUD
+
+Creating dare:
+
+<img src='src/assets/dcreatenew.png'>
+
+After inputting the data and hitting create this is the result, meaning it works!
+
+<img src='src/assets/dcreatecomplete.png'>
+
+Now editing dare, by pressing the small edit button on the bottom right:
+
+<img src='src/assets/deditview.png'>
+
+And after saving, remember the delete button in the bottom right of the edit page:
+
+<img src='src/assets/deditsuccess.png'>
+
+The edit is successful, chaning the title, text and updating/deleting and adding new criteria , now for the dares page after the delete being pressed in the edit page.
+
+<img src='src/assets/dafterdelete.png'>
+
+Successful test of CRUD functionality on the dare model.
+
+### Manual Test Case - Submission CRUD
+
+Creating Submission: After inputting the data and hitting create this is the result, meaning it works!
+
+<img src='src/assets/screate.png'>
+
+SubmissionPage view after crating the submission
+
+<img src='src/assets/sedit.png'>
+
+Edit page, same as create page but has a delete button, essentially.
+
+<img src='src/assets/seditpage.png'>
+
+Edit successful, text changed , image delete and upload
+
+<img src='src/assets/seditsuccess.png'>
+
+View of DarePage after deleting the submisison
+
+<img src='src/assets/safterdelit.png'>
+
+Successful test of CRUD functionality on the submission model.
+
+### Manual Test Case - Submission CRUD
 
 ## Automated testing
 
