@@ -245,6 +245,149 @@ The style.css code has been validated by the W3C CSS validator and passed withou
 
 ## Manual Testing
 
+### Site Navigation
+
+#### When not logged in
+
+| Element             | Action | Expected Result                        | Pass/Fail |
+| ------------------- | ------ | -------------------------------------- | --------- |
+| Logo in Navbar      | Click  | Redirect to home (SubmissionsFeedPage) | Pass      |
+| Sign In Navlink     | Click  | Redirect to sign in page               | Pass      |
+| Sign Up Navlink     | Click  | Redirect to Sign up page               | Pass      |
+| Submissions Navlink | Click  | Redirect to SubmissionsFeedPage        | Pass      |
+| Dares Navlink       | Click  | Redirect to DaresFeedPage              | Pass      |
+
+#### When logged in
+
+| Element              | Action | Expected Result                   | Pass/Fail |
+| -------------------- | ------ | --------------------------------- | --------- |
+| Logo in Navbar       | Click  | Redirect to home                  | Pass      |
+| Sign Out Navlink     | Click  | logsout user and Redirect to Home | Pass      |
+| Dares Navlink        | Click  | Redirect to SubmissionsFeedPage   | Pass      |
+| Submissions Navlink  | Click  | Redirect to SubmissionsFeedPage   | Pass      |
+| User Profile navlink | Click  | Redirect to UserProfilePage       | Pass      |
+
+### Home Page / Submissions Feed
+
+#### When not Submission Owner
+
+| Element             | Action  | Expected Result                                                      | Pass/Fail |
+| ------------------- | ------- | -------------------------------------------------------------------- | --------- |
+| Submissions         | Display | Responsive and readable                                              | Pass      |
+| Submission DareLink | Click   | Redirect to DarePage                                                 | Pass      |
+| Submission Top Bar  | Click   | Redirect to SubmissionPage                                           | Pass      |
+| Owner profile       | Click   | Redirect to Owners UserProfilePage                                   | Pass      |
+| Review Button       | Click   | ReviewCreateForm expands, if logged in <br> and not already reviewed | Pass      |
+
+#### When Owner
+
+| Element   | Action | Expected Result                | Pass/Fail |
+| --------- | ------ | ------------------------------ | --------- |
+| Edit link | Click  | Redirect to SubmissionEditForm | Pass      |
+
+### SubmissionPage
+
+#### When not logged in
+
+| Element    | Action  | Expected Result         | Pass/Fail |
+| ---------- | ------- | ----------------------- | --------- |
+| Submission | Display | Responsive and readable | Pass      |
+| Dare Info  | Display | Responsive and readable | Pass      |
+| Reviews    | Display | Responsive and readable | Pass      |
+
+#### + When logged in
+
+| Element     | Action                      | Expected Result                            | Pass/Fail |
+| ----------- | --------------------------- | ------------------------------------------ | --------- |
+| Review Form | Leave Empty                 | On Submit: Does not Post                   | Pass      |
+| Review Form | Input Text                  | On Submit: Comment is displayed, vote Fail | Pass      |
+| Review Form | Input Text, check all boxes | On Submit: Comment is displayed, vote Pass | Pass      |
+
+#### + When owner of Review
+
+| Element              | Action  | Expected Result                                 | Pass/Fail |
+| -------------------- | ------- | ----------------------------------------------- | --------- |
+| Review Edit Link     | Display | Responsive and clickable                        | Pass      |
+| Review Delete Link   | Display | Responsive and clickable                        | Pass      |
+| Review Edit          | Click   | Displays ReviewEditForm                         | Pass      |
+| Review Delete Button | Click   | Deletes review, update submissions review count | Pass      |
+
+### CreateSubmissionPage
+
+#### When not logged in
+
+| Element    | Action  | Expected Result  | Pass/Fail |
+| ---------- | ------- | ---------------- | --------- |
+| Whole page | Display | Redirect to home | Pass      |
+
+#### When loggedin
+
+| Element                      | Action           | Expected Result                           | Pass/Fail |
+| ---------------------------- | ---------------- | ----------------------------------------- | --------- |
+| Whole page                   | Display          | Submission Create Form                    | Pass      |
+| Submission Title Field       | Leave Empty      | On Submit: Error message: Can't be empty  | Pass      |
+| Submission Title Field       | Not empty        | On Submit: Submission Successfuly Create  | Pass      |
+| Submission description Field | Leave Empty      | On Submit: Submission Successfuly Create  | Pass      |
+| Image Field                  | Leave Empty      | On Submit: Submission Successfuly Create  | Pass      |
+| Image Field                  | Input image file | On Submit: Submission Successfuly Create  | Pass      |
+| Cancel Button                | Click            | Returns you to previous page              | Pass      |
+| Submission Create Button     | Click            | Submits and redirect to submission detail | Pass      |
+
+### Edit Submission page
+
+#### When not logged in
+
+| Element    | Action  | Expected Result    | Pass/Fail |
+| ---------- | ------- | ------------------ | --------- |
+| Whole page | Display | Redirected to home | Pass      |
+
+#### When logged in
+
+| Element    | Action  | Expected Result    | Pass/Fail |
+| ---------- | ------- | ------------------ | --------- |
+| Whole page | Display | Redirected to home | Pass      |
+
+#### When author
+
+| Element                      | Action           | Expected Result                                        | Pass/Fail |
+| ---------------------------- | ---------------- | ------------------------------------------------------ | --------- |
+| Whole page                   | Display          | Submission Create Form                                 | Pass      |
+| Submission Title Field       | Leave Empty      | On Submit: Error message: Can't be empty               | Pass      |
+| Submission Title Field       | Not empty        | On Submit: Submission Successfuly Create               | Pass      |
+| Submission description Field | Leave Empty      | On Submit: Submission Successfuly Create               | Pass      |
+| Image Field                  | Leave Empty      | On Submit: Submission Successfuly Create               | Pass      |
+| Image Field                  | Input image file | On Submit: Submission Successfuly Create               | Pass      |
+| Cancel Button                | Click            | Returns you to previous page                           | Pass      |
+| Submission Create Button     | Click            | Submits and redirect to submission detail              | Pass      |
+| Submission Delete Button     | Click            | Deletes submission and redirect to submissionsfeedpage | Pass      |
+
+### Edit review form
+
+#### When not logged in
+
+| Element        | Action      | Expected Result  | Pass/Fail |
+| -------------- | ----------- | ---------------- | --------- |
+| ReviewEditForm | navigate to | does not display | Pass      |
+
+#### When logged in
+
+| Element        | Action      | Expected Result  | Pass/Fail |
+| -------------- | ----------- | ---------------- | --------- |
+| ReviewEditForm | navigate to | does not display | Pass      |
+
+#### When author
+
+| Element              | Action      | Expected Result                                                           | Pass/Fail |
+| -------------------- | ----------- | ------------------------------------------------------------------------- | --------- |
+| ReviewEditForm       | Click       | Does display                                                              | Pass      |
+| Review Body Field    | Leave Empty | On Submit: Error message: Can't be empty                                  | Pass      |
+| Review Body Field    | Input Text  | On Submit: Submist Succesfully                                            | Pass      |
+| Cancel Button        | Click       | Hides the form                                                            | Pass      |
+| Update Review button | Click       | Submits and hides the form, make the button unclickable                   | Pass      |
+| Review delete button | Click       | deletes review and updates the submission reviews count, rendered reviews | Pass      |
+
+I addition to the testing in the matrix above I beformed some crudbased tests aswell, as shown below.
+
 ### Manual Test Case - Dare CRUD
 
 Creating dare:
@@ -373,9 +516,13 @@ Here is also filtering on the bookmark
 
 <img src='src/assets/bookmarkfilter.png'>
 
+### Final words on testing
+
+I testest the webpage on mutliple devices and browsers. and by doing these crud tests and the matrix testing the thigns I did not get to in my testing are atleast servicable.
+
 ## Automated testing
 
-I did not manage to get automated testing to work, I kept running in to erros that the tutors wouldnt be able to solve either.
+I did not manage to get automated testing to work, I kept running in to erros that the tutors wasn't able to solve either.
 
 ## Bugs found and solved
 
