@@ -293,7 +293,41 @@ View of DarePage after deleting the submisison
 
 Successful test of CRUD functionality on the submission model.
 
-### Manual Test Case - Submission CRUD
+### Manual Test Case - Review CRUD
+
+Filling in the review form but not having checked all checkboxes...
+
+<img src='src/assets/review.png'>
+
+... Filled in all check boxes
+
+<img src='src/assets/reviewgreen.png'>
+
+Confirm creation of review
+
+<img src='src/assets/reviewview.png'>
+
+Editing review vote_pass and review text:
+
+<img src='src/assets/reviewedit.png'>
+
+Confirm changes to review
+
+<img src='src/assets/reviewview2.png'>
+
+Confirm delete after pressing x in top right
+
+<img src='src/assets/rconfd.png'>
+
+All CRUD functionality passed!
+
+### Manual Test Case - Profile CRU(no D)
+
+First of all the account has already been created, so thats the C out of the way,
+
+lets move to viewing the profile before anything
+
+<img src='src/assets/rconfd.png'>
 
 ## Automated testing
 
