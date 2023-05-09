@@ -327,7 +327,31 @@ First of all the account has already been created, so thats the C out of the way
 
 lets move to viewing the profile before anything
 
-<img src='src/assets/rconfd.png'>
+<img src='src/assets/profileclean.png'>
+
+Then lets go to the top right of the box, the cog, which brigns us to the edit page.
+
+<img src='src/assets/username.png'>
+
+the username being updated in the picture above.
+
+<img src='src/assets/bioupdate.png'>
+
+The bio is now being updated on the picutre above
+
+As you can see on the final pciture here, everything works,
+
+<img src='src/assets/profileupdated.png'>
+
+You will also just have to take my word for the fact that passwordchanges work!
+
+### Manual Test Case - Follow Functionality
+
+Pretty simple, ill let the pictures do the work here, i follow profiles on the right, and the left stats show my follower count changing accordingly.
+
+<img src='src/assets/followpre.png'>
+<img src='src/assets/followpost.png'>
+<img src='src/assets/unfollowpost.png'>
 
 ## Automated testing
 
