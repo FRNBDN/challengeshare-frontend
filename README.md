@@ -385,7 +385,9 @@ Throughout the project there were multiple small bugs found that were dealt with
 
 #### Unable to sign out
 
-I dont know how to solve this bug as the interceptors and the handle signout functions doesnt produce any errors, and there seems to be no clues as to why this isnt working, I checked the differences of the backend and frontend for the auth code and I cannot for the life of me find the problem. it seems to be an issue with the combination of the front and back end because the backend can handle signouts just fine on its own in development, but when its prod and talking to frontend, it crashes, but Im not sure if it is the front or backend that is the issue.
+~~I dont know how to solve this bug as the interceptors and the handle signout functions doesnt produce any errors, and there seems to be no clues as to why this isnt working, I checked the differences of the backend and frontend for the auth code and I cannot for the life of me find the problem. it seems to be an issue with the combination of the front and back end because the backend can handle signouts just fine on its own in development, but when its prod and talking to frontend, it crashes, but Im not sure if it is the front or backend that is the issue.~~
+
+Turns out the issue was a simple one, I had forgotten to add a trailing slash to the backend signout url, path('dj-rest-auth/logout', logout_route), instead of:path('dj-rest-auth/logout/', logout_route),
 
 #### Unable to run Automated Tests
 
