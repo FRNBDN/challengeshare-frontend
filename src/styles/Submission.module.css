@@ -6,7 +6,7 @@
     background-color: #d3d1d14d;
     margin: 10px 0px;
     padding: 10px 10px;
-  }
+}
 
 .ThickBorder{
     border: 5px solid #555555;
@@ -28,12 +28,23 @@
 .Pending{
     color: orange;
 
-   }
+}
    
-   .Pass{
+.Pass{
        color: green;
-   }
+}
    
-   .Failed{
+.Failed{
        color: red;
-   }
+}
+
+.Img{
+    object-fit: contain;
+    object-position: center;
+    max-height: 50vh;
+}
+
+.FixedCarousel{
+    height: 50vh;
+    max-height: 50vh;
+}

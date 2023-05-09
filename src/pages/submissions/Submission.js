@@ -176,15 +176,19 @@ const Submission = (props) => {
               <>
                 {uploads.results.length ? (
                   <Carousel
+                    className={styles.FixedCarousel}
                     interval={null}
                     variant="dark"
                     controls={uploads.results.length === 1 ? false : true}
                     indicators={uploads.results.length === 1 ? false : true}
                   >
                     {uploads.results.map((upload, index) => (
-                      <Carousel.Item key={upload.id}>
+                      <Carousel.Item
+                        key={upload.id}
+                        className={styles.FixedCarousel}
+                      >
                         <img
-                          className="d-block w-100 "
+                          className={`d-block w-100 ${styles.Img} `}
                           src={upload.upload}
                           alt={`Slide #${index}`}
                         />
